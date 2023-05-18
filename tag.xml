@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tag>
+<!-- my diary -->
+	<class>myLocus</class>
+	<class>myCompass</class>
+	<class>myDiary</class>
+	<class>myToDo</class>
+	<class>myMemo</class>
+<!-- occupation -->
+	<class>SE</class>
+<!-- OS -->
+	<class>WinOS</class>
+	<class>Win7</class>
+	<class>Win10</class>
+	<class>Win11</class>
+
+	<class>MacOS</class>
+	<class>iOS</class>
+	<class>Linux</class>
+	<class>Ubuntu</class>
+	<class>AndroidOS</class>
+	<class>ChromeOS</class>
+<!-- Elements -->
+	<class>explorer</class>
+	<class>msedge</class>
+	<class>setting</class>
+<!-- field -->
+	<class>Security</class>
+	<class>Network</class>
+	<class>DataBase</class>
+	<class>Algorithm</class>
+	<class>Math</class>
+	<class>Engineering</class>
+	<class>EC</class>
+	<class>DSP</class>
+
+	<class>Programing</class>
+
+	<class>History</class>
+<!-- Langage -->
+	<class>C</class>
+	<class>C++</class>
+	<class>C#</class>
+	<class>Java</class>
+	<class>HTML/CSS</class>
+	<class>JavaScript</class>
+	<class>JQuery</class>
+	<class>Python</class>
+<!-- Langage method -->
+	<class>WPF</class>
+	<class>Linq</class>
+	<class>Ajax</class>
+	<class>Node.js</class>
+<!-- IDE or Editor -->
+	<class>VS</class>
+	<class>VScode</class>
+	<class>Eclipse</class>
+	<class>AndroidStudio</class>
+</tag>

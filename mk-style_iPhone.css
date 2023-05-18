@@ -1,0 +1,9 @@
+@media screen and (max-width: 480px) {
+	p {
+		margin-left: 20px;
+		color: #000000;
+		font-style: normal;
+		font-family: Arial;
+		font-size: 80%;
+	}
+}

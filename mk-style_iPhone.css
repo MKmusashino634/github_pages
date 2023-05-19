@@ -1,3 +1,4 @@
+/*
 @media screen and (max-width: 480px) {
 	p {
 		margin-left: 20px;
@@ -7,3 +8,11 @@
 		font-size: 80%;
 	}
 }
+*/
+p {
+	-webkit-auto-text-size-adjust : none;
+	line-height : 1.8 ;
+}
+/*自動アジャスト機能をオフにする*/
+
+{  }

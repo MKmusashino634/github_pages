@@ -7656,7 +7656,16 @@ HTMLクイックリファレンス<br>
 	</url><br>
 	ここで<br>
 	<cmd>
-		<!--<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />-->
+		<!--
+		<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />
+		<link media="only screen and (max-device-width:480px)"
+			href="mk-style_iPhone.css" type="text/css" rel="stylesheet" />
+		<link media="screen and (min-device-width:481px)"
+			href="mk-style.css" type="text/css" rel="stylesheet" />
+		[[[for IE]]]
+		<link media="only screen and (max-device-width: 480px)" href="iPhone.css" type="text/css" rel="stylesheet" />
+
+		-->
 	</cmd>
 </p>
 <!--S--><h4 tag="HTML CSS JavaScript JQuery">自作cmdタグの完成</h4>

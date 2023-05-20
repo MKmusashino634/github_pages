@@ -7719,13 +7719,26 @@ HTMLクイックリファレンス<br>
 			<rp>(</rp><rt>ふりがな</rt><rp>)</rp>
 		</ruby><br>
 	</cmd><br>
-	に置き換えるJSをつくった．<br>
+	に置き換えるJavaScriptをコーディングした．<br>
 	<cmd>
-		<ruby>
-			<rb>漢字</rb>
-			<rp>(</rp><rt>ふりがな</rt><rp>)</rp>
-		</ruby><br>
+		document.addEventListener('DOMContentLoaded', () => {
+			const rubi = document.querySelectorAll("rubi");
+			rubi.forEach((x, i) => {
+				let str = x.textContent.split('(',2);
+				let kanji = str[0];
+				let kana = str[1].substring(0, str[1].length - 1);
+
+				x.innerHTML=
+					`
+						<ruby>
+							<rb>${kanji}</rb>
+							<rp>(</rp><rt>${kana}</rt><rp>)</rp>
+						</ruby>
+					`;
+			})
+		});
 	</cmd><br>
+	今後改良するかもしれない．<br>
 </p>
 <!--S--><h4 tag="HTML CSS JavaScript JQuery">自作cmdタグの完成</h4>
 <p>

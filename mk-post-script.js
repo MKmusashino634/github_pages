@@ -45,6 +45,42 @@ h6:	subsubsection
 
 
 
+/* <rubi>(HTMLでルビを自動挿入する)タグ認識 */
+/* フォーマット：<rubi>漢字(ふりがな)</rubi> */
+//*
+//JS ver
+document.addEventListener('DOMContentLoaded', () => {
+	const rubi = document.querySelectorAll("rubi");
+	rubi.forEach((x, i) => {
+		let str = x.textContent.split('(',2);
+		let kanji = str[0];
+		let kana = str[1].substring(0, str[1].length - 1);
+
+		x.innerHTML=
+			`
+				<ruby>
+					<rb>${kanji}</rb>
+					<rp>(</rp><rt>${kana}</rt><rp>)</rp>
+				</ruby>
+			`;
+	})
+});
+//*/
+/*jQuery ver
+document.addEventListener('DOMContentLoaded', () => {
+	$('rubi').each( function(index) {
+		$(this).html(`<a href="`+$(this).text()+`" target="_blank">`+$(this).text()+`</a><br>`);
+	});
+});
+*/
+
+
+
+
+
+
+
+
 /*
  * qタグで斜体にしたときに，brしてしまうと行頭が揃わない．
  * したがって，qタグの本文にbrがあればそのあとに

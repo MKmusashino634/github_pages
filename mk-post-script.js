@@ -86,17 +86,15 @@ document.addEventListener('DOMContentLoaded', () => {
  * したがって，qタグの本文にbrがあればそのあとに
  * 「&emsp;」(全角スペース)を挿入する
  * 「&nbsp;」(半角スペース)
- */
+*/
 document.addEventListener('DOMContentLoaded', () => {
 	$('q').each( function(index) {
 		var ht = $(this).html();
 		var res="";
 		//ht=ht.replace(/<br>/g,"<br>&emsp;");
 		var arr = ht.split("<br>");
-		var sp = "<br>&emsp;";
 		for(var i = 0; i < arr.length; ++i) {
-			res+=arr[i]+sp;
-			sp+="&emsp;";
+			res+="<span>" + arr[i] + "<span><br>";
 		}
 		$(this).html(ht);
 	});

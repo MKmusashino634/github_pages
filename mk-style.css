@@ -95,6 +95,8 @@ q {
 	quotes: '“ ' ' ”';
 
 	transform: skewX(-25deg);
+	transform-origin: left top;
+
 	display: inline-block;
 }
 body {

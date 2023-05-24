@@ -7550,7 +7550,7 @@ HTMLクイックリファレンス<br>
 <br>
 <br>
 <!--日付，h3-->
-<h3>05月19日(木)</h3>
+<h3>05月19日(金)</h3>
 <!--S--><h4 tag="myLocus">学習したこと</h4>
 <ul class="p">
 	<li>AI導入におけるセキュリティ対策の重要性</li>
@@ -7639,6 +7639,44 @@ HTMLクイックリファレンス<br>
 		<td>元の作品のCCライセンスを継承する．</td>
 	</tr>
 </table>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>05月20日(土)</h3>
+<!--S--><h4 tag="myLocus">今日学習したこと</h4>
+<ul class="p">
+	<li>JSのsubstring()で，負の引数の読み込みがされないケースがあること(ブラウザ依存?)</li>
+</ul>
+<!--S--><h4 tag="myDiary">今日の気付き</h4>
+<!-- ss --><h5 tag="核心">情報の意義</h5>
+<p>
+	留意すべきは，<br>
+	直ぐそこに，<br>
+	自分が潜在的に欲しいと思っている情報が転がっていること．<br>
+	進む．<br>
+</p>
+<!-- ss --><h5 tag="核心">自分と情報</h5>
+<p>
+	私は極端な人間で，<br>
+	情報収集しないか，<br>
+	するなら極限までやりたいと思うタイプである．<br>
+	しかし，人間故，限界がある．<br>
+	求めすぎる，則ち欲張りすぎると，<br>
+	精神的に苦しくなるのが常である．<br>
+	どこかで折り合いをつける必要がある．<br>
+	この，「バランスをとる」というのは，全てにおいて言える．<br>
+	<br>
+	幅広く，のめり込まず．<br>
+	自戒していく．<br>
+</p>
 <!--S--><h4 tag="HTML CSS">HTMLのiPhone対応</h4>
 <p>
 	そろそろ実装しないとまずいと思ったため，<br>
@@ -7657,7 +7695,6 @@ HTMLクイックリファレンス<br>
 	</url><br>
 	ここで<br>
 	<cmd>
-		<!--
 		<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />
 		<link media="only screen and (max-device-width:480px)"
 			href="mk-style_iPhone.css" type="text/css" rel="stylesheet" />
@@ -7665,9 +7702,44 @@ HTMLクイックリファレンス<br>
 			href="mk-style.css" type="text/css" rel="stylesheet" />
 		[[[for IE]]]
 		<link media="only screen and (max-device-width: 480px)" href="iPhone.css" type="text/css" rel="stylesheet" />
-
-		-->
 	</cmd>
+</p>
+<!--S--><h4 tag="HTML CSS JavaScript JQuery">自作rubiタグの完成</h4>
+<p>
+	htmlのrubyタグは，<br>
+	コーディングするには長くなるので，簡略化する．<br>
+	フォーマットは，<br>
+	<cmd>
+		<rubi>漢字(ふりがな)</rubi>
+	</cmd><br>
+	である．<br>
+	これを，
+	<cmd>
+		<ruby>
+			<rb>漢字</rb>
+			<rp>(</rp><rt>ふりがな</rt><rp>)</rp>
+		</ruby><br>
+	</cmd><br>
+	に置き換えるJavaScriptをコーディングした．<br>
+	<cmd>
+		document.addEventListener('DOMContentLoaded', () => {
+			const rubi = document.querySelectorAll("rubi");
+			rubi.forEach((x, i) => {
+				let str = x.textContent.split('(',2);
+				let kanji = str[0];
+				let kana = str[1].substring(0, str[1].length - 1);
+
+				x.innerHTML=
+					`
+						<ruby>
+							<rb>${kanji}</rb>
+							<rp>(</rp><rt>${kana}</rt><rp>)</rp>
+						</ruby>
+					`;
+			})
+		});
+	</cmd><br>
+	今後改良するかもしれない．<br>
 </p>
 <!--S--><h4 tag="HTML CSS JavaScript JQuery">自作cmdタグの完成</h4>
 <p>
@@ -7722,7 +7794,31 @@ HTMLクイックリファレンス<br>
 <hr><hr><hr>
 <img id="bottom" src="_img/DDG-maya.jpg" alt="DDG-maya" width="95%">
 <hr><hr><hr>
----以下覚書き---<br>
+
+
+
+
+
+<!--JavaScriptの読み込み，bodyの一番下段-->
+<script type="text/javascript" src="mk-post-script.js"></script>
+<!--JQuery-->
+<script
+  src="https://code.jquery.com/jquery-3.6.1.js"
+  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+  crossorigin="anonymous">
+</script>
+<p id="topbutton">
+	<a href="#top" onclick="$('html,body').animate({scrollTop:$('#top').offset().top}); return false;">▲&ensp;目次&ensp;へ戻る</a>
+</p>
+
+<p id="bottombutton">
+	<a href="#bottom" onclick="$('html,body').animate({scrollTop:$('#bottom').offset().top}); return false;">▼最新日へ進む</a>
+</p>
+
+</body>
+</html>
+============================================================================================
+============================================================================================
 <a href="htmlTest/mk-test.html"  target="_blank">
 	mk-test.html
 </a>
@@ -7735,11 +7831,15 @@ HTMLクイックリファレンス<br>
 <br>
 <!--日付，h3-->
 <h3>0-月--日(月)</h3>
-<!--S--><h4 tag="myLocus">学習したこと</h4>
+<!--S--><h4 tag="myLocus">今日学習したこと</h4>
 <ul class="p">
 	<li></li>
 </ul>
-<!--S--><h4 tag="">AAA</h4>
+<!--S--><h4 tag="myDiary">今日の気付き</h4>
+<p>
+
+</p>
+<!--S--><h4 tag="">section</h4>
 <p>
 	a
 </p>
@@ -7754,11 +7854,26 @@ HTMLクイックリファレンス<br>
 <!-------- 申し送り -------->
 <!--S--><h4 tag="myMemo">書き方</h4>
 <p>
+	<ruby>
+		<rb>殷鑑不遠</rb>
+		<rp>(</rp><rt>いんかんふえん</rt><rp>)</rp>
+	</ruby><br>
+	失敗を戒める例は近くにあるたとえ<br>
+	<br>
+	<url type="WabPage"
+			author="-"
+			title="難読 四字熟語 一覧【漢字検定1級レベル】1112語 - 読み方と意味"
+			name="Yattoke! - 小･中学生の学習サイト"
+			update="-"
+			refer="2023-05-20">
+			https://yattoke.com/2018/08/28/1g-yojijyukugo/
+	</url><br>
+
 	<url type="WabPage"
 			author="おまけの夜"
 			title="あなたのやさしさをオレは何に例えよう/オススメ曲独自解説・考察 エレファントカシマシ宮本浩次【おまけの夜】"
 			name="Youtube"
-			update="-"
+			update="2022-05-27"
 			refer="2023-02-23">
 		https://youtu.be/j0pu_njFkfc
 	</url><br>
@@ -7813,6 +7928,7 @@ HTMLクイックリファレンス<br>
 <!--S--><h4 tag="myToDo">やること</h4>
 <p>GitHub Pages</p>
 <ul class="p">
+	<li>画像の軽量化jpg化</li>
 	<li>cmdタグ，ページ幅に揃える，再調整</li>
 	<li>qタグの斜体，行頭ぞろえ</li>
 	<li>各日独立ページ化<li>
@@ -7951,18 +8067,6 @@ HTMLクイックリファレンス<br>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 <!--S--><h4 tag="MVVM WPF C#">MVVMをしっかり理解する</h4>
 <p>
 	WPFの勉強で利用しているのはこの教材．<br>
@@ -8048,8 +8152,6 @@ HTMLクイックリファレンス<br>
 			https://qiita.com/toRisouP/items/98cc4966d392b7f21c30
 	</url><br>
 
-
-
 	<url type="WabPage"
 			author=""
 			title="【C#】わかった&quot;つもり&quot;になれる「ラムダ式」解説"
@@ -8063,42 +8165,4 @@ HTMLクイックリファレンス<br>
 <p>
 
 </p>
-
 <!--S--><h4 tag="Network">自宅net改善プロジェクト_3</h4>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--JavaScriptの読み込み，bodyの一番下段-->
-<script type="text/javascript" src="mk-post-script.js"></script>
-<!--JQuery-->
-<script
-  src="https://code.jquery.com/jquery-3.6.1.js"
-  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-  crossorigin="anonymous">
-</script>
-<p id="topbutton">
-	<a href="#top" onclick="$('html,body').animate({scrollTop:$('#top').offset().top}); return false;">▲&ensp;目次&ensp;へ戻る</a>
-</p>
-
-<p id="bottombutton">
-	<a href="#bottom" onclick="$('html,body').animate({scrollTop:$('#bottom').offset().top}); return false;">▼最新日へ進む</a>
-</p>
-
-</body>
-</html>

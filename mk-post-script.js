@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * 「&emsp;」(全角スペース)を挿入する
  * 「&nbsp;」(半角スペース)
 */
+/*
 document.addEventListener('DOMContentLoaded', () => {
 	$('q').each( function(index) {
 		var ht = $(this).html();
@@ -96,10 +97,24 @@ document.addEventListener('DOMContentLoaded', () => {
 		for(var i = 0; i < arr.length; ++i) {
 			res+="<span>" + arr[i] + "<span><br>";
 		}
-		$(this).html(ht);
+		$(this).html(res);
 	});
 });
-
+*/
+//*JS ver
+document.addEventListener('DOMContentLoaded', () => {
+	const q = document.querySelectorAll("q");
+	q.forEach((x, i) => {
+		var str = x.innerHTML.split('<br>');
+		var res = `<q class="i">` + str[0] + `</q>`;
+		for(var i = 1; i < str.length; ++i) {
+			res+=`<br>&ensp;<q class="i">` + str[i] + `</q>`;
+		}
+		x.innerHTML=res;
+		console.log(res);
+	})
+});
+//*/
 
 
 
@@ -186,11 +201,11 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('pageshow', () => {
 	$('cmd').each( function(index) {
 		var ht=$(this).html();
-		/*
+		console.log(ht);
 		ht=ht.replace(/</g, "&lt;");
+		console.log(ht);
 		ht=ht.replace(/>/g, "&gt;");
 		ht=ht.replace(/\n/g, "&lt;br&gt;");
-		*/
 		//$(this).html(`<pre><code>`+ht+`</code></pre>`);
 		$(this).html(`<pre><code>`+`</code></pre>`);
 	});

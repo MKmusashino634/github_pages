@@ -7587,7 +7587,8 @@ HTMLクイックリファレンス<br>
 	</url><br>
 	これを参考に，一応ライセンス種のみ表に纏める．<br>
 </p>
-<table border="1" width="auto" cellspacing="0" cellpadding="5">
+<div class="box">
+<table border="1" width="auto" cellspacing="0" cellpadding="0">
 	<tr>
 		<th width="">Symbol</th>
 		<th width="">Type</th>
@@ -7639,7 +7640,7 @@ HTMLクイックリファレンス<br>
 		<td>元の作品のCCライセンスを継承する．</td>
 	</tr>
 </table>
-
+</div>
 
 
 
@@ -7787,7 +7788,8 @@ HTMLクイックリファレンス<br>
 <h3>05月25日(木)</h3>
 <!--S--><h4 tag="myLocus">今日学習したこと</h4>
 <ul class="p">
-	<li></li>
+	<li>ミサイル艇はやぶさ は，改装されながら未だ現役!この有効利用と，次世代も見据える必要</li>
+	<li>VSCode, 「Ctrl+End」でスクロールせずにコード最下段に飛べる!!!</li>
 </ul>
 <!--S--><h4 tag="myMemo">感じたこと</h4>
 <p>
@@ -7836,9 +7838,8 @@ HTMLクイックリファレンス<br>
 	そろそろ実装しないとまずいと思ったため，<br>
 	今日ここで調整し切る．<br>
 	いろいろなサイトを漁った．<br>
-</p>
-<!-- ss --><h5 tag="">一つ目</h5>
-<p>
+	<br>
+
 	<url type="WabPage"
 			author="-"
 			title="htmlをiPhoneに対応させる"
@@ -7857,6 +7858,12 @@ HTMLクイックリファレンス<br>
 		[[[for IE]]]
 		<link media="only screen and (max-device-width: 480px)" href="iPhone.css" type="text/css" rel="stylesheet" />
 	</cmd>
+	という方法があるということで，<br>
+	これを真似て，<br>
+	CSSファイルを二つにして考えることにした．<br>
+	デザインについては自信がないので，<br>
+	今後も逐次修正していく．<br>
+	(いくらかマシにはなった)<br>
 </p>
 <!--S--><h4 tag="HTML CSS JavaScript JQuery">自作cmdタグの完成</h4>
 <p>
@@ -7868,10 +7875,50 @@ HTMLクイックリファレンス<br>
 </p>
 <!--S--><h4 tag="HTML CSS JavaScript JQuery">自作qタグの完成</h4>
 <p>
-	斜体文字にすることは以前成功したが，<br>
-	a
+	qタグ内の文字を斜体文字にすることは，<br>
+	以前既に成功していたが，<br>
+	brタグで改行すると，2行目移行の行頭が合わない<br>
+	(ブロック全体を傾けているため)<br>
+	という問題が置き去りになっていた．<br>
+	今回これをやっと解決した．<br>
 	<br>
-	以前のリンク
+	以前のリンク?どこかわからん...<br>
+	<br>
+	CSSは以下である．<br>
+	<cmd>
+		q {
+			color: #000000;
+			font-family: Century;
+			font-size: 100%;
+			quotes: '“ ' ' ”';
+		}
+		q.i {
+			color: #000000;
+			font-family: Century;
+			font-size: 100%;
+			quotes: '' '';
+
+			transform: skewX(-25deg);
+			transform-origin: left top;
+
+			display: inline-block;
+		}
+	</cmd>
+	また，JSは以下の通り．<br>
+	<cmd>
+		document.addEventListener('DOMContentLoaded', () => {
+			const q = document.querySelectorAll("q");
+			q.forEach((x, i) => {
+				var str = x.innerHTML.split('<br>');
+				var res = `<q class="i">` + str[0] + `</q>`;
+				for(var i = 1; i < str.length; ++i) {
+					res+=`<br>&ensp;<q class="i">` + str[i] + `</q>`;
+				}
+				x.innerHTML=res;
+				console.log(res);
+			})
+		});
+	</cmd>
 </p>
 
 
@@ -7926,7 +7973,8 @@ HTMLクイックリファレンス<br>
 <!--S--><h4 tag="myToDo">やること</h4>
 <p>GitHub Pages</p>
 <ul class="p">
-	<li>サイトマップ作成</li>
+	<li>文字の大きさの統一，修正</li>
+	<li>サイトマップ + html/CSS仕様作成</li>
 	<li>画像の軽量化jpg化</li>
 	<li>cmdタグ，ページ幅に揃える，再調整</li>
 	<li>qタグの斜体，行頭ぞろえ</li>

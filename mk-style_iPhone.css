@@ -16,11 +16,11 @@ p {
 */
 /* title */
 p.subtitle {
-	margin-left: 20px;
+	margin-left: 10px;
 	color: black;
 	font-style: bold;
 	font-family: Arial;
-	font-size: 50%;
+	font-size: 10px;
 
 	text-shadow:	5px 5px 5px #aaa,/* ↘ */
 					-5px 5px 5px #aaa,/* ↙ */
@@ -29,11 +29,11 @@ p.subtitle {
 	position:absolute;
 }
 h1 {
-	margin-left: 50px;
+	margin-left: 10px;
 	color: #dd700a;
 	font-style: bold;
 	font-family: Arial;
-	font-size: 300%;
+	font-size: 30px;
 
 	text-shadow:	3px 3px 3px #333,/* ↘ */
 					-3px 3px 3px #333,/* ↙ */
@@ -47,7 +47,7 @@ h2 {
 	color: #000080;
 	font-style: bold;
 	font-family: Arial;
-	font-size: 200%;
+	font-size: 25px;
 }
 /* date */
 h3 {
@@ -55,7 +55,7 @@ h3 {
 	color: #000080;
 	font-style: bold;
 	font-family: Arial;
-	font-size: 150%;
+	font-size: 20px;
 
 	background-color: #20a77e;
 }
@@ -65,7 +65,7 @@ h4 {
 	color: #1d1915;
 	font-style: bold;
 	font-family: Arial;
-	font-size: 120%;
+	font-size: 15px;
 }
 /* subsection */
 h5 {
@@ -73,7 +73,7 @@ h5 {
 	color: #695050;
 	font-style: bold, italic;
 	font-family: Arial;
-	font-size: 120%;
+	font-size: 15px;
 }
 /* subsubsection */
 h6 {
@@ -81,36 +81,47 @@ h6 {
 	color: #466163;
 	font-style: bold, italic;
 	font-family: Arial;
-	font-size: 120%;
+	font-size: 15px;
 }
 p {
-	margin-left: 100px;
+	margin-left: 50px;
 	color: #000000;
 	font-style: normal;
 	font-family: Arial;
-	font-size: 100%;
+	font-size: 10px;
 }
 p.i {
 	margin-left: 70px;
 	color: #000000;
 	font-style: bold;
 	font-family: Arial;
-	font-size: 120%;
+	font-size: 10px;
 }
 p.cap {
 	text-align:  center;
 	color: #000000;
 	font-style: italic;
 	font-family: Arial;
-	font-size: 100%;
+	font-size: 10px;
 }
 q {
 	color: #000000;
 	font-family: Century;
-	font-size: 100%;
+	font-size: 10px;
 	quotes: '“ ' ' ”';
 
+	transform: skewX(-12deg);
+	display: inline-block;
+}
+q.i {
+	color: #000000;
+	font-family: Century;
+	font-size: 100%;
+	quotes: '' '';
+
 	transform: skewX(-25deg);
+	transform-origin: left top;
+
 	display: inline-block;
 }
 body {
@@ -118,21 +129,28 @@ body {
 	/* background-size: cover; */
 	background-color: #88888888;
 }
+.box {
+	border: 1px solid #333333;
+	width: 100%;
+	height: 80%;
+	overflow: auto;
+}
 table {
-	margin-left: 100px;
-	margin-right: 100px;
+	margin-left: 10px;
+	margin-right: 10px;
 	border : 1;
 	padding : 5;
-
 }
 table th {
     background-color: rgb(0, 130, 93);
 	text-align: center;
 	padding: 10px;/*上下左右10pxずつ*/
+	font-size: 10px;
 }
 table td {
 	background-color: white;
 	padding: 3px 10px;/*上下3pxで左右10px*/
+	font-size: 10px;
 }
 table.compare td {
 	background-color: white;
@@ -145,7 +163,7 @@ img {
 }
 img#top {
 	margin-left: 0px;
-	margin-right: 0px;
+	/*margin-right: 0px;*/
 	width: 100%;
 	height: auto;
 }
@@ -156,20 +174,22 @@ figcaption {
 	color: #000000;
 	font-style: italic;
 	font-family: serif;
-	font-size: 100%;
+	font-size: 10px;
 }
 /* url, my tag */
 a {
 	font-style: normal;
 	font-family: serif;
-	font-size: 100%;
+	font-size: 10px;
 
 	text-decoration: none;
 }
 
-
+ol {
+	padding-left: 0px;
+}
 li {
-	margin-left: 100px;
+	margin-left: 0px;
 }
 /* ここから参照 */
 /* https://qiita.com/RYO_nami/items/10cb1db00b200e1288ca */
@@ -180,31 +200,39 @@ li.toc {
 a {
     text-decoration: none;
 }*/
+/*
+h1:	title
+h2:	year
+h3:	mm/date(week)
+h4:	section
+h5:	subsection
+h6:	subsubsection
+ */
 .contents1 {
     margin-left: 0px;
-	font-size: 200%;
+	font-size: 25px;
 }
 .contents2 {
     margin-left: 15px;
-	font-size: 170%;
+	font-size: 20px;
 }
 .contents3 {
-    margin-left: 100px;
-	font-size: 150%;
+    margin-left: 10px;
+	font-size: 15px;
 }
 .contents4 {
-    margin-left: 125px;
-	font-size: 120%;
+    margin-left: 40px;
+	font-size: 10px;
 }
 .contents5 {
-    margin-left: 150px;
+    margin-left: 60px;
 	font-style: italic;
-	font-size: 120%;
+	font-size: 10px;
 }
 .contents6 {
-    margin-left: 175px;
+    margin-left: 80px;
 	font-style: italic;
-	font-size: 120%;
+	font-size: 10px;
 }
 /* ここまで */
 

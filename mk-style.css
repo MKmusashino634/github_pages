@@ -93,6 +93,12 @@ q {
 	font-family: Century;
 	font-size: 100%;
 	quotes: '“ ' ' ”';
+}
+q.i {
+	color: #000000;
+	font-family: Century;
+	font-size: 100%;
+	quotes: '' '';
 
 	transform: skewX(-25deg);
 	transform-origin: left top;
@@ -103,6 +109,12 @@ body {
 	/* background-image: "./mtFuji.jpg"; */
 	/* background-size: cover; */
 	background-color: #88888888;
+}
+.box {
+	border: 1px solid #333333;
+	width: 100%;
+	height: 80%;
+	overflow: auto;
 }
 table {
 	margin-left: 100px;

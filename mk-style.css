@@ -93,10 +93,12 @@ q {
 	font-family: Century;
 	font-size: 100%;
 	quotes: '“ ' ' ”';
+
+	transform: skewX(0deg);
 }
-q.i {
+span.i {
 	color: #000000;
-	font-family: Century;
+	font-family: "游明朝", "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", serif;
 	font-size: 100%;
 	quotes: '' '';
 

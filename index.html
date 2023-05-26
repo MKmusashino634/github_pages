@@ -7788,7 +7788,7 @@ HTMLクイックリファレンス<br>
 <h3>05月25日(木)</h3>
 <!--S--><h4 tag="myLocus">今日学習したこと</h4>
 <ul class="p">
-	<li>ミサイル艇はやぶさ は，改装されながら未だ現役!この有効利用と，次世代も見据える必要</li>
+	<li>「ミサイル艇はやぶさ」は，改装されながら未だ現役! この有効利用と，次世代も見据える必要</li>
 	<li>VSCode, 「Ctrl+End」でスクロールせずにコード最下段に飛べる!!!</li>
 </ul>
 <!--S--><h4 tag="myMemo">感じたこと</h4>
@@ -7891,10 +7891,12 @@ HTMLクイックリファレンス<br>
 			font-family: Century;
 			font-size: 100%;
 			quotes: '“ ' ' ”';
+
+			transform: skewX(0deg);
 		}
-		q.i {
+		span.i {
 			color: #000000;
-			font-family: Century;
+			font-family: "游明朝", "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", serif;
 			font-size: 100%;
 			quotes: '' '';
 
@@ -7910,9 +7912,9 @@ HTMLクイックリファレンス<br>
 			const q = document.querySelectorAll("q");
 			q.forEach((x, i) => {
 				var str = x.innerHTML.split('<br>');
-				var res = `<q class="i">` + str[0] + `</q>`;
+				var res = `<span class="i">` + str[0] + `</span>`;
 				for(var i = 1; i < str.length; ++i) {
-					res+=`<br>&ensp;<q class="i">` + str[i] + `</q>`;
+					res+=`<br>&ensp;<span class="i">` + str[i] + `</span>`;
 				}
 				x.innerHTML=res;
 				console.log(res);
@@ -7921,6 +7923,46 @@ HTMLクイックリファレンス<br>
 	</cmd>
 </p>
 
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>05月26日(金)</h3>
+<!--S--><h4 tag="myLocus">今日学習したこと</h4>
+<ul class="p">
+	<li></li>
+</ul>
+<!--S--><h4 tag="myDiary">「記録」について</h4>
+<p>
+	昔は紙媒体，或いはテープくらいしか記録できなかった．<br>
+	かさばるし，埃がたまる．<br>
+	その人の一つ一つの考えを残すのは難しかった．<br>
+	<br>
+	現代の記録媒体の進歩=電子化によって，<br>
+	どんな人でも気軽に書置きが出来るようになった．<br>
+	<br>
+	その人がどう思って生きているのか，<br>
+	何を中心に，軸にしているのかを知って，<br>
+	「視野」を広げたい．<br>
+	また，同じ轍を踏まない/成長のために，<br>
+	<rubi>後世(こうせい)</rubi>に少しだけでも役立てるように<br>
+	ちょっとずつ書いていきたい．<br>
+	<br>
+	時間を大切に．<br>
+	時間は限られている．<br>
+	<br>
+	<q>
+		イソゲ<br>
+		モットモットチカラヲツケヨウ<br>
+		ソシテ
+	</q>
+</p>
 
 
 

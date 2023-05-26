@@ -106,9 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	const q = document.querySelectorAll("q");
 	q.forEach((x, i) => {
 		var str = x.innerHTML.split('<br>');
-		var res = `<q class="i">` + str[0] + `</q>`;
+		var res = `<span class="i">` + str[0] + `</span>`;
 		for(var i = 1; i < str.length; ++i) {
-			res+=`<br>&ensp;<q class="i">` + str[i] + `</q>`;
+			res+=`<br>&ensp;<span class="i">` + str[i] + `</span>`;
 		}
 		x.innerHTML=res;
 		console.log(res);

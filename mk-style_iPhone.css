@@ -119,7 +119,7 @@ q.i {
 	font-size: 100%;
 	quotes: '' '';
 
-	transform: skewX(-25deg);
+	transform: skewX(-20deg);
 	transform-origin: left top;
 
 	display: inline-block;

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<cmd>
+		<ul class="p">
+			<li>ShiftManagerMK1</li>
+			<li>BattaleShipCraft2</li>
+			<li>MemorizingApp</li>
+			<li>NetworkManagerMK1</li>
+		</ul>
+	</cmd>
+	<script>
+		function escapeHtml(text) {
+			return text
+				.replace(/&/g, "&amp;")
+				.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;")
+				.replace(/"/g, "&quot;")
+		}
+
+		const cmdElements = document.querySelectorAll("cmd");
+		cmdElements.forEach((element) => {
+			element.innerHTML = escapeHtml(element.innerHTML);
+			console.log(element.innerHTML);
+		});
+	</script>
+</body>
+</html>

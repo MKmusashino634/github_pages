@@ -1,3 +1,35 @@
+/* <cmd>(コマンドラインのスタイルとpre/blockquote等のブロックレベル要素にする)認識 */
+function escapeHtml(text) {
+	return text
+		.replace(/&/g, "&amp;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;")
+		.replace(/"/g, "&quot;")
+		.replace(/'/g, "&#039;");
+}
+
+const cmdElements = document.querySelectorAll("cmd");
+cmdElements.forEach((element) => {
+	element.innerHTML = `<pre><code>`+escapeHtml(element.innerHTML)+`</code></pre>`;
+	//console.log(element.innerHTML);
+});
+//jQuery ver
+/*
+document.addEventListener('DOMContentLoaded', () => {
+	$('cmd').each( function(index) {
+		var ht=$(this).html();
+		//ht.replace(/</g, "&lt;");
+		//ht.replace(/>/g, "&gt;");
+		//ht.replace(/\n/g, "&lt;br&gt;");
+		//$(this).html(`<pre><code>`+ht+`</code></pre>`);
+		console.log(ht);
+		$(this).html(`<pre><code>`+`</code></pre>`);
+	});
+});
+*/
+
+
+
 /* 目次の追加 */
 /* https://qiita.com/RYO_nami/items/10cb1db00b200e1288ca 参照 */
 document.addEventListener('DOMContentLoaded', () => {
@@ -111,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			res+=`<br>&ensp;<span class="i">` + str[i] + `</span>`;
 		}
 		x.innerHTML=res;
-		console.log(res);
+		//console.log(res);
 	})
 });
 //*/
@@ -193,23 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		})
     }
 });*/
-
-
-
-/* <cmd>(コマンドラインのスタイルとpre/blockquote等のブロックレベル要素にする)認識 */
-//jQuery ver
-document.addEventListener('pageshow', () => {
-	$('cmd').each( function(index) {
-		var ht=$(this).html();
-		console.log(ht);
-		ht=ht.replace(/</g, "&lt;");
-		console.log(ht);
-		ht=ht.replace(/>/g, "&gt;");
-		ht=ht.replace(/\n/g, "&lt;br&gt;");
-		//$(this).html(`<pre><code>`+ht+`</code></pre>`);
-		$(this).html(`<pre><code>`+`</code></pre>`);
-	});
-});
 
 
 

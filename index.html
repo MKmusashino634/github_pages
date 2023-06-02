@@ -9,15 +9,29 @@
 		gtag('js', new Date());
 		gtag('config', 'G-76VJW64RH8');
 	</script>
+	<!--JQuery-->
+	<script
+		src="https://code.jquery.com/jquery-3.6.1.js"
+		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+		crossorigin="anonymous">
+	</script>
+	<!--my pre JS-->
 	<script type="text/javascript" src="mk-pre-script.js"></script>
 
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width">
+	<!--<meta name="viewport" content="width=device-width">-->
 	<title>MK footprints</title>
 	<link rel="icon" href="_icon/mayaBridge.ico">
 	<link rel="apple-touch-icon" sizes="180x180" href="">
-	<link rel="stylesheet" href="mk-style.css">
-	<link rel="stylesheet" href="mk-style_iPhone.css">
+
+	<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />
+	<link media="only screen and (max-device-width:480px)"
+		href="mk-style_iPhone.css" type="text/css" rel="stylesheet" />
+	<link media="screen and (min-device-width:481px)"
+		href="mk-style.css" type="text/css" rel="stylesheet" />
+	<!--for IE
+	<link media="only screen and (max-device-width: 480px)"
+		href="mk-style_iPhone.css.css" type="text/css" rel="stylesheet" />-->
 </head>
 <body>
 
@@ -203,7 +217,7 @@
 	PIは Protocol Interpreter 、DTPは Data Transfer Process のこと。<br>
 	これらが主なFTPの構成要素。<br>
 	コントロール用ポート20番、データ用ポート21番<br>
-	「https://www.kagoya.jp/howto/network/ftp/」参照<br>
+	<url>https://www.kagoya.jp/howto/network/ftp/</url>参照<br>
 	<br>
 	<q>
 		IPアドレスは単に相手のコンピュータを特定するだけなので，<br>
@@ -7892,30 +7906,11 @@ HTMLクイックリファレンス<br>
 			refer="2023-05-19">
 			https://creativecommons.org/about/cclicenses/
 	</url><br>
-	ここで<br>
-	<cmd>
-		<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />
-		<link media="only screen and (max-device-width:480px)"
-			href="mk-style_iPhone.css" type="text/css" rel="stylesheet" />
-		<link media="screen and (min-device-width:481px)"
-			href="mk-style.css" type="text/css" rel="stylesheet" />
-		[[[for IE]]]
-		<link media="only screen and (max-device-width: 480px)" href="iPhone.css" type="text/css" rel="stylesheet" />
-	</cmd>
-	という方法があるということで，<br>
 	これを真似て，<br>
 	CSSファイルを二つにして考えることにした．<br>
 	デザインについては自信がないので，<br>
 	今後も逐次修正していく．<br>
 	(いくらかマシにはなった)<br>
-</p>
-<!--S--><h4 tag="HTML CSS JavaScript JQuery">自作cmdタグの完成</h4>
-<p>
-	htmlの記述段階で，<br>
-	括弧を;&表記でなく直接貼り付けるだけにしたい．<br>
-	<br>
-	<br>
-	以前のリンク
 </p>
 <!--S--><h4 tag="HTML CSS JavaScript JQuery">自作qタグの完成</h4>
 <p>
@@ -8129,10 +8124,50 @@ HTMLクイックリファレンス<br>
 		乱暴かもしれませんが、その希薄さが、<br>
 		いま社会問題になっているネットの誹謗中傷を助長している<br>
 		ひとつの原因ではないかとすら思えます。
-	</q>
+	</q><br>
 	と作家の豊田美加さんは語っている．<br>
 	とても共感した．
 </p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>06月02日(金)</h3>
+<!--S--><h4 tag="myLocus">今日学習したこと</h4>
+<ul class="p">
+	<li>VSCodeでマウスホイールを長押ししながらスクロールすると行末を同時選択できる</li>
+</ul>
+<!--S--><h4 tag="myCompass">強くあるために</h4>
+<p>
+	自分の考えができるのは自分だけである．<br>
+	即ち，自分の考えはそれだけで最前線である．<br>
+	<br>
+	自分が最前線に立って頑張るのは，そう難しいことではない．<br>
+</p>
+<!--S--><h4 tag="HTML CSS JavaScript JQuery">自作cmdタグの完成</h4>
+<p>
+	htmlの記述段階で，<br>
+	括弧をエスケープシーケンス表記でなく直接貼り付けるだけにしたい．<br>
+	<br>
+	<cmd>
+		<cmd>
+			<ruby>
+				<rb>漢字</rb>
+				<rp>(</rp><rt>ふりがな</rt><rp>)</rp>
+			</ruby><br>
+		</cmd><br>
+	</cmd>
+	cmdタグまでエスケープできた．<br>
+	ロードに時間がかかるので，また調整する．
+</p>
+
 
 
 
@@ -8173,8 +8208,8 @@ HTMLクイックリファレンス<br>
 
 
 
-============================================================================================
-============================================================================================
+<!--============================================================================-->
+<!--============================================================================-->
 <a href="htmlTest/mk-test.html"  target="_blank">
 	mk-test.html
 </a>
@@ -8182,11 +8217,11 @@ HTMLクイックリファレンス<br>
 <!--S--><h4 tag="myToDo">やること</h4>
 <p>GitHub Pages</p>
 <ul class="p">
+	<li>サイトマップ + html/CSS仕様作成 + やることリストの案を図化する</li>
 	<li>GHP更新の通知</li>
 	<li>目次とボタン削除，日を範囲指定してその部分だけを表示する機能</li>
 	<li>コメントを受け付ける</li>
 	<li>文字の大きさの統一，修正</li>
-	<li>サイトマップ + html/CSS仕様作成 + やることリストの案を図化する</li>
 	<li>画像の軽量化jpg化</li>
 	<li>cmdタグ，ページ幅に揃える，再調整</li>
 	<li>各日独立ページ化<li>
@@ -8228,12 +8263,7 @@ HTMLクイックリファレンス<br>
 
 <!--JavaScriptの読み込み，bodyの一番下段-->
 <script type="text/javascript" src="mk-post-script.js"></script>
-<!--JQuery-->
-<script
-  src="https://code.jquery.com/jquery-3.6.1.js"
-  integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
-  crossorigin="anonymous">
-</script>
+
 <p id="topbutton">
 	<a href="#top" onclick="$('html,body').animate({scrollTop:$('#top').offset().top}); return false;">▲&ensp;目次&ensp;へ戻る</a>
 </p>

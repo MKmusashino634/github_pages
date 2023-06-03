@@ -14,6 +14,11 @@ p {
 }
 自動アジャスト機能をオフにする
 */
+body {
+	/* background-image: "./mtFuji.jpg"; */
+	/* background-size: cover; */
+	background-color: #88888888;
+}
 /* title */
 p.subtitle {
 	margin-left: 10px;
@@ -83,6 +88,7 @@ h6 {
 	font-family: Arial;
 	font-size: 15px;
 }
+/* paragraph */
 p {
 	margin-left: 50px;
 	color: #000000;
@@ -104,6 +110,7 @@ p.cap {
 	font-family: Arial;
 	font-size: 10px;
 }
+/* quote */
 q {
 	color: #000000;
 	font-family: Century;
@@ -123,17 +130,13 @@ span.i {
 
 	display: inline-block;
 }
-body {
-	/* background-image: "./mtFuji.jpg"; */
-	/* background-size: cover; */
-	background-color: #88888888;
-}
 .box {
 	border: 1px solid #333333;
 	width: 100%;
 	height: 80%;
 	overflow: auto;
 }
+/* table */
 table {
 	margin-left: 10px;
 	margin-right: 10px;
@@ -155,6 +158,7 @@ table.compare td {
 	background-color: white;
 	text-align: center;
 }
+/* img */
 img {
 	margin-left: 20px;
 	margin-right: 20px;
@@ -166,6 +170,7 @@ img#top {
 	width: 100%;
 	height: auto;
 }
+/* figure */
 figure {
 	text-align: center;
 }
@@ -175,13 +180,17 @@ figcaption {
 	font-family: serif;
 	font-size: 10px;
 }
-/* url, my tag */
+/* url */
 a {
 	font-style: normal;
 	font-family: serif;
 	font-size: 10px;
 
 	text-decoration: none;
+}
+/* cmd */
+pre {
+	white-space: pre-wrap ;
 }
 
 ol {

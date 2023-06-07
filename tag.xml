@@ -40,6 +40,8 @@
 
 	<class>Japanese</class>
 	<class>History</class>
+
+	<class>Strategy</class>
 <!-- Langage -->
 	<class>C</class>
 	<class>C++</class>
@@ -50,6 +52,8 @@
 	<class>JavaScript</class>
 	<class>JQuery</class>
 	<class>Python</class>
+
+	<class>Tex</class>
 <!-- Langage method -->
 	<class>WPF</class>
 	<class>Linq</class>

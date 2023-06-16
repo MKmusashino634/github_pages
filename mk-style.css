@@ -116,7 +116,7 @@ span.i {
 }
 .box {
 	border: 1px solid #333333;
-	width: 100%;
+	width: 80%;
 	height: 80%;
 	overflow: auto;
 }
@@ -177,6 +177,9 @@ pre {
 }
 /* item */
 ol {
+	padding-left: 0px;
+}
+ul.tab {
 	padding-left: 0px;
 }
 li {

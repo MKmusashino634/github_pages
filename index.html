@@ -4804,20 +4804,21 @@ HTMLクイックリファレンス<br>
 	<url>https://workees.wiki.fc2.com/wiki/NIC詳細設定%20有線LAN</url><br>
 	参照
 </p>
-<table border="1" width="90%" cellspacing="0" cellpadding="5">
+<div class="box">
+<table border="1" width="auto" cellspacing="0" cellpadding="5">
 	<tr>
-		<th>item(en)</th>
-		<th>item(ja)</th>
-		<th>choice</th>
-		<th>default</th>
-		<th>my setting/info.</th>
-		<th>description</th>
+		<th width="15%">item(en)</th>
+		<th width="15%">item(ja)</th>
+		<th width="10%">option</th>
+		<th width="10%">default</th>
+		<th width="10%">my setting/info.</th>
+		<th width="40%">description</th>
 	</tr>
 	<tr>
 		<td>ARP Offload</td>
 		<td>アドレス解決プロトコル(ARP)オフロード</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>有効</li>
 				<li>無効</li>
 			</ul>
@@ -4839,7 +4840,7 @@ HTMLクイックリファレンス<br>
 		<td>DMA Coalescing</td>
 		<td>DMAコアレッシング</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>1ms</li>
 				<li>2ms</li>
 				<li>3ms</li>
@@ -4867,7 +4868,7 @@ HTMLクイックリファレンス<br>
 		<td>Energy-Efficient Ethernet</td>
 		<td>省電力イーサネット</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>オフ</li>
 				<li>オン(システムが S0, S0ix, Sx 状態の場合)</li>
 			</ul>
@@ -4889,7 +4890,7 @@ HTMLクイックリファレンス<br>
 		<td>Flow Control</td>
 		<td>フロー制御</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>受信/送信 有効</li>
 				<li>受信 有効</li>
 				<li>送信 有効</li>
@@ -4936,7 +4937,7 @@ HTMLクイックリファレンス<br>
 		<td>Gigabit Master Slave Mode</td>
 		<td>ギガビット・マスター・スレーブ・モード</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>スレーブモードに強制</li>
 				<li>マスターモードに強制</li>
 				<li>自動検出</li>
@@ -4961,7 +4962,7 @@ HTMLクイックリファレンス<br>
 		<td>Interrupt Moderation</td>
 		<td>割り込み加減</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>有効</li>
 				<li>無効</li>
 			</ul>
@@ -4988,7 +4989,7 @@ HTMLクイックリファレンス<br>
 		<td>Interrupt Moderation Rate</td>
 		<td>割り込み加減率</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>オフ</li>
 				<li>最大</li>
 				<li>高</li>
@@ -5011,7 +5012,7 @@ HTMLクイックリファレンス<br>
 		<td>IPv4 Checksum Offload</td>
 		<td>IPv4チェックサムのオフロード</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>受信/送信 有効</li>
 				<li>受信 有効</li>
 				<li>送信 有効</li>
@@ -5030,7 +5031,7 @@ HTMLクイックリファレンス<br>
 		<td>Jumbo Frame</td>
 		<td>ジャンボパケット</td>
 		<td>
-			<ul>
+			<ul class="tab">
 				<li>4088バイト</li>
 				<li>9014バイト</li>
 				<li>無効</li>
@@ -5105,9 +5106,9 @@ HTMLクイックリファレンス<br>
 		<td>
 			<q>
 				このネットワーク・アダプターが使用する<br>
-				 MAC アドレスを変更します。<br>
-				 このアドレスは 12 桁の次の範囲の 16 進数です<br>
-				 ： 0000 0000 0001 - FEFF FFFF FFFF。<br>
+				MAC アドレスを変更します。<br>
+				このアドレスは 12 桁の次の範囲の 16 進数です<br>
+				： 0000 0000 0001 - FEFF FFFF FFFF。<br>
 				<br>
 				注意：<br>
 				ネットワーク上のほかのシステムが<br>
@@ -5176,16 +5177,16 @@ HTMLクイックリファレンス<br>
 				ネットワークのデータにより速くアクセスできます。<br>
 				<br>
 				無効<br>
-				 低レイテンシー割り込みを無効にします。<br>
+				低レイテンシー割り込みを無効にします。<br>
 				ポートベース:<br>
-				 指定したポートで受信されるすべてのパケットが、<br>
-				 直ちに割り込みをトリガーします。<br>
-				 低レイテンシー割り込みポート設定を使用して、<br>
-				 最大 8 つのポートを指定できます。<br>
+				指定したポートで受信されるすべてのパケットが、<br>
+				直ちに割り込みをトリガーします。<br>
+				低レイテンシー割り込みポート設定を使用して、<br>
+				最大 8 つのポートを指定できます。<br>
 				PSH フラグベース:<br>
-				 TCP PSH フラグが設定された着信パケットが、<br>
-				 直ちに割り込みをトリガーします。<br>
-				 PSH フラグは送信デバイスにより設定されます。<br>
+				TCP PSH フラグが設定された着信パケットが、<br>
+				直ちに割り込みをトリガーします。<br>
+				PSH フラグは送信デバイスにより設定されます。<br>
 			</q>
 			<url>https://www.intel.co.jp/content/www/jp/ja/support/articles/000005811/ethernet-products.html</url><br>
 			<url>https://www.intel.co.jp/content/www/jp/ja/support/articles/000005783/ethernet-products.html</url><br>
@@ -5538,6 +5539,7 @@ HTMLクイックリファレンス<br>
 		<td>LANで電源管理しない限り使わない</td>
 	</tr>
 </table>
+</div>
 <fig src="_img/2023-02-04_IntelPROSetAdapterConfigurationUtility-adapterSetting1.png"
 	alt="基本情報"
 	width="50%">
@@ -8575,12 +8577,13 @@ HTMLクイックリファレンス<br>
 	<li>サイトマップ + html/CSS仕様作成 + やることリストの案を図化する</li>
 	<li>Ajax導入，内容が長くても軽い仕様に．</li>
 	<li>cmd/urlでの，ページ幅超過の調整</li>
+	<li>tableの幅，箇条書き，色の自動化</li>
 	<li>GHP更新の通知</li>
 	<li>目次とボタン削除，日を範囲指定してその部分だけを表示する機能</li>
-	<li>コメントを受け付ける</li>
+	<li>[動的ページ]コメントを受け付ける</li>
 	<li>文字の大きさの統一，修正</li>
-	<li>画像の軽量化jpg化</li>
-	<li>urlの残りプロパティ追加</li>
+	<li>画像の軽量化-jpg化</li>
+	<li>urlの残りプロパティ処理</li>
 	<li>refタグの作成(qタグはdouble quoteで囲む，refはブロックで囲む)</li>
 
 	<li>ページのキーワード検索と#tag割り振り</li>

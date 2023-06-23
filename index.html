@@ -8733,8 +8733,41 @@ HTMLクイックリファレンス<br>
 <!-- ss --><h5 tag="Tex">platex</h5>
 <p>
 	日本語を書くのに必要なTeX処理系(タイプセット)である．<br>
-	これがない場合，インストールに失敗している．(?)(追記すべし)
+	これがない場合，インストールに失敗している．(?)(以下に進む)
 </p>
+<!-- ss --><h5 tag="Tex">tlmgr</h5>
+<p>
+	<url type="WabPage"
+			author="-"
+			title="tlmgrの使用例とトラブルシューティング"
+			name="tm23forest"
+			update="2020-06-07"
+			refer="2023-06-22">
+			https://tm23forest.com/contents/tlmgr-usage-troubleshooting
+	</url><br>
+	texliveのパッケージ管理用コマンド．<br>
+
+</p>
+<!--  sss  --><h6 tag="">platexインストールが失敗する現象</h6>
+<p>
+	私の場合，「tlmgr update --all --reinstall-forcibly-removed」<br>
+	を実行して云々というエラー文が表示されたため，それに従った．<br>
+	しかし，結局表面上変化なかった．<br>
+	<br>
+	やはりISOファイルからインストールする方法が安定する．<br>
+	<br>
+	TeXworks「Edit」「Preferences...」<br>
+	「Typesetting」タブ「Processing tools」グループ<br>
+	「Edit」を押下し，<br>
+	Name = pLaTex(ptex2pdf)(myset)<br>
+	Program = C:/texlive/2023/bin/windows/ptex2pdf.exe<br>
+	Arguments = -l -ot -kanji=utf8 $synctexoption $fullname<br>
+	を以下のように設定する．
+</p>
+<fig src="_img/2023-06-21_pLaTeX_register.png"
+	alt="platexの手動設定"
+	width="30%">
+</fig>
 <!-- ss --><h5 tag="Tex">VSCode拡張機能のインストールと設定</h5>
 <p>
 	「LaTeX Workshop」をインストールする．<br>
@@ -8787,6 +8820,7 @@ HTMLクイックリファレンス<br>
 <!--S--><h4 tag="myToDo">やること</h4>
 <p>GitHub Pages</p>
 <ul class="p">
+	<li>TeX並みのみやすさ実現</li>
 	<li>サイトマップ + html/CSS仕様作成 + やることリストの案を図化する</li>
 	<li>Ajax導入，内容が長くても軽い仕様に．</li>
 	<li>cmd/urlでの，ページ幅超過の調整</li>

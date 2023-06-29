@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* 目次の追加 */
-/* https://qiita.com/RYO_nami/items/10cb1db00b200e1288ca 参照 */
+/* https://qiita.com/RYO_nami/items/10cb1db00b200e1288ca 参照
 document.addEventListener('DOMContentLoaded', () => {
-    const heads = document.querySelectorAll(/*'h1,*/'h2, h3, h4, h5, h6');
+    const heads = document.querySelectorAll('h2, h3, h4, h5, h6');
     if (heads && heads.length) {
         let contents = '';
         heads.forEach((head, i) => {

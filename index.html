@@ -1244,7 +1244,7 @@ vscodeでこれをかいているのだが、そのカスタマイズについ�
 まず拡張機能「Whitespace++」をインストールする。<br>
 そして、「C:\Users\[user▫name]\AppData\Roaming\Code\User」の「settings.json」で<br>
 コードここから<br>
-====================================================================================<br>
+======================================================================<br>
 "workbench.tree.renderIndentGuides": "always",	//インデントを常に認識
 "editor.renderWhitespace": "none",//			//defaultでも可。干渉はなかった。
 "editor.insertSpaces": false,					//tabがスペースにかわるやつ
@@ -1257,7 +1257,7 @@ vscodeでこれをかいているのだが、そのカスタマイズについ�
 "whitespacepp.textWS": "▢",
 "whitespacepp.backColorWS": "#333333",
 "whitespacepp.changeBackColorWS": true,
-====================================================================================<br>
+======================================================================<br>
 コードここまで<br>
 
 同じ階層の「keybindings.json」ではキーを押したとき表示する文字を変更できる。<br>
@@ -1655,24 +1655,24 @@ SRIの仕組み<br>
 「https://developer.mozilla.org/ja/docs/Web/Security/Subresource_Integrity<br>
 <br>
 「https://beginners-hp.com/html-tag/integrity.html」抜粋、以下。<br>
-================================================================================================================<br>
-SRIは、ハッシュを使って行われます。<br>
-ハッシュとは、元のデータから全く異なる値を計算することです。<br>
-この計算には、ハッシュ関数が使われます。<br>
-ハッシュ関数には、SHA-256、SHA-384、SHA-512があります。<br>
-また、計算された値はハッシュ値と言います。<br>
-例えば、test.jpというJavaScriptのファイルがあった時、そのデータからハッシュ値を計算します。<br>
-このハッシュ値は、同じデータであれば同じ値になりますが、データが違うと同じ値になる可能性が低くなっています。<br>
-この特性を利用して、以下の手順でSRIを確認します。<br>
-Webページを作る側は、CDNのスクリプト(データ)からツールなどでハッシュ値を計算します。<br>
-また、利用例のようにintegrity属性で、使ったハッシュ関数とハッシュ値を指定します。<br>
-ユーザがブラウザでWebページを開くと、スクリプトをCDNからダウンロードする際に、<br>
-integrity属性で指定しているハッシュ関数で、データのハッシュ値を計算します。<br>
-ブラウザが計算したハッシュ値と、integrity属性で指定しているハッシュ値が同じであれば、<br>
-改ざんされていないと判断して、スクリプトを実行します。<br>
-ブラウザが計算したハッシュ値と、integrity属性で指定しているハッシュ値が異なると、<br>
-改ざんされていると判断してスクリプトは実行されません。<br>
-================================================================================================================<br>
+<q>
+	SRIは、ハッシュを使って行われます。<br>
+	ハッシュとは、元のデータから全く異なる値を計算することです。<br>
+	この計算には、ハッシュ関数が使われます。<br>
+	ハッシュ関数には、SHA-256、SHA-384、SHA-512があります。<br>
+	また、計算された値はハッシュ値と言います。<br>
+	例えば、test.jpというJavaScriptのファイルがあった時、そのデータからハッシュ値を計算します。<br>
+	このハッシュ値は、同じデータであれば同じ値になりますが、データが違うと同じ値になる可能性が低くなっています。<br>
+	この特性を利用して、以下の手順でSRIを確認します。<br>
+	Webページを作る側は、CDNのスクリプト(データ)からツールなどでハッシュ値を計算します。<br>
+	また、利用例のようにintegrity属性で、使ったハッシュ関数とハッシュ値を指定します。<br>
+	ユーザがブラウザでWebページを開くと、スクリプトをCDNからダウンロードする際に、<br>
+	integrity属性で指定しているハッシュ関数で、データのハッシュ値を計算します。<br>
+	ブラウザが計算したハッシュ値と、integrity属性で指定しているハッシュ値が同じであれば、<br>
+	改ざんされていないと判断して、スクリプトを実行します。<br>
+	ブラウザが計算したハッシュ値と、integrity属性で指定しているハッシュ値が異なると、<br>
+	改ざんされていると判断してスクリプトは実行されません。<br>
+</q>
 ハッシュ値計算は、「https://www.srihash.org/」でできる。<br>
 参考「https://tosi-tech.net/2017/01/verify-cdn-script-by-sri/」<br>
 <br>
@@ -3268,7 +3268,13 @@ HTMLクイックリファレンス<br>
 	</tr>
 	<tr>
 		<td>System UUID</td>
-		<td>XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX</td>
+		<td>
+			00000000-<br>
+			0000-<br>
+			0000-<br>
+			0000-<br>
+			000000000000
+		</td>
 		<td>8-4-4-4-12桁</td>
 		<td>
 			<url>https://e-words.jp/w/UUID.html</url>
@@ -3287,8 +3293,11 @@ HTMLクイックリファレンス<br>
 		<td>None</td>
 		<td>-</td>
 		<td>
-			<url>https://learn.microsoft.com/ja-jp/surface/assettag</url><br>
-			<url>https://qualysguard.qualys.com/qwebhelp/jp/fo_portal/host_assets/using_asset_tags_basics.htm</url>
+			・<url>https://learn.microsoft.com/ja-jp/surface/assettag</url>
+			・<url>
+				https://qualysguard.qualys.com/qwebhelp/jp/<br>
+				fo_portal/host_assets/using_asset_tags_basics.htm
+			</url>
 		</td>
 	</tr>
 </table>
@@ -3387,20 +3396,24 @@ HTMLクイックリファレンス<br>
 	<tr>
 		<td>Change configuration</td>
 		<td>(button)</td>
-		<td><q>Secure Boot is Enabled with Microsoft only key configuration<br>
-			---What is Secure Boot?---<br>
-			Secure Boot is configured by selecting a Secure Boot certificate keyset.<br>
-			There are three keysets to choose from on this PC.<br>
-			<br>
-			Microsoft only: Only boot software signed by Microsoft will execute on the PC.<br>
-			<br>
-			Microsoft & 3rd-party CA: Boot software which is signed by
-			Microsoft or the Microsoft Corporation UEFI CA 2011 will execute on the PC.<br>
-			Choose this option for compatibility with 3rd-party UEFI software and drivers.<br>
-			<br>
-			None: No Keyset is installed and Secure Boot is disabled on the PC.<br>
-			Any boot software will execute on the PC.<br>
-			This configuration is not recommended and should only be used by advanced users</q></td>
+		<td>
+			<q>
+				Secure Boot is Enabled with Microsoft only key configuration<br>
+				---What is Secure Boot?---<br>
+				Secure Boot is configured by selecting a Secure Boot certificate keyset.<br>
+				There are three keysets to choose from on this PC.<br>
+				<br>
+				Microsoft only: Only boot software signed by Microsoft will execute on the PC.<br>
+				<br>
+				Microsoft & 3rd-party CA: Boot software which is signed by
+				Microsoft or the Microsoft Corporation UEFI CA 2011 will execute on the PC.<br>
+				Choose this option for compatibility with 3rd-party UEFI software and drivers.<br>
+				<br>
+				None: No Keyset is installed and Secure Boot is disabled on the PC.<br>
+				Any boot software will execute on the PC.<br>
+				This configuration is not recommended and should only be used by advanced users.
+			</q>
+		</td>
 		<td>-</td>
 	</tr>
 </table>
@@ -3475,11 +3488,11 @@ HTMLクイックリファレンス<br>
 <h6>Configure boot device order</h6>
 <p>
 	<q>
-	To change the order devices are searched for a boot able operating system,<br>
-	dtag each boot option to the desired location in the list.<br>
-	Use the checkbox to enable or disable a boot option.<br>
-	Click the trash icon to permanently remove a boot option from the list.<br>
-	Swipe left on a device to boot that device immediately.
+		To change the order devices are searched for a boot able operating system,<br>
+		dtag each boot option to the desired location in the list.<br>
+		Use the checkbox to enable or disable a boot option.<br>
+		Click the trash icon to permanently remove a boot option from the list.<br>
+		Swipe left on a device to boot that device immediately.
 	</q>
 </p>
 <table border="1" width="auto" cellspacing="0" cellpadding="5">
@@ -3561,23 +3574,23 @@ HTMLクイックリファレンス<br>
 <h6>Set Date and Time</h6>
 <p>
 	<q>
-	Set the date and time Menu<br>
-	To set a new date and time,<br>
-	fill in the New date and time edit box with the new date and time.<br>
-	Commit the new date and time by pressing Enter.<br>
-	<br>
-	The format of the Date and Time string is YYYY/MM/DD HH:MM:SS.<br>
-	The 24 hour clock format is used for HH.<br>
-	The delimiters '/' and ';' are optional, and canbe replaced with spaces.<br>
-	YYYY is required; additional fields are optional.<br>
-	Fields not set are left alone.<br>
-	The following are valid examples: <br>
-	<br>
-	example 1 - 2016 09 12 05 52 00<br>
-	<br>
-	example 1 - 2016/9/12 5:52<br>
-	<br>
-	example 1 - 2016/09<br>
+		Set the date and time Menu<br>
+		To set a new date and time,<br>
+		fill in the New date and time edit box with the new date and time.<br>
+		Commit the new date and time by pressing Enter.<br>
+		<br>
+		The format of the Date and Time string is YYYY/MM/DD HH:MM:SS.<br>
+		The 24 hour clock format is used for HH.<br>
+		The delimiters '/' and ';' are optional, and canbe replaced with spaces.<br>
+		YYYY is required; additional fields are optional.<br>
+		Fields not set are left alone.<br>
+		The following are valid examples: <br>
+		<br>
+		example 1 - 2016 09 12 05 52 00<br>
+		<br>
+		example 1 - 2016/9/12 5:52<br>
+		<br>
+		example 1 - 2016/09
 	</q>
 </p>
 <table border="1" width="auto" cellspacing="0" cellpadding="5">
@@ -9056,7 +9069,7 @@ HTMLクイックリファレンス<br>
 	今，「愛国心」には，<br>
 	領土拡張という意味や侵略というイメージがついてしまっている．<br>
 	実際，日章旗や，<br>
-	「やまとだま」「あきつしま」「しきしま」といった「ことのは」，<br>
+	「やまとだま」「あきつしま」「しきしま」といった「ことのは」には<br>
 	そのままの美しさを感じるが，<br>
 	旭日旗，「愛国心」という言葉には<br>
 	私ですら心の<rubi>痞え(つかえ)</rubi>を感じる．<br>
@@ -9170,6 +9183,30 @@ HTMLクイックリファレンス<br>
 	少しずつ．
 </p>
 
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>07月10日(月)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>
+		エーザイと米バイオジェンの開発したアルツハイマー病治療薬が，<br>
+		米食品医薬品局（ＦＤＡ）によって承認された
+	</li>
+	<li>「LINE」での投資詐欺．大抵派手な広告</li>
+	<li>環境活動家/ロビー活動家による試合妨害が相次ぐ．</li>
+</ul>
+<!--S--><h4 tag="myDiary">頑張る</h4>
+<p>
+
+</p>
 
 
 

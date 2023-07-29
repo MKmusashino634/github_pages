@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		$(this).html(
 			`<div class="note">`
 				+ temp
-				+`<a href="`+$(this).text()+`" target="_blank">`
+				+`<a class="url" href="`+$(this).text()+`" target="_blank">`
 					+$(this).text()
 				+`</a><br>`
 			+`</div>`

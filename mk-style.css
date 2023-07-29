@@ -1,21 +1,7 @@
 body {
 	/* background-image: "./mtFuji.jpg"; */
 	/* background-size: cover; */
-	background-color: #88888888;
-}
-/* title */
-p.subtitle {
-	margin-left: 20px;
-	color: black;
-	font-style: bold;
-	font-family: Arial;
-	font-size: 50%;
-
-	text-shadow:	5px 5px 5px #aaa,/* ↘ */
-					-5px 5px 5px #aaa,/* ↙ */
-					-5px -5px 5px #aaa,/* ↖ */
-					5px -5px 5px #aaa;/* ↗ */
-	position:absolute;
+	background-color: #AAA;
 }
 h1 {
 	margin-left: 50px;
@@ -55,6 +41,8 @@ h4 {
 	font-style: bold;
 	font-family: Arial;
 	font-size: 120%;
+
+	background:linear-gradient(transparent 90%, #65767c 0%);
 }
 /* subsection */
 h5 {
@@ -63,6 +51,10 @@ h5 {
 	font-style: bold, italic;
 	font-family: Arial;
 	font-size: 120%;
+
+	border-bottom:solid;/*下線を点線にする*/
+	border-color:#695050;
+	border-width:1px;
 }
 /* subsubsection */
 h6 {
@@ -71,8 +63,25 @@ h6 {
 	font-style: bold, italic;
 	font-family: Arial;
 	font-size: 120%;
+
+	border-bottom:dotted;/*下線を点線にする*/
+	border-color:#466163;
+	border-width:1px;
 }
 /* paragraph */
+p.subtitle {
+	margin-left: 20px;
+	color: black;
+	font-style: bold;
+	font-family: Arial;
+	font-size: 50%;
+
+	text-shadow:	5px 5px 5px #aaa,/* ↘ */
+					-5px 5px 5px #aaa,/* ↙ */
+					-5px -5px 5px #aaa,/* ↖ */
+					5px -5px 5px #aaa;/* ↗ */
+	position:absolute;
+}
 p {
 	margin-left: 100px;
 	color: #000000;
@@ -92,6 +101,15 @@ p.cap {
 	color: #000000;
 	font-style: italic;
 	font-family: Arial;
+	font-size: 100%;
+}
+/* div */
+div.note {
+	width: 80%;
+	background: #BBB;
+	border: #d67f38 solid 3px;
+	border-left: #d67f38 solid 12px;
+	padding: 20px;
 	font-size: 100%;
 }
 /* quote */

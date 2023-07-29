@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * qタグで斜体にしたときに，brしてしまうと行頭が揃わない．
  * したがって，qタグの本文にbrがあればそのあとに
  * 「&emsp;」(全角スペース)を挿入する
- * 「&nbsp;」(半角スペース)
+ * 「&emsp;」(半角スペース)
 */
 /*
 document.addEventListener('DOMContentLoaded', () => {
@@ -242,7 +242,23 @@ document.addEventListener('DOMContentLoaded', () => {
 //jQuery ver
 document.addEventListener('DOMContentLoaded', () => {
 	$('url').each( function(index) {
-		$(this).html(`<a href="`+$(this).text()+`" target="_blank">`+$(this).text()+`</a><br>`);
+		var temp = "";
+		if($(this).attr('type')=='WebPage') {
+			temp = `著者 &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('author') + `<br>`
+					+ `タイトル &nbsp; : &emsp;` + $(this).attr('title') + `<br>`
+					+ `Web名 &emsp;&nbsp; : &emsp;` + $(this).attr('name') + `<br>`
+					+ `更新 &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('update') + `<br>`
+					+ `参照 &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('refer') + `<br>`;
+		}
+
+		$(this).html(
+			`<div class="note">`
+				+ temp
+				+`<a href="`+$(this).text()+`" target="_blank">`
+					+$(this).text()
+				+`</a><br>`
+			+`</div>`
+		);
 	});
 });
 /*

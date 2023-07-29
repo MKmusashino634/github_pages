@@ -69,4 +69,6 @@
 	<class>VScode</class>
 	<class>Eclipse</class>
 	<class>AndroidStudio</class>
+<!-- Services -->
+	<class>GitHub</class>
 </tag>

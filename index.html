@@ -9768,7 +9768,58 @@ HTMLクイックリファレンス<br>
 	GitHub Actionsとは，<br>
 	Githubでの変更から自動的に動くサービスである．<br>
 	「.yml」ファイルで定義される．<br>
+	<br>
+	<url type="WebPage"
+			author="Qiita@osakiy(Yasuhiro Osaki)"
+			title="GitHub Actions を用いて issue が更新されたら LINE に通知する方法"
+			name="Qiita"
+			update="2019-09-27"
+			refer="2023-08-01">
+			https://qiita.com/osakiy/items/dd77a31bf25d27dd0679
+	</url><br>
+	上の2つのリンクと公式ドキュメント，BingAIを参考にしながら，<br>
+	以下のようなコードを作成した．<br>
+	<cmd>
+		name: notify_to_LINE_on_push
 
+		on:
+		push:
+			branches: [ "main" ]
+
+		jobs:
+		notify_line:
+			runs-on: ubuntu-latest
+			steps:
+
+			# 自身のリポジトリ読み込み
+			- uses: actions/checkout@v3
+
+			# 更新通知の作成
+			- name: Create messages for new commit
+			env:
+				Title: ${{ github.event.sender.login }} がGitHubを更新しました．
+				Commit_Msg: ${{ github.event.commits[0].message }}
+				Commit_Link: ${{ github.event.commits[0].html_url }}
+				GHP_Link: https://mkmusashino634.github.io/github_pages/
+			run: echo -ne "${Title}\n${Commit_Msg}\n${Commit_Link}\n\n\n${GHP_Link}" > contents
+
+			# LINEへ送信
+			- name: Run | Send LINE Notification
+			env:
+				LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
+				URL: https://notify-api.line.me/api/notify
+			run: |
+				curl -X POST \
+					-H "Authorization: Bearer ${LINE_TOKEN}" \
+					--data-urlencode message@contents \
+					${URL}
+	</cmd>
+	「LINE_TOKEN」は<br>
+	「Settings」「Secrets and variables」「Actions」<br>
+	「New repository secret」ボタンを押下し，<br>
+	name: LINE_TOKEN<br>
+	Secret: {LINE Notifyで取得したURLの末尾}<br>
+	とした．
 </p>
 <!--S--><h4 tag="DataBase">正規表現</h4>
 <p>

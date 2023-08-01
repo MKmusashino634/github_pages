@@ -1,43 +1,43 @@
+# pushされるとLINE通知するGHA
+# ymlではタブは禁止!
 name: notify_to_LINE_on_push
 
 on:
-	push:
-		branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 
 jobs:
-	notify_line:
-		runs-on: ubuntu-latest
-		steps:
+  notify_line:
+    runs-on: ubuntu-latest
+    steps:
 
-		# 自身のリポジトリ読み込み
-		- uses: actions/checkout@v3
+    # 自身のリポジトリ読み込み
+    - uses: actions/checkout@v3
 
-		# 更新通知の作成
-		- name: Create messages for new commit
-		env:
-			Title: ${{ github.event.sender.login }} が\n
-					GitHub Pagesを更新しました．
-			Commit_Msg: ${{ github.event.commits[0].message }}
-			#Commit_Link: ${{ github.event.commits[0].html_url }}
-			GHP_Link: https://mkmusashino634.github.io/github_pages/
-			Whole_Msg: ========\n
-						${Title}\n
-						========\n
-						${Commit_Msg}\n
-						\n
-						リンクはこちらから\n
-						${GHP_Link}
-		run: echo -ne "${Whole_Msg}" > contents
+    # 更新通知の作成
+    - name: Create messages for new commit
+      env:
+        Title: ${{ github.event.sender.login }} が\n
+                GitHub Pagesを更新しました．
+        Commit_Msg: ${{ github.event.commits[0].message }}
+        #Commit_Link github.event.commits[0].html_url
+        GHP_Link: https://mkmusashino634.github.io/github_pages/
+        Whole_Msg: ========\n
+                  ${Title}\n
+                  ========\n
+                  ${Commit_Msg}\n
+                  \n
+                  リンクはこちらから\n
+                  ${GHP_Link}
+      run: echo -ne "${Whole_Msg}" > contents
 
-		# LINEへ送信
-		- name: Run | Send LINE Notification
-		env:
-			LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
-			URL: https://notify-api.line.me/api/notify
-
-		# 実行
-		run: |
-			curl -X POST \
-				-H "Authorization: Bearer ${LINE_TOKEN}" \
-				--data-urlencode message@contents \
-				${URL}
+    # LINEへ送信
+    - name: Run | Send LINE Notification
+      env:
+        LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
+        URL: https://notify-api.line.me/api/notify
+      run: |
+        curl -X POST \
+          -H "Authorization: Bearer ${LINE_TOKEN}" \
+          --data-urlencode message@contents \
+          ${URL}

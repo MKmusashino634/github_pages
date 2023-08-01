@@ -244,11 +244,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	$('url').each( function(index) {
 		var temp = "";
 		if($(this).attr('type')=='WebPage') {
-			temp = `著者 &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('author') + `<br>`
-					+ `タイトル &nbsp; : &emsp;` + $(this).attr('title') + `<br>`
-					+ `Web名 &emsp;&nbsp; : &emsp;` + $(this).attr('name') + `<br>`
-					+ `更新 &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('update') + `<br>`
-					+ `参照 &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('refer') + `<br>`;
+			temp = `author &emsp;&emsp;&nbsp; : &emsp;` + $(this).attr('author') + `<br>`
+					+ `title &emsp;&emsp;&emsp;&nbsp;&nbsp; : &emsp;` + $(this).attr('title') + `<br>`
+					+ `Web name &nbsp; : &emsp;` + $(this).attr('name') + `<br>`
+					+ `update &emsp;&emsp; : &emsp;` + $(this).attr('update') + `<br>`
+					+ `refer &emsp;&emsp;&emsp; : &emsp;` + $(this).attr('refer') + `<br>`;
 		}
 
 		$(this).html(

@@ -102,21 +102,19 @@ p {
 	margin-left: 50px;
 	color: #000000;
 	font-style: normal;
-	font-family: Arial;
+	font-family: "游明朝", serif;
 	font-size: 10px;
 }
 p.i {
 	margin-left: 70px;
 	color: #000000;
 	font-style: bold;
-	font-family: Arial;
 	font-size: 10px;
 }
 p.cap {
 	text-align:  center;
 	color: #000000;
 	font-style: italic;
-	font-family: Arial;
 	font-size: 10px;
 }
 /* div */
@@ -206,6 +204,11 @@ a {
 
 	text-decoration: none;
 }
+a.url {
+	width: 70%;
+	word-break: keep-all;
+	overflow-wrap:break-word;
+}
 /* cmd */
 pre {
 	white-space: pre-wrap ;
@@ -220,17 +223,13 @@ ul.tab {
 li {
 	margin-left: 0px;
 	font-size: 10px;
+	font-family: "游明朝", serif;
 }
 /* ここから参照 */
 /* https://qiita.com/RYO_nami/items/10cb1db00b200e1288ca */
 li.toc {
     list-style: none;
 }
-a.url {
-	width: 50%;
-	word-break: normal;
-	overflow-wrap:break-word;
-}*/
 /*
 h1:	title
 h2:	year

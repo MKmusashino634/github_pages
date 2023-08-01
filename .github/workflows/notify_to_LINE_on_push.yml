@@ -1,5 +1,6 @@
 # pushされるとLINE通知するGHA
 # ymlではタブは禁止!
+# 複数回参照は不可
 name: notify_to_LINE_on_push
 
 on:
@@ -21,8 +22,7 @@ jobs:
         Commit_Msg: ${{ github.event.commits[0].message }}
         #Commit_Link github.event.commits[0].html_url
         GHP_Link: https://mkmusashino634.github.io/github_pages/
-        Whole_Msg: "\n========\n${Title}\n========\n${Commit_Msg}\n---\n\nリンクはこちらから\n${GHP_Link}"
-      run: echo -ne "${Whole_Msg}" > contents
+      run: echo -ne "[Title] ${Title}\n[Commit Message]\n${Commit_Msg}\n\n[GitHub Pages Link]\n${GHP_Link}" > contents
 
     # LINEへ送信
     - name: Run | Send LINE Notification

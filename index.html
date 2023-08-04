@@ -9,21 +9,28 @@
 		gtag('js', new Date());
 		gtag('config', 'G-76VJW64RH8');
 	</script>
-	<!--JQuery-->
+	<!-- JQuery -->
 	<script
 		src="https://code.jquery.com/jquery-3.6.1.js"
 		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
 		crossorigin="anonymous">
 	</script>
-	<!--my pre JS-->
+	<!-- MathJax -->
+	<script
+		type="text/javascript"
+		id="MathJax-script"
+		async
+		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+	</script>
+	<!-- my pre JS -->
 	<script type="text/javascript" src="mk-pre-script.js"></script>
 
 	<meta charset="UTF-8">
-	<!--<meta name="viewport" content="width=device-width">-->
 	<title>MK footprints</title>
 	<link rel="icon" href="_icon/mayaBridge.ico">
 	<link rel="apple-touch-icon" sizes="180x180" href="">
 
+	<!-- for flexible view -->
 	<meta name="viewport" content="width=320, minimum-scale=1.0, maximum-scale=2.0" />
 	<link media="only screen and (max-device-width:480px)"
 		href="mk-style_iPhone.css" type="text/css" rel="stylesheet" />
@@ -39,11 +46,12 @@
 <h1>
 	MKmusashino634 Foot Print
 	<p class="subtitle">
-		とるにたらない，日々の記録．<br>
-		されど，確固な無二の軌跡．<br>
+		とるに足らない，日々の記録．<br>
+		然れど，確固な無二の軌跡．<br>
 		<br>
 		<q>
-			見えない不安の集中砲火で&emsp;生き残るのは<br>
+			見えない不安の集中砲火で<br>
+			生き残るのは<br>
 			自分の弱さ認める強さ
 		</q><br><br>
 		<q>
@@ -9780,39 +9788,39 @@ HTMLクイックリファレンス<br>
 	上の2つのリンクと公式ドキュメント，BingAIを参考にしながら，<br>
 	以下のようなコードを作成した．<br>
 	<cmd>
-		name: notify_to_LINE_on_push
+name: notify_to_LINE_on_push
 
-		on:
-		push:
-			branches: [ "main" ]
+on:
+push:
+  branches: [ "main" ]
 
-		jobs:
-		notify_line:
-			runs-on: ubuntu-latest
-			steps:
+jobs:
+notify_line:
+  runs-on: ubuntu-latest
+    steps:
 
-			# 自身のリポジトリ読み込み
-			- uses: actions/checkout@v3
+    # 自身のリポジトリ読み込み
+    - uses: actions/checkout@v3
 
-			# 更新通知の作成
-			- name: Create messages for new commit
-			env:
-				Title: ${{ github.event.sender.login }} がGitHubを更新しました．
-				Commit_Msg: ${{ github.event.commits[0].message }}
-				Commit_Link: ${{ github.event.commits[0].html_url }}
-				GHP_Link: https://mkmusashino634.github.io/github_pages/
-			run: echo -ne "${Title}\n${Commit_Msg}\n${Commit_Link}\n\n\n${GHP_Link}" > contents
+    # 更新通知の作成
+    - name: Create messages for new commit
+    env:
+      Title: ${{ github.event.sender.login }} がGitHubを更新しました．
+      Commit_Msg: ${{ github.event.commits[0].message }}
+      Commit_Link: ${{ github.event.commits[0].html_url }}
+      GHP_Link: https://mkmusashino634.github.io/github_pages/
+    run: echo -ne "${Title}\n${Commit_Msg}\n${Commit_Link}\n\n\n${GHP_Link}" > contents
 
-			# LINEへ送信
-			- name: Run | Send LINE Notification
-			env:
-				LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
-				URL: https://notify-api.line.me/api/notify
-			run: |
-				curl -X POST \
-					-H "Authorization: Bearer ${LINE_TOKEN}" \
-					--data-urlencode message@contents \
-					${URL}
+    # LINEへ送信
+    - name: Run | Send LINE Notification
+    env:
+    LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
+      URL: https://notify-api.line.me/api/notify
+    run: |
+      curl -X POST \
+        -H "Authorization: Bearer ${LINE_TOKEN}" \
+        --data-urlencode message@contents \
+        ${URL}
 	</cmd>
 	「LINE_TOKEN」は<br>
 	「Settings」「Secrets and variables」「Actions」<br>
@@ -9821,6 +9829,72 @@ HTMLクイックリファレンス<br>
 	Secret: {LINE Notifyで取得したトークン}<br>
 	とした．<br>
 	トークンはデスクトップ版のページでしか取得できない．<br>
+</p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>08月04日(金)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>ネットワークセキュリティ対策はEDR+XDRへ</li>
+	<li>RPA: Robotic Process Automation</li>
+	<li>moat: 堀/[IT]防壁</li>
+	<li>Arm版Windows再来なるか．</li>
+	<li>Google, 新AIモデル「PaLM 2」により「Bard」強化</li>
+	<li>Discordでタスク管理をするのは無謀．本末転倒．大人しくTeams/Slackを使う．</li>
+</ul>
+<!--S--><h4 tag="HTML CSS Math">MathJax</h4>
+<p>
+	MathJaxは，すべてのモダンブラウザで動作する．<br>
+	htmlファイルのheadに<br>
+	<cmd>
+<script type="text/javascript"
+	id="MathJax-script"
+	async
+	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+	</cmd>
+	を埋め込むだけでよい．<br>
+	基本
+	<cmd>\(文中数式\)</cmd>
+	<cmd>\[独立数式\]</cmd>
+	とすれば数式用斜体となる．<br>
+	詳しくは以下が判りやすく纏めてある．<br>
+	<url type="WebPage"
+			author="野本隆宏(新潟大学 材料物性工学講座 技術職員)"
+			title="Cyclic Redundancy Check(CRC)を理解する"
+			name="新潟大学"
+			update="2018-11-04"
+			refer="2023-08-04">
+			https://www.eng.niigata-u.ac.jp/~nomoto/download/mathjax.pdf
+	</url><br>
+</p>
+<!--S--><h4 tag="Network Math Algorithm">Cyclic Redundancy Check(CRC)とは</h4>
+<p>
+	CRCは，誤り検出に使用されている．<br>
+	まず，<br>
+	ビット列 \(G\) (長さ \(n\) とする)と<br>
+	生成多項式 \(P(G)\) を用意する．<br>
+	送信側はメッセージを \(P(G)\) で除算し，
+	この余りをメッセージと共に送る．<br>
+	受信側はメッセージを \(P(G)\) で除算し，
+	これが \(0\) になれば謝りを含まないことが判る．<br>
+	<url type="WebPage"
+			author="Qiita@tobira-code"
+			title="Cyclic Redundancy Check(CRC)を理解する"
+			name="Qiita"
+			update="2018-11-04"
+			refer="2023-08-04">
+			https://qiita.com/tobira-code/items/dbcffc41f54201130b6c
+	</url><br>
 </p>
 <!--S--><h4 tag="DataBase">正規表現</h4>
 <p>
@@ -9842,11 +9916,12 @@ HTMLクイックリファレンス<br>
 			https://qiita.com/List202/items/05a27c46d9b11d04fb39
 	</url><br>
 </p>
-<!--S--><h4 tag="Network">Cyclic Redundancy Check(CRC)を理解する</h4>
-<p>
-	CRCは，誤り検出に使用されている．<br>
-	[追記]
-</p>
+
+
+
+
+
+
 
 
 
@@ -9898,11 +9973,12 @@ HTMLクイックリファレンス<br>
 	<li>サイトマップ + html/CSS仕様作成 + やることリストの案を図化する</li>
 	<li>Ajax導入，内容が長くても軽い仕様に．</li>
 	<li>tableの幅，箇条書き，色の自動化</li>
-	<li>目次とボタン削除，日を範囲指定してその部分だけを表示する機能</li>
+	<li>日にちで分ける</li>
 	<li>[動的ページ]コメントを受け付ける</li>
 	<li>文字の大きさの統一，修正</li>
 	<li>画像の軽量化-jpg化?</li>
 	<li>urlの残りプロパティ処理</li>
+	<li>codeタグでの「=""」勝手に入る/改行されない問題</li>
 	<li>refタグの作成(qタグはdouble quoteで囲む，refはブロックで囲む)</li>
 
 	<li>ページのキーワード検索と#tag割り振り</li>

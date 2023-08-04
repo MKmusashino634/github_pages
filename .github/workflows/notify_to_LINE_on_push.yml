@@ -22,7 +22,7 @@ jobs:
         Commit_Msg: ${{ github.event.commits[0].message }}
         #Commit_Link github.event.commits[0].html_url
         GHP_Link: https://mkmusashino634.github.io/github_pages/
-      run: echo -ne "[Title] ${Title}\n[Commit Message]\n${Commit_Msg}\n\n[GitHub Pages Link]\n${GHP_Link}" > contents
+      run: echo -ne "\n[Title] ${Title}\n\n[Commit Message]--------\n${Commit_Msg}\n----------------\n\n[GitHub Pages Link]\n${GHP_Link}" > contents
 
     # LINEへ送信
     - name: Run | Send LINE Notification

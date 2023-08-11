@@ -19,10 +19,11 @@ jobs:
     - name: Create messages for new commit
       env:
         Title: ${{ github.event.sender.login }} が\nGitHub Pagesを更新しました．
-        Commit_Msg: ${{ github.event.commits[0].message }}
+        Commit_Msg: ${{ github.event.commits.message }}
+        Commit_partition: ------------------------
         #Commit_Link github.event.commits[0].html_url
         GHP_Link: https://mkmusashino634.github.io/github_pages/
-      run: echo -ne "\n[Title]\n ${Title}\n\n[Commit Message]\n${Commit_Msg}\n\n[GitHub Pages Link]\n${GHP_Link}" > contents
+      run: echo -ne "\n[Title]\n ${Title}\n\n[Commit Message]\n${Commit_partition}\n${Commit_Msg}\n${Commit_partition}\n\n[GitHub Pages Link]\n${GHP_Link}" > contents
 
     # LINEへ送信
     - name: Run | Send LINE Notification

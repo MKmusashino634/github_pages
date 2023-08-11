@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!--JQuery-->
+	<script
+		src="https://code.jquery.com/jquery-3.6.1.js"
+		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+		crossorigin="anonymous">
+	</script>
+	<!--my pre JS-->
+	<script type="text/javascript" src="..\mk-pre-script.js"></script>
+
+	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="width=device-width">-->
+	<title>newHTML_layout</title>
+	<link rel="icon" href="..\_icon\z.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="">
+
+	<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />
+	<link media="only screen and (max-device-width:480px)"
+		href="..\mk-style_iPhone.css" type="text/css" rel="stylesheet" />
+	<link media="screen and (min-device-width:481px)"
+		href="..\mk-style.css" type="text/css" rel="stylesheet" />
+	<!--for IE
+	<link media="only screen and (max-device-width: 480px)"
+		href="mk-style_iPhone.css.css" type="text/css" rel="stylesheet" />-->
+</head>
+<body>
+	<div id="top"></div>
+
+
+
+
+<h1>新ページ例アウト設計</h1>
+<h4>ページ構造</h4>
+<p>
+	テンプレート通り，メニューバーを上部に設ける
+
+</p>
+<h4>書き方</h4>
+<p>
+	<cmd>
+<div class="diary">
+	<h3 class="date">2023-08-10(木)</h3>
+	<h4 tag="">節</h4>
+	<p>
+		内容
+	</p>
+	<h4 tag="">準節</h4>
+	<p>
+		内容
+	</p>
+	<h4 tag="">準々節</h4>
+	<p>
+		内容
+	</p>
+</div>
+	</cmd>
+</p>
+<ul>
+	<li>各艦の所属を明記する</li>
+	<li>地図作成</li>
+	<li>艦種分類が適切か検討</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="bottom"></div>
+
+<!--JavaScriptの読み込み，bodyの一番下段-->
+<script type="text/javascript" src="mk-post-script.js"></script>
+
+<p id="topbutton">
+	<a href="#top" onclick="$('html,body').animate({scrollTop:$('#top').offset().top}); return false;">▲見出しへ戻る</a>
+</p>
+
+<p id="bottombutton">
+	<a href="#bottom" onclick="$('html,body').animate({scrollTop:$('#bottom').offset().top}); return false;">▼最新日へ進む</a>
+</p>
+</body>
+</html>

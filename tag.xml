@@ -26,6 +26,9 @@
 	<class>msedge</class>
 	<class>setting</class>
 <!-- field -->
+	<class>HW</class>
+	<class>SW</class>
+
 	<class>Security</class>
 	<class>Network</class>
 	<class>DataBase</class>

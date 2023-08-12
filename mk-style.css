@@ -42,7 +42,12 @@ h4 {
 	font-family: Arial;
 	font-size: 120%;
 
-	background:linear-gradient(transparent 90%, #65767c 0%);
+	/* これだと英字/日本語で太さが変化してしまう． */
+	/*background:linear-gradient(transparent 90%, #65767c 0%);*/
+
+	border-bottom:solid;
+	border-color:#65767c;
+	border-width:3px;
 }
 /* subsection */
 h5 {
@@ -52,7 +57,7 @@ h5 {
 	font-family: Arial;
 	font-size: 120%;
 
-	border-bottom:solid;/*下線を点線にする*/
+	border-bottom:solid;
 	border-color:#695050;
 	border-width:1px;
 }

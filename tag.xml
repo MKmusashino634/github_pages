@@ -35,7 +35,7 @@
 	<class>Algorithm</class>
 	<class>Math</class>
 	<class>Engineering</class>
-	<class>EC</class>
+	<class>ElectronicCircuit</class>
 	<class>DSP</class>
 	<class>AI</class>
 
@@ -73,5 +73,9 @@
 	<class>Eclipse</class>
 	<class>AndroidStudio</class>
 <!-- Services -->
+	<class>Microsoft</class>
+	<class>Apple</class>
+	<class>Google</class>
+	<class>Amazon</class>
 	<class>GitHub</class>
 </tag>

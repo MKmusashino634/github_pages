@@ -10130,15 +10130,6 @@ notify_line:
 <ul class="p">
 	<li>イージスアショアに代わる「イージス・システム搭載艦」，約３９５０億円/隻</li>
 </ul>
-<!--S--><h4 tag="SW">「Phone Link」</h4>
-<p>
-	Microsoft Rewardsのポイント利用に電話番号が必要になっていた．<br>
-	Microsoftアカウントに電話番号が追加できない(コードが届かない)ため，<br>
-	仕方なく昔から存在は認識していたものの不要と感じていた<br>
-	「Phone Link」を利用してみた．<br>
-	WindowsとiPhoneなので，Bluetooth接続でも遅延や動作の不一致が目立った．<br>
-	しかしリンクできる点から，とても進化しているなという印象を受けた．
-</p>
 <!--S--><h4 tag="HW">SSDのXLC(X Level Cell)</h4>
 <p>
 	<url type="WebPage"
@@ -10193,18 +10184,367 @@ notify_line:
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>08月13日(日)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>極超音速兵器迎撃新型ミサイル，日米共同開発へ</li>
+</ul>
+<!--S--><h4 tag="SW">「Phone Link」</h4>
+<p>
+	Microsoft Rewardsのポイント利用に電話番号が必要になっていた．<br>
+	Microsoftアカウントに電話番号が追加できない(コードが届かない)ため，<br>
+	仕方なく昔から存在は認識していたものの不要と感じていた<br>
+	「Phone Link」を利用してみた．<br>
+	WindowsとiPhoneなので，Bluetooth接続でも遅延や動作の不一致が目立った．<br>
+	しかしリンクできる点から，とても進化しているなという印象を受けた．<br>
+</p>
+<!-- ss --><h5 tag="SW">WinでiOSの電話ができない場合</h5>
+<p>
+	私の場合，<br>
+	以下のような画面となった．<br>
+</p>
+<fig src="_img/2023-08-13_phoneLink_noPhone.png"
+	alt="Windowsでの「Phone Link」上で電話ができない"
+	width="80%">
+</fig>
+<p>
+	解決には，今のところ手動で<br>
+	ローカルグループポリシーとレジストリを変更する必要がある．<br>
+	<url type="WebPage"
+			author="-"
+			title="Phone link says I already have the phone set-up with another app"
+			name="Microsoft Community"
+			update="-"
+			refer="2023-08-13">
+			https://techcommunity.microsoft.com/t5/windows-insider-program/phone-link-says-i-already-have-the-phone-set-up-with-another-app/m-p/3749827
+	</url><br>
+	こちらのサイトで，方法を確認した．<br>
+	まず，ローカルグループポリシー<br>
+	(ない場合は次節「Windows11 Homeでグループポリシー編集を有効にする」参照)<br>
+	を開き，<br>
+	「Computer Configuration」<br>
+	「Administrative Templates」<br>
+	「Windows Components」<br>
+	「App Privacy」<br>
+	の<br>
+	「Let Windows apps make phone calls」<br>
+	を有効にする．<br>
+	次に，レジストリエディタで<br>
+	「Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\」<br>
+	に移動し，<br>
+	「AppPrivacy」キーを探す．<br>
+	多分ないと思われる．<br>
+	ない場合作成し，<br>
+	そこで値「LetAppsAccessPhone」に「1」を入れる．<br>
+	この操作には以下のリンクも参考にした．<br>
+	<url type="WebPage"
+			author="-"
+			title="Windows アプリが電話をかけることを許可する"
+			name="Group Policy Home"
+			update="-"
+			refer="2023-08-13">
+			https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.AppPrivacy::LetAppsAccessPhone&Language=ja-jp
+	</url><br>
+	これで完了．特に再起動せずに動いた．<br>
+</p>
+<fig src="_img/2023-08-13_phoneLink_noPhone.png"
+	alt="レジストリエディタで「AppPrivacy」と値「LetAppsAccessPhone」の追加"
+	width="80%">
+</fig>
+<!--S--><h4 tag="WinOS">Windows11 Homeでグループポリシー編集を有効にする</h4>
+<p>
+	Windows11 Homeでグループポリシーが使える!<br>
+	<url type="WebPage"
+			author="育児SEパスコー (id:pastel_soft) "
+			title="Windows11 homeでグループポリシーエディタを使う方法"
+			name="パスコーソフトウェア"
+			update="2022-01-23"
+			refer="2023-08-13">
+			https://www.pastel-software.work/entry/windows11_home_gpedit_howtouse
+	</url><br>
+	以下バッチファイルを作成し，管理者権限で実行するだけ．<br>
+	<cmd>
+@echo off
 
+pushd "%~dp0"
+
+
+
+dir /b %SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientExtensions-Package~3*.mum >List.txt
+
+dir /b %SystemRoot%\servicing\Packages\Microsoft-Windows-GroupPolicy-ClientTools-Package~3*.mum >>List.txt
+
+
+
+for /f %%i in ('findstr /i . List.txt 2^>nul') do dism /online /norestart /add-package:"%SystemRoot%\servicing\Packages\%%i"
+
+pause
+	</cmd>
+</p>
+<!--S--><h4 tag="Microsoft">Microsoft Rewards引き換えができない</h4>
+<p>
+	引き換えをしようとすると，<br>
+</p>
+<fig src="_img/2023-08-13_rewards_reqPhoneNum.png"
+	alt="電話の確認"
+	width="80%">
+</fig>
+<p>
+	と出てくる．<br>
+	しかし，電話番号を追加しようとしても<br>
+	コードがSMSで送られてこない．<br>
+	(身元証明のための電話登録はできた．)<br>
+	<br>
+	Communityでも同様の人がいた．<br>
+	<url type="WebPage"
+			author="-"
+			title="アカウントエイリアスに電話番号を追加できない(SMSにメッセージが送信されない)"
+			name="Microsoft Community"
+			update="-"
+			refer="2023-08-13">
+			https://answers.microsoft.com/ja-jp/microsoftedge/forum/all/アカウント/267cc4e1-7041-4081-94ae-4b6106350110
+	</url><br>
+	個人の問題でなく，システムの問題ということ．<br>
+	気長に待つしかない．<br>
+</p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>08月15日(火)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>打鍵音のみでパスワード解読ができることが判明(サイドチャネル攻撃)</li>
+	<li>AIの「ドリフト」とは、大規模言語モデル（LLM）が想定外の動作をし，元のパラメーターから逸脱すること</li>
+	<li>
+		昭和20年8月14日，<rubi>葛根廟(かっこんびょう)</rubi>事件<br>
+		ソ連による日本避難民虐殺，高齢化のため今年，最後の慰霊祭が行われた．
+	</li>
+</ul>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>08月19日(土)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>エッジAIによる防犯システムの普及</li>
+	<li>海底ケーブルに盗聴・切断リスク，製造工程でのトラップ</li>
+	<li>ウクライナ，徴兵逃れが増加．</li>
+	<li>
+		雷電：携行弾数が少なく，航続距離も短かった．<br>
+		B-29に対して，止めを刺せぬまま帰還した．
+	</li>
+	<li>荀子，「流言は智者に止まる。」</li>
+	<li>孔子，「力足らざる者は中道にして廃す。今汝は画れり。」</li>
+	<li>
+		嫌だと思うなら、立ち向かえ、アプローチを変えてみてもいい。<br>
+		ただし、こだわりすぎない。
+	</li>
+</ul>
+<!--S--><h4 tag="myDiary">今日の気付き・思うこと</h4>
+<p>
+	考えの矛盾によって思考を前進させる(弁証法)<br>
+	対話は偉大である．<br>
+	<br>
+	ペアプログラミングが有効手であることも納得である．<br>
+	<br>
+	心の余裕をもって，その人が何を言いたいのか，<br>
+	自分なりに解釈したものを発言して訊き返すプロセスが重要である．<br>
+</p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>09月06日(水)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>オスプレイの演習中の墜落事故が目立つ</li>
+	<li>パナマ運河の水不足で貨物船の渋滞発生</li>
+	<li>財務省，防衛費のためNTT株売却???</li>
+	<li>
+		ChromeOSでWindowsアプリが使用可能に<br>
+		「ChromeOS Virtual App Delivery with Cameyo」
+	</li>
+	<li>
+		オンプレミス：システム/インフラ(サーバ，ネットワーク機器，SW)を<br>
+		自社で保有し運用する形態のこと
+	</li>
+	<li>
+		AIシステムは，人間の倫理などの価値に沿う設計を行わなければならない．<br>
+		また，設計の透明性と責任を確保しなければならない．
+	</li>
+</ul>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>09月11日(月)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>風力発電機はレーダーの死角になり得る</li>
+</ul>
+<!--S--><h4 tag="myDiary">今日の気付き・思うこと</h4>
+<p>
+	考えの矛盾によって思考を前進させる(弁証法)<br>
+	対話は偉大である．<br>
+	<br>
+	ペアプログラミングが有効手であることも納得である．<br>
+	<br>
+	心の余裕をもって，その人が何を言いたいのか，<br>
+	自分なりに解釈したものを発言して訊き返すプロセスが重要である．<br>
+</p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>09月11日(月)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>Linux版タスクマネージャ「Mission Center」(Flatpakパッケージ)</li>
+	<li>Microsoft Azureに脆弱性，パッチも効かず，長期据え置きのまま</li>
+</ul>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>09月19日(火)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>(個人の感想)手書きホワイトボードは会議や整理に最適，対しデバイスは永遠に勝てない</li>
+	<li>Platform Engineering：特に，開発者の生産性を高める考え方，自動化したインフラを運用する</li>
+	<li>AIの規制での理由，<br>
+			データ漏洩<br>
+			データ盗用<br>
+			悪用と著作権侵害<br>
+			誤情報拡散
+	</li>
+	<li>データ侵害コストが過去3年間で15%増，日本IBM</li>
+	<li>ソフトウェアでも値上げが</li>
+	<li>Node-RED：IBMが開発したローコード，ビジュアルプログラミング用開発ツール</li>
+	<li>STUN：リアルタイムIP通信アプリケーション用のプロトコル，軽量なクライアントサーバ型</li>
+	<li>経路依存性：過去の在り方に囚われること &gt; DXが思うように進まない</li>
+	<li>中国，相次いで日本のEEZ内に海上ブイ設置</li>
+<!--S--><h4 tag="myDiary">今日の気付き・思うこと</h4>
+<!-- ss --><h5 tag="History">露の諜報活動</h5>
+<p>
+	露の諜報活動が巧みなのは既に知れ渡っているはずだ．<br>
+	歴史，ソ連との関係で，その反省をしているのか．<br>
+	全体と各方面での視点を持つのが重要．<br>
+</p>
+<!--S--><h4 tag="Network">新旧STUNについて</h4>
+<p>
+	RFC3489 STUN(Simple Traversal of UDP through NATs)： 非推奨<br>
+	RFC8489 STUN( Session Traversal Utilities for NAT)： 見直し後のSTUN<br>
+</p>
+<!--S--><h4 tag="DataBase">DBでの用語：ロール...</h4>
+<p>
+	ロールバック(後退復帰)とは，トランザクションの途中で失敗したときに行う．<br>
+	ロールフォワード(前進復帰)とは，DBが物理的に破損した場合などに行う．
+	前者は処理を取り消すだけだが，<br>
+	後者はバックアップをもとに，「チェックポイント」まで復元し，<br>
+	処理を再現して復旧させる．
+</p>
+<!--S--><h4 tag="ElectronicCircuit">高位合成とは</h4>
+<p>
+	<q>
+		要するに「アルゴリズム的な記述をしたらそれが実現される」ということで、<br>
+		ソフトウェアの開発者がいつもやってるようにプログラムを書いたら<br>
+		言語処理系がそれを実行できるようにしてくれるということのようです。
+	</q>
+	<url type="WebPage"
+			author="Qiita@nekoaddict(Yusuke Tabata)"
+			title="論理回路の高位合成について"
+			name="Qiita"
+			update="2019-09-05"
+			refer="2023-09-19">
+			https://qiita.com/toRisouP/items/98cc4966d392b7f21c30
+	</url><br>
+</p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>09月xx日(x)，以下執筆途中</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li></li>
+	<li></li>
+</ul>
 <!--S--><h4 tag="Programming">ラムダ式まとめ</h4>
 <p>
+	<url type="WebPage"
+			author="川俣 晶(株式会社ピーデー)"
+			title="C#ラムダ式 基礎文法最速マスター(.NET『虎の巻』)"
+			name="atmarkit"
+			update="2008-04-04"
+			refer="2023-08-21">
+			https://atmarkit.itmedia.co.jp/fdotnet/csharp30/csharp30_01/csharp30_01_01.html
+	</url><br>
 	<url type="WebPage"
 			author="一色 政彦(デジタルアドバンテージ)"
 			title="C#ラムダ式 基礎文法最速マスター(.NET『虎の巻』)"
 			name="atmarkit"
 			update="2010-03-09"
-			refer="2023-08-10">
+			refer="2023-08-21">
 			https://atmarkit.itmedia.co.jp/fdotnet/rapidmaster/rapidmaster_01/rapidmaster_01.html
 	</url><br>
-	サイトのチートシートを合わせて掲載しておく．
+	サイトのチートシートを合わせて掲載しておく．(上記2つの内下のリンクに付録されている．)
 </p>
 <fig src="_img/2023-08-11_lambda_cheat-sheet.png"
 	alt="ラムダ式のチートシート"
@@ -10213,7 +10553,22 @@ notify_line:
 <p>
 
 </p>
-
+<!-- ss --><h5 tag="Programming">プログラミングあれこれ</h5>
+<ul class="p">
+	<li>動的⇔タイプセーフ=型が厳格</li>
+	<li>
+		<q>
+			世の中には語りによって補強しなければ優秀さを説得できない言語と、<br>
+			コードを書くことを経由しなければ優秀さを納得できない言語がある
+		</q>
+	</li>
+	<li>
+		<q>
+			問題は、あいまいさがなく、より短い文字数で同じ意図を記述するために、<br>
+			まったく新しい構文が導入され、それを覚えねばならないことである。
+		</q>
+	</li>
+</ul>
 
 <!--S--><h4 tag="Programming">asyncとsync</h4>
 <p>
@@ -10242,20 +10597,11 @@ notify_line:
 	</url><br>
 </p>
 
-
-
-
-
-
-
-
-
-
-<!--S--><h4 tag="DataBase"></h4>
-
 <!--S--><h4 tag="DataBase">DB正規型</h4>
 
 <!--S--><h4 tag="SW">powertoys</h4>
+
+<!--S--><h4 tag="SW">Power Automate</h4>
 
 
 

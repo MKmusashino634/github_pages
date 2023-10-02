@@ -10906,7 +10906,9 @@ pause
 <!--S--><h4 tag="myDiary Microsoft">Microsoft IME変換</h4>
 <p>
 	「じゅんい」で変換すると，「じゅんに」の結果が出てくる．<br>
-	「Ｎ」の過不足を修正 (ローマ字入力時)の設定らしい．
+	これは仕様で，<br>
+	Microsoft IMEの「N」の過不足を修正 (ローマ字入力時)<br>
+	の設定らしい．
 </p>
 <!--S--><h4 tag="Microsoft">「Microsoft Rewards引き換えができない」問題解決</h4>
 <p>
@@ -10923,7 +10925,118 @@ pause
 <br>
 <br>
 <!--日付，h3-->
-<h3>09月xx日()</h3>
+<h3>10月02日(月)</h3>
+<!--S--><h4 tag="myLocus">最近学習したこと</h4>
+<ul class="p">
+	<li>
+		情報セキュリティ：以下3要素を維持すること<br>
+		「機密性 (Confidentiality)」~不正アクセス<br>
+		「完全性 (Integrity)」~破壊・改竄<br>
+		「可用性 (Availability)」~システム障害
+	</li>
+	<li>熟練したIT人材の不足</li>
+	<li>Qlik Sense: QlikTech, BI(Business inteligence)ツール, セルフ・サービス型製品</li>
+	<li>三菱自動車の中国撤退により株価急騰</li>
+	<li>経済格差により，欧州への難民・密航者は後を絶たない</li>
+	<li>
+		中国外資による土地買収，防衛関係施設周辺も含まれる．<br>
+		また，今や全貌把握困難(現行制度不備)
+	</li>
+</ul>
+<!--S--><h4 tag="myDiary">思うこと</h4>
+<ul class="p">
+	<li>
+		法・歴史・言語学者は資料を読み，人に訊く<br>
+		科学の学者は自然と対峙し理論の究明，制御を行う．
+	</li>
+</ul>
+<!-- ss --><h5>臓器提供遺族の葛藤</h5>
+<p>
+	臓器提供者配偶者，「いくらもらったの」と言われる<br>
+	そんなことがあっていいのか．<br>
+	遺族が不安や負担を感じるのはこれも一因．<br>
+	---<br>
+	私が臓器提供するなら「金はもらうな」と遺す．<br>
+	もしそれで他の人が助かるのなら，それに越したことはない．<br>
+	人の人たる所以は「意志」「意思」があることだ．<br>
+	<q>
+		L'homme n'est qu'un roseau,<br>
+		le plus faible de la nature;<br>
+		mais c'est un roseau pensant
+	</q><br>
+	Blaise Pascal, Pensées<br>
+</p>
+<!--S--><h4 tag="Security">Emotetとは</h4>
+<p>
+	Emotet(エモテット)とは，2014年に初めて発見されたマルウェアである．<br>
+	初期はオンラインバンキングの認証情報を盗み不正送金を行うものだったが，<br>
+	現在は種々のマルウェアをダウンロードする形態になっている．<br>
+	<br>
+	被害としては，
+</p>
+<ul class="p">
+	<li>情報漏洩</li>
+	<li>ランサムウェア感染</li>
+	<li>社内侵入と感染</li>
+	<li>社外への踏み台</li>
+</ul>
+<p>
+	である．<br>
+	感染経路としては，<br>
+	攻撃メール(ファイルを開ける/URLに飛ぶ)が主流である．<br>
+	<br>
+	Emotetの検出や対策には，<br>
+	JPCERTCCが公表している「
+	<a href="htmlTest/newHTML_layout.html"  target="_blank">
+		EmoCheck
+	</a>
+	」をダウンロードし，batファイルを起動する．<br>
+	出力txtに何も記述がなければ感染していない．<br>
+	一方，何かかかれていれば要注意である．<br>
+	<br>
+	参照：<br>
+	<url type="WebPage"
+			author="Microfsoft"
+			title="Emotet とは? 脅威の内容や対策方法を解説"
+			name="Microsoft Community"
+			update="2022-08-26"
+			refer="2023-10-02">
+			https://www.microsoft.com/ja-jp/biz/smb/column-emotet.aspx
+	</url><br>
+</p>
+<!--S--><h4 tag="myDiary">「utteranc.es」でGHPにコメント欄をつける</h4>
+<p>
+	まず，
+	<a href="https://github.com/apps/utterances"  target="_blank">
+		utterances
+	</a><br>
+	にアクセスし，リポジトリにアプリを適用する．<br>
+	次に，コメント欄を入れたい部分に<br>
+	<cmd>
+		<script src="https://utteranc.es/client.js"
+			repo="MKmusashino634/github_pages"
+			issue-term="pathname"
+			theme="github-light"
+			crossorigin="anonymous"
+			async>
+		</script>
+	</cmd>
+	をHTMLに挿入する．詳細はアプリの説明を参照．<br>
+	<br>
+	コメントするにはGitHubアカウントが必要である．
+</p>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3>10月xx日()</h3>
 <!--S--><h4 tag="myLocus">最近学習したこと</h4>
 <ul class="p">
 	<li></li>
@@ -11012,15 +11125,7 @@ pause
 <!-- ss --><h5 tag="HTML CSS">em,rem,px,%まとめ</h5>
 
 
-<!--S--><h4 tag="myDiary">「utteranc.es」でGHPにコメント欄をつける</h4>
-<p>
-	まず，
-	<a href="https://github.com/apps/utterances"  target="_blank">
-		utterances
-	</a><br>
-	にアクセスし，リポジトリにアプリを適用する．<br>
-	もう少し使ってみる．
-</p>
+
 
 
 

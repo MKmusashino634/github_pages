@@ -51,9 +51,15 @@
 	<class>Strategy</class>
 	<class>IT</class>
 <!-- World -->
+	<class>SocialNorms</class>
+
 	<class>NationalLaws</class>
 	<class>NationalSystem</class>
 
+	<class>InterationalLaws</class>
+	<class>InterationalSystem</class>
+
+	<class>Defence</class>
 	<class>JGSDF</class>
 	<class>JMSDF</class>
 	<class>JASDF</class>

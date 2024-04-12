@@ -93,4 +93,7 @@
 	<class>Google</class>
 	<class>Amazon</class>
 	<class>GitHub</class>
+<!-- Work/Role -->
+	<class>Programmer</class>
+	<class>SE</class>
 </tag>

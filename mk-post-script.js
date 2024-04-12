@@ -249,6 +249,11 @@ document.addEventListener('DOMContentLoaded', () => {
 					+ `Web name &nbsp; : &emsp;` + $(this).attr('name') + `<br>`
 					+ `update &emsp;&emsp; : &emsp;` + $(this).attr('update') + `<br>`
 					+ `refer &emsp;&emsp;&emsp; : &emsp;` + $(this).attr('refer') + `<br>`;
+		} else if($(this).attr('type')=='WebNews') {
+			temp =  `title &emsp;&emsp;&emsp;&nbsp;&nbsp; : &emsp;` + $(this).attr('title') + `<br>`
+					+ `Web name &nbsp; : &emsp;` + $(this).attr('name') + `<br>`
+					+ `update &emsp;&emsp; : &emsp;` + $(this).attr('update') + `<br>`
+					+ `refer &emsp;&emsp;&emsp; : &emsp;` + $(this).attr('refer') + `<br>`;
 		}
 
 		$(this).html(

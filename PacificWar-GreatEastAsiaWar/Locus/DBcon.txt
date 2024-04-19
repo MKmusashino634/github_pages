@@ -1,0 +1,65 @@
+military personnel
+	name
+	born
+	died
+	buried
+	allegiance
+	service/branch
+	service duration
+	rank
+	held
+	battle
+	awards
+
+ship
+	class
+		nation
+		type
+		class
+		planned
+		completed
+		previous class
+		next class
+	history
+		name
+		namesake
+		identifying number
+		builder
+		designed date
+		laid down date
+		launched date
+		(stricken)
+		fate
+	details
+		displacement(standard)[t]
+		displacement(normal)[t]
+		length[m]
+		beam[m]
+		draught[m]
+		draftline[m]
+		crew
+		engine
+		fuel
+		power
+		propulsion
+		speed
+		range
+		weapon
+		boat
+		airplane
+		radar
+		sonar
+		others
+
+each history
+
+battle
+	belligerents-alpha
+	belligerents-bravo
+	Commanders and leaders-alpha
+	Commanders and leaders-bravo
+
+
+
+
+

@@ -51,6 +51,11 @@ ship
 		sonar
 		others
 
+ship weapon
+	WDH
+
+
+
 each history
 
 battle

@@ -44,10 +44,6 @@
 
 	<class>Programming</class>
 
-	<class>Mathematics</class>
-	<class>Japanese</class>
-	<class>History</class>
-
 	<class>Learning</class>
 	<class>Strategy</class>
 	<class>IT</class>
@@ -67,7 +63,10 @@
 	<class>JMSDF</class>
 	<class>JASDF</class>
 
-
+<!--subjects -->
+	<class>Mathematics</class>
+	<class>Japanese</class>
+	<class>History</class>
 <!-- Langage -->
 	<class>C</class>
 	<class>C++</class>

@@ -180,6 +180,86 @@ battle
 	Commanders and leaders-alpha
 	Commanders and leaders-bravo
 
+ship battle
+	ship id
+	battle id
+	captain id
+	[DATETIME] time
+	locus
+	event memo
+
+fleet battle
+	fleet id
+	battle id
+	time
+	locus
+	event memo
+
+captain
+
+WAREKI:programing
+
+問題：艦隊の表現。
+
+==================
+>	option
+class
+http://daimyoshibo.la.coocan.jp/mil/usshipcode.html
+https://ja.wikipedia.org/wiki/アメリカ合衆国の船体分類記号
+	Aircraft carrier
+		CV	:	航空母艦
+		CVL:	軽空母、小型空母
+	Battleship
+		BB	:	戦艦
+		BC	:	巡洋戦艦
+	Cruiser
+		CH	:	重巡洋艦、一等巡洋艦
+		CL	:	軽巡洋艦、二等巡洋艦
+		CA	:	装甲巡洋艦
+		CP	:	防護巡洋艦
+	Destroyer
+		DD	:	驅逐艦
+		DE	:	護衛驅逐艦
+	Submarine
+		SC	:	巡洋型潜水艦
+		SF	:	艦隊型潜水艦
+	Frigate, Patrol, Corvette...
+		FF	:	フリゲート
+		PC	:	コルヴェット
+		TB	:	水雷艇
+		GB	:	砲艦、通報艦(専ら河川で運用)
+		PB	:	哨戒艇(旧式駆逐艦。船団護衛艦や高速揚陸艦としての性格)
+		KB	:	海防艦(武装・装甲を重視し、速度・航洋性を犠牲にした艦)
+		KS	:	驅潜艇
+	Auxiliary ship
+		Landing Ship
+			LST	:	戦車揚陸艦
+			LPD	:	ドック式揚陸艦
+			(LPH:	強襲揚陸艦)
+			(LHA:	汎用揚陸艦)
+			(LHD:	多用途揚陸艦)
+		Mine Sweeper
+			MS	:	掃海艦
+			MSB	:	掃海艇
+		Layer ship
+			ML	:	機雷敷設艦
+			MLB	:	機雷敷設艇
+			ARC	:	電纜敷設艦
+		Supply ship
+			AC	:	給炭艦
+			AO	:	給油艦
+			AE	:	給兵艦、弾薬輸送艦
+			AK	:	(Cargo)貨物輸送艦
+			AP	:	兵員輸送艦
+		Maintainance ship
+			AH	:	病院船
+			AR	:	工作艦
+		Mother ship
+			AV	:	水上機母艦
+			AD	:	駆逐艦母艦、水雷母艦
+			AM	:	掃海母艦(MST)
+			AS	:	潜水母艦
+
 
 
 

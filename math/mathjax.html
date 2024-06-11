@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({TeX:{equationNumbers:{autoNumber:"AMS"}}});
+		</script>
+		<script type="text/javascript" async
+			src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML,/www_func/MathJax/MyConfig.js">
+		</script>
+		<script id="MathJax-script" async src="/mathjax/tex-chtml.js"></script>
+		<script>
+			MathJax.Hub.Register.StartupHook("TeX Jax Ready",function () {
+				var TEX = MathJax.InputJax.TeX;
+
+				TEX.Macro("unit","{\\,[\\mathrm{#1}]\\,}", 1);
+				TEX.Macro("diff","{\\mathrm{d}}");
+				TEX.Macro("vm","{\\boldsymbol{#1}}", 1);
+				TEX.Macro("grad","{\\nabla #1}", 1);
+				TEX.Macro("div","{\\nabla\\cdot #1}", 1);
+				TEX.Macro("rot","{\\nabla\\times #1}", 1);
+				TEX.Macro("pdiffA","{\\frac{\\partial #1}{\\partial #2}}", 2);
+				TEX.Macro("pdiffB","{\\frac{\\partial^{#1} #2}{\\partial #3^{#1}}}", 3);
+				TEX.Macro("ddiffA","{\\frac{\\diff #1}{\\diff #2}}", 2);
+				TEX.Macro("ddiffB","{\\frac{\\diff^{#1} #2}{\\diff #3^{#1}}}", 3);
+			});
+			//使えない
+		</script>
+	</head>
+	<body>
+		<h2>Mathjaxのサンプル</h2>
+		<url type="WebNews"
+			author="山本昌志"
+			title="WEB数式 MathJax"
+			name="Yamamoto's Laboratory"
+			update="2017-05-20"
+			refer="2024-06-06">
+			http://www.yamamo10.jp/yamamoto/internet/WEB/MathJax/index.php
+		</url><br>
+		<hr>
+		<hr>
+		<hr>
+		<p>フーリエ変換は次のように定義されます．</p>
+		\begin{align}
+		F(\omega) = \cfrac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty}f(t)e^{i\omega t}dt
+		\end{align}
+		<hr>
+		<p>\eqref{sin}は正弦関数，\eqref{cos}は余弦関数の定義です．</p>
+		\begin{align}
+		\sin x = x-\frac{x^3}{3!}+\frac{x^5}{5!}+\cdots \label{sin} \\
+		\cos x = 1-\frac{x^2}{2!}+\frac{x^4}{4!}+\cdots \label{cos}
+		\end{align}
+		<hr>
+		有名なオイラーの公式は，\(e^{i\theta}=\cos\theta+i\sin\theta\) です．
+		<hr>
+		二階の反対称テンソル
+		\begin{align}
+		f_{\mu\lambda}=
+		\begin{bmatrix}
+			0    &  cB_z & -cB_y & -iE_x \\
+			-cB_z &  0    &  cB_x & -iE_y \\
+			cB_y & -cB_x &  0    & -iE_z \\
+			iE_x &  iE_y &  iE_z &  0
+		\end{bmatrix}
+		\end{align}
+		になる．
+		<hr>
+		ガウスの発散定理は，
+		\begin{align}
+			\int_V \nabla\cdot AdV=\int_S A\cdot n dS
+			\tag{1}
+			\label{eq:gauss}
+		\end{align}
+		です．式\eqref{eq:gauss}は，微分の体積分はものの関数の面積分になる，と言っています．
+		<hr>
+		式\eqref{eq:Cauchy-Riemann}はコーシー・リーマンの関係式です．
+		\begin{align}
+			&\frac{\partial u}{\partial x}=\frac{\partial v}{\partial y}&
+			&\frac{\partial u}{\partial y}=-\frac{\partial v}{\partial x}&
+		\label{eq:Cauchy-Riemann}
+		\end{align}
+		そして，式\eqref{eq:Cauchy-int}はコーシーの積分公式です．
+		\begin{align}
+			\oint_C \frac{f(z)}{z-z_0}=2\pi i f(z_0)
+			\label{eq:Cauchy-int}
+		\end{align}
+		<hr>
+		マクスウェルの方程式は次の4組の微分方程式，
+		\begin{align*}
+			&\div{\vm{D}}=\rho\\
+			&\rot{\vm{E}}=-\pdiffA{\vm{B}}{t}\\
+			&\div{\vm{B}}=0\\
+			&\rot{\vm{H}}=j+\pdiffA{\vm{D}}{t}
+		\end{align*}
+		のことです．
+		<hr>
+
+
+		<!--JavaScriptの読み込み，bodyの一番下段-->
+		<script type="text/javascript" src="mk-post-script.js"></script>
+	</body>
+</html>

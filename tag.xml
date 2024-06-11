@@ -2,7 +2,7 @@
 
 <tags>
 	<!-- //////// FIELD: myBlog //////// -->
-	<field code="1" name="myBlog">
+	<field code="1" name="mkBlog">
 		<!-- my blog -->
 		<cat code="0" name="myBlog">
 			<tag>myLocus</tag><!-- Learning -->
@@ -13,7 +13,7 @@
 			<tag>itsMyLife</tag>
 		</cat>
 		<!-- my project -->
-		<cat code="0" name="myProject">
+		<cat code="0" name="mkProject">
 			<tag>mkClock</tag>
 			<tag>mkShiftManager</tag>
 			<tag>mkNetworkManager</tag>
@@ -25,7 +25,7 @@
 
 	<!-- //////// FIELD: Society //////// -->
 	<field code="2" name="Society">
-		<!--  -->
+		<!-- Law -->
 		<cat code="0" name="Law">
 			<tag>NationalLaws</tag>
 			<tag>NationalSystem</tag>

@@ -2,7 +2,6 @@ military personnel
 	name
 	born
 	died
-	buried
 	allegiance
 	service/branch
 	service duration

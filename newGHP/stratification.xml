@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<stratification>
+	<folder name="resources">
+		<folder name="flag">
+			<file>ensign_of_Japan.svg</file>
+			<file>ensign_of_the_United_States.svg</file>
+			<file>ensign_of_the_United_Kingdom.svg</file>
+			<file>ensign_of_Taiwan.svg</file>
+			<file>naval_ensign_of_Japan.svg</file>
+			<file>...</file>
+		</folder>
+		<folder name="icon">
+			<file>mayaBridge.ico</file>
+			<file>...</file>
+		</folder>
+		<folder name="img">
+			<file>DDG-maya.jpg</file>
+			<file>mtFuji1.jpg</file>
+			<file>...</file>
+		</folder>
+		<folder name="ref">
+			<file>refer.pdf</file>
+			<file>...</file>
+		</folder>
+		<folder name="symbol">
+			<file>by-large.webp</file>
+			<file>nc-jp-large.webp</file>
+			<file>...</file>
+		</folder>
+	</folder>
+	<folder name="myDiary">
+		<folder name="2021">
+			<folder name="img">
+				<file>2021-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+		</folder>
+		<folder name="2022">
+			<folder name="img">
+				<file>2022-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+		</folder>
+		<folder name="2023">
+			<folder name="img">
+				<file>2023-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+		</folder>
+		<folder name="2024">
+			<folder name="img">
+				<file>2024-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+		</folder>
+	</folder>
+	<folder name="SoulRequiem(Rescue)Project">
+		<folder name="Tips">
+			<folder name="img">
+				<file>2021-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+			<file>internationalLow.html</file>
+			<file>warship.html</file>
+			<file>IJN.html</file>
+		</folder>
+		<folder name="march">
+			<folder name="img">
+				<file>2022-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+			<file>HoheiNoHonryou.html</file>
+			<file>UmiYukaba.html</file>
+			<file>...</file>
+		</folder>
+		<folder name="PacificWar-GreatEastAsiaWar">
+			<folder name="img">
+				<file>2023-01-10_capture.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file><!-- chronology + animation -->
+			<file>PW-GEAW.sqlite</file>
+		</folder>
+		<folder name="MyProject">
+			<folder name="mkClock">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<folder name="mkShiftManager">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<folder name="mkNetworkManager">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<folder name="mkToDoScheduler">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<folder name="mkMemorizingApp">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<folder name="mkDisplayiPad">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<folder name="BattaleShipCraft2">
+				<folder name="img">
+					<file>2024-01-10_capture.png</file>
+					<file>...</file>
+				</folder>
+				<file>index.html</file>
+			</folder>
+			<file>index.html</file>
+		</folder>
+	</folder>
+	<folder name="NPNproject">
+		<folder name="WoWS">
+			<folder name="img">
+				<file>NPN_LOGO.png</file>
+				<file>...</file>
+			</folder>
+			<file>index.html</file>
+		</folder>
+		<file>index.html</file>
+	</folder>
+	<folder name="TestPage">
+		<folder name="math">
+			<file>index.html</file>
+		</folder>
+		<folder name="model">
+			<file>index.html</file>
+		</folder>
+		<file>index.html</file>
+	</folder>
+	<file>index.html</file>
+	<file>stylePC.css</file>
+	<file>stylePHONE.css</file>
+	<file>postScript.js</file>
+	<file>preScript.js</file>
+</stratification>
+
+<!--
+	DB
+		comment.sqlite(?)
+		PW-GEAW.sqlite(?)
+
+	top index.html menu
+		[each top folder]
+		archive(search with date and jump to date)
+		category
+
+	other memo
+		powered by Flask, python
+-->
+
+
+

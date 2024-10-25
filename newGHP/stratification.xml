@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+	規則
+		imgは各フォルダごとで分ける。
+
+-->
 <stratification>
-	<folder name="resources">
+	<folder name="_resources">
 		<folder name="flag">
 			<file>ensign_of_Japan.svg</file>
 			<file>ensign_of_the_United_States.svg</file>
@@ -58,7 +63,7 @@
 			<file>index.html</file>
 		</folder>
 	</folder>
-	<folder name="SoulRequiem(Rescue)Project">
+	<folder name="SoulRequiemProject(SoulRescueProject)">
 		<folder name="Tips">
 			<folder name="img">
 				<file>2021-01-10_capture.png</file>
@@ -179,6 +184,5 @@
 	other memo
 		powered by Flask, python
 -->
-
 
 

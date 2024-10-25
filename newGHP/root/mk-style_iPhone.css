@@ -1,0 +1,357 @@
+/*
+@media screen and (max-width: 480px) {
+	p {
+		margin-left: 20px;
+		color: #000000;
+		font-style: normal;
+		font-family: Arial;
+		font-size: 80%;
+	}
+}
+p {
+	-webkit-auto-text-size-adjust : none;
+	line-height : 1.8 ;
+}
+自動アジャスト機能をオフにする
+*/
+body {
+	/* background-image: "./mtFuji.jpg"; */
+	/* background-size: cover; */
+	background-color: #88888888;
+}
+h1 {
+	margin-left: 10px;
+	color: #dd700a;
+	font-style: bold;
+	font-family: Arial;
+	font-size: 30px;
+
+	text-shadow:	3px 3px 3px #333,/* ↘ */
+					-3px 3px 3px #333,/* ↙ */
+					-3px -3px 3px #333,/* ↖ */
+					3px -3px 3px #333;/* ↗ */
+	position:absolute;
+}
+/* year */
+h2 {
+	margin-left: 15px;
+	color: #000080;
+	font-style: bold;
+	font-family: Arial;
+	font-size: 25px;
+}
+/* date */
+h3 {
+	margin-left: 10px;
+	color: #000080;
+	font-style: bold;
+	font-family: Arial;
+	font-size: 20px;
+
+	background-color: #20a77e;
+}
+/* section */
+h4 {
+	margin-left: 20px;
+	color: #1d1915;
+	font-style: bold;
+	font-family: Arial;
+	font-size: 15px;
+
+	border-bottom:solid;
+	border-color:#65767c;
+	border-width:3px;
+}
+/* subsection */
+h5 {
+	margin-left: 50px;
+	color: #695050;
+	font-style: bold, italic;
+	font-family: Arial;
+	font-size: 15px;
+
+	border-bottom:solid;
+	border-color:#695050;
+	border-width:1px;
+}
+/* subsubsection */
+h6 {
+	margin-left: 80px;
+	color: #466163;
+	font-style: bold, italic;
+	font-family: Arial;
+	font-size: 15px;
+
+	border-bottom:dotted;/*下線を点線にする*/
+	border-color:#466163;
+	border-width:1px;
+}
+/* paragraph */
+p.subtitle {
+	margin-left: 10px;
+	color: black;
+	font-style: bold;
+	font-family: Arial;
+	font-size: 10px;
+
+	text-shadow:	3px 3px 3px #ddd,/* ↘ */
+					-3px 3px 3px #ddd,/* ↙ */
+					-3px -3px 3px #ddd,/* ↖ */
+					3px -3px 3px #ddd;/* ↗ */
+	position:absolute;
+}
+p {
+	margin-left: 50px;
+	color: #000000;
+	font-style: normal;
+	font-family: "游明朝", serif;
+	font-size: 10px;
+}
+p.i {
+	margin-left: 70px;
+	color: #000000;
+	font-style: bold;
+	font-size: 10px;
+}
+p.cap {
+	text-align:  center;
+	color: #000000;
+	font-style: italic;
+	font-size: 10px;
+}
+/* div */
+div.note {
+	width: 80%;
+	background: #BBB;
+	border: #d67f38 solid 3px;
+	border-left: #d67f38 solid 12px;
+	padding: 20px;
+	font-size: 10px;
+}
+/* quote */
+q {
+	color: #000000;
+	font-family: Century;
+	font-size: 10px;
+	quotes: '“ ' ' ”';
+
+	transform: skewX(0deg);
+}
+span.i {
+	color: #000000;
+	font-family: "游明朝", "Hiragino Mincho ProN W3", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", serif;
+	font-size: 10px;
+	quotes: '' '';
+
+	transform: skewX(-25deg);
+	transform-origin: left top;
+
+	display: inline-block;
+}
+.box {
+	border: 1px solid #333333;
+	width: 80%;
+	height: 80%;
+	overflow: auto;
+}
+/* table */
+table {
+	margin-left: 10px;
+	margin-right: 10px;
+	border : 1;
+	padding : 5;
+}
+table th {
+    background-color: rgb(0, 130, 93);
+	text-align: center;
+	padding: 10px;/*上下左右10pxずつ*/
+	font-size: 10px;
+}
+table td {
+	background-color: white;
+	padding: 3px 10px;/*上下3pxで左右10px*/
+	font-size: 10px;
+}
+table.compare td {
+	background-color: white;
+	text-align: center;
+}
+/* img */
+img {
+	margin-left: 20px;
+	margin-right: 20px;
+	border-style: outset;
+}
+img#top {
+	margin-left: 0px;
+	/*margin-right: 0px;*/
+	width: 100%;
+	height: auto;
+}
+/* figure */
+figure {
+	text-align: center;
+}
+figcaption {
+	color: #000000;
+	font-style: italic;
+	font-family: serif;
+	font-size: 10px;
+}
+/* url */
+a {
+	font-style: normal;
+	font-family: serif;
+	font-size: 10px;
+
+	text-decoration: none;
+}
+a.url {
+	width: 70%;
+	word-break: keep-all;
+	overflow-wrap:break-word;
+}
+/* cmd */
+pre {
+	white-space: pre-wrap ;
+}
+
+ol {
+	padding-left: 50px;
+}
+ul.tab {
+	padding-left: 0px;
+}
+li {
+	margin-left: 0px;
+	font-size: 10px;
+	font-family: "游明朝", serif;
+}
+/* ここから参照 */
+/* https://qiita.com/RYO_nami/items/10cb1db00b200e1288ca */
+li.toc {
+    list-style: none;
+}
+/*
+h1:	title
+h2:	year
+h3:	mm/date(week)
+h4:	section
+h5:	subsection
+h6:	subsubsection
+ */
+.contents1 {
+    margin-left: 0px;
+	font-size: 25px;
+}
+.contents2 {
+    margin-left: 15px;
+	font-size: 20px;
+}
+.contents3 {
+    margin-left: 10px;
+	font-size: 15px;
+}
+.contents4 {
+    margin-left: 40px;
+	font-size: 10px;
+}
+.contents5 {
+    margin-left: 60px;
+	font-style: italic;
+	font-size: 10px;
+}
+.contents6 {
+    margin-left: 80px;
+	font-style: italic;
+	font-size: 10px;
+}
+/* ここまで */
+
+
+
+
+
+/* ここから */
+/* [https://allabout.co.jp/gm/gc/444816/] */
+#topbutton {
+	/* ▼ボタンの表示位置を画面の右下に固定 */
+	position: fixed; /* ←表示場所を固定 */
+	bottom: 6em;   /* ←下端からの距離 */
+	right: 18px;    /* ←右端からの距離 */
+	width: 7em;     /* ←横幅 */
+
+	/* ▼最初は非表示にしておく */
+	/*display: none;*/
+
+	/* ▼配色・配置・文字の装飾など */
+	background-color: #084236; /* ←背景色 */
+	opacity: 0.5;        /* ←透明度 */
+	/* border-radius: 24px;  /* ←角丸の半径 */
+	text-align: center;  /* ←文字の位置 */
+	/* font-size: 120%;     /* ←文字サイズ */
+	font-weight: bold;   /* ←文字の太さ */
+	margin: 0px;          /* ←外側の余白 */
+	padding: 10px;       /* ←内側の余白 */
+}
+#topbutton a {
+	/* ▼リンクの装飾 */
+	color: white;          /* ←文字色 */
+	text-decoration: none; /* ←下線なし */
+}
+ #topbutton a:hover {
+	/* ▼マウスが載ったときの装飾 */
+	color: yellow;              /* ←文字色 */
+	text-decoration: underline; /* ←下線あり */
+}
+ /* ここまで */
+#bottombutton {
+	/* ▼ボタンの表示位置を画面の右下に固定 */
+	position: fixed; /* ←表示場所を固定 */
+	bottom: 1em;   /* ←下端からの距離 */
+	right: 18px;    /* ←右端からの距離 */
+	width: 7em;     /* ←横幅 */
+
+	/* ▼最初は非表示にしておく */
+	/*display: none;*/
+
+	/* ▼配色・配置・文字の装飾など */
+	background-color: #084236; /* ←背景色 */
+	opacity: 0.5;        /* ←透明度 */
+	/* border-radius: 24px;  /* ←角丸の半径 */
+	text-align: center;  /* ←文字の位置 */
+	/* font-size: 120%;     /* ←文字サイズ */
+	font-weight: bold;   /* ←文字の太さ */
+	margin: 0px;          /* ←外側の余白 */
+	padding: 10px;       /* ←内側の余白 */
+}
+#bottombutton a {
+	/* ▼リンクの装飾 */
+	color: white;          /* ←文字色 */
+	text-decoration: none; /* ←下線なし */
+}
+ #bottombutton a:hover {
+	/* ▼マウスが載ったときの装飾 */
+	color: yellow;              /* ←文字色 */
+	text-decoration: underline; /* ←下線あり */
+}
+
+
+
+
+
+/* ここから */
+/* [https://staldia.com/dark-background-popup/] */
+.popup-bg-cover{
+	position: fixed;					/* ブラウザの定位置に固定 */
+	background: rgba(0, 0, 0, .5);		/* 背景色を半透明の黒色に */
+	width: 100%;						/* 要素の横幅を画面全体に */
+	height: 100%;						/* 要素の高さを画面全体に */
+	top: 0;								/* 要素の固定位置をブラウザ最上部に合わせる */
+	left: 0;							/* 要素の固定位置をブラウザ左側に合わせる */
+	z-index: 1000;						/* 要素をコンテンツより前面に（要調整） */
+
+	text-align: center;
+	font-size: 100px;
+}
+ /* ここまで */

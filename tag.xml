@@ -91,6 +91,8 @@
 		</cat>
 		<!-- Materials -->
 		<cat code="1" name="Materials">
+			<tag>SW</tag>
+			<tag>HW</tag>
 			<tag>HomeBuiltComputer</tag>
 			<tag>ElectronicCircuit</tag>
 		</cat>

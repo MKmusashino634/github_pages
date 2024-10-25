@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+
+	<!--「https://webhint.io/docs/user-guide/hints/hint-meta-viewport/」-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>NEW PAGE ABOUT mkmusashino634</title>
+
+	<!--if you use web version of run_prettify.js, use this.
+	<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?autoload=true&skin=sunburst&lang=css"
+			integrity="sha384-kzCVIKjPGX5Z3kl3N77p1HfqOB9a1qXhDxX5FhD9AEDuQKEShJBzrR0o3iKAMUWR"
+			crossorigin="anonymous">
+	</script>-->
+	<link rel="icon" href="_icon/mayaBridge.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="">
+<!--==============================================================ここから-->
+	<!-- for flexible view -->
+	<meta name="viewport" content="width=320, minimum-scale=1.0, maximum-scale=2.0" />
+	<link media="only screen and (max-device-width:480px)"
+		href="mk-style_iPhone.css" type="text/css" rel="stylesheet" />
+	<link media="screen and (min-device-width:481px)"
+		href="mk-style.css" type="text/css" rel="stylesheet" />
+	<!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        iframe {
+            width: 100%;
+            height: 500px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        #calendar {
+            width: 300px;
+            margin-bottom: 20px;
+        }
+        #buttons {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+    </style>
+<!--==============================================================ここまで-->
+</head>
+<body>
+	<h1>NEW PAGE ABOUT mkmusashino634</h1>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<hr><hr><hr>
+<!--==============================================================ここから-->
+    <!-- display calender -->
+    <div id="calendar"></div>
+
+	<!-- next/prev button -->
+	<div id="buttons">
+        <button id="prevDay">前の日へ</button>
+        <button id="nextDay">次の日へ</button>
+    </div>
+
+    <!-- display page on iframe -->
+    <iframe id="contentFrame" src="" title="表示中のファイル"></iframe>
+
+
+    <script>
+		// get today's date
+        const today = new Date();
+        // current date
+        let currentDate = today;
+		// record exist file name
+		/*document.addEventListener('DOMContentLoaded', function () {
+            const startDate = new Date('2021-01-01');
+            const endDate = today;
+            const fileArray = [];
+            //let currentDate = formatDate(startDate);
+            //loadFiles();
+        });*/
+        // Flatpickr;calender
+        flatpickr("#calendar", {
+            inline: true,  // always display
+            dateFormat: "Y-m-d",  // yyyy-mm-dd
+            minDate: "2021-01-01",  // start
+            maxDate: formatDate(today),  // latest day
+            onChange: function(selectedDates, dateStr, instance) { //movement when selected
+                currentDate = new Date(selectedDates[0]);  // record
+                loadFile(createFilePath(currentDate));
+            }
+        });
+		// format date
+		function formatDate(date) {
+			return date.toISOString().split('T')[0];  // format: yyyy-mm-dd
+		}
+		// create file path
+		function createFilePath(date) {
+			const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const dateStr = `${year}-${month}-${day}`;
+            const filePath = `./${year}/${dateStr}.html`;
+			return filePath;
+		}
+		// isExistFile?
+		async function isExistFile(filePath) {
+			try {
+				const response = await fetch(filePath, { method: 'HEAD' });
+				//return response.ok;
+				return true;
+			} catch (error) {
+				console.error(`Error fetching ${filePath}:`, error);
+				return false;
+			}
+		}
+		/*
+		// create file date array
+		async function recordExistFiles() {
+			while (currentDate <= endDate) {
+				const formattedDate = formatDate(currentDate);
+				const filePath = `${rootDir}${formattedDate}.html`;
+				const fileExists = await checkFileExists(filePath);
+				if (fileExists) {
+					fileArray.push(filePath);
+				}
+				// 日付を1日進める
+				currentDate.setDate(currentDate.getDate() + 1);
+			}
+			console.log('存在するファイル:', fileArray);
+		}
+		*/
+        // load file on iflame
+        function loadFile(filepath) {
+            document.getElementById('contentFrame').src = filepath;
+        }
+        // next button
+		document.getElementById('nextDay').addEventListener('click', async function() {
+			do {
+				currentDate.setDate(currentDate.getDate() + 1);
+			} while(isExistFile(createFilePath(currentDate)))
+			loadFile(createFilePath(currentDate));
+		});
+		// prev button
+		document.getElementById('prevDay').addEventListener('click', async function() {
+			do {
+				currentDate.setDate(currentDate.getDate() - 1);
+			} while(isExistFile(createFilePath(currentDate)))
+			loadFile(createFilePath(currentDate));
+		});
+    </script>
+<!--==============================================================ここまで-->
+	<hr><hr><hr>
+	<script type="text/javascript" src="./mk-post-script.js"></script>
+</body>
+</html>

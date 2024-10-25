@@ -29,6 +29,7 @@ ship
 		launched date
 		(stricken)
 		fate
+		dicommission
 	details
 		displacement(standard)[t]
 		displacement(normal)[t]
@@ -222,6 +223,7 @@ https://ja.wikipedia.org/wiki/アメリカ合衆国の船体分類記号
 	Submarine
 		SC	:	巡洋型潜水艦
 		SF	:	艦隊型潜水艦
+		sm	:	特殊潜航艇(Midget submarine)
 	Frigate, Patrol, Corvette...
 		FF	:	フリゲート
 		PC	:	コルヴェット
@@ -262,4 +264,5 @@ https://ja.wikipedia.org/wiki/アメリカ合衆国の船体分類記号
 
 
 
-
+作戦司令のまとめが必要。
+作戦名、米軍も。

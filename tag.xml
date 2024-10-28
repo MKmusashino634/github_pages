@@ -22,7 +22,6 @@
 			<tag>BattaleShipCraft2</tag>
 		</cat>
 	</field>
-
 	<!-- //////// FIELD: Society //////// -->
 	<field code="2" name="Society">
 		<!-- Law -->
@@ -52,7 +51,6 @@
 			<tag>SE</tag>
 		</cat>
 	</field>
-
 	<!-- //////// FIELD: Liberal Arts //////// -->
 	<field code="3" name="Liberal Arts">
 		<!-- subjects -->
@@ -75,7 +73,6 @@
 			<tag>UkraineWar</tag>
 		</cat>
 	</field>
-
 	<!-- //////// FIELD: ITtech //////// -->
 	<field code="4" name="ITtech">
 		<!--subjects -->
@@ -108,7 +105,6 @@
 			<tag>ChromeOS</tag>
 		</cat>
 	</field>
-
 	<!-- //////// FIELD: Programming //////// -->
 	<field code="5" name="Programming">
 		<!-- Programing Model -->

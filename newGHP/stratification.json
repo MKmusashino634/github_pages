@@ -1,0 +1,340 @@
+{
+	"stratification": {
+	"folder": [
+		{
+		"name": "_resources",
+		"folder": [
+			{
+			"name": "flag",
+			"file": [
+				"ensign_of_Japan.svg",
+				"ensign_of_the_United_States.svg",
+				"ensign_of_the_United_Kingdom.svg",
+				"ensign_of_Taiwan.svg",
+				"naval_ensign_of_Japan.svg",
+				"..."
+			]
+			},
+			{
+			"name": "icon",
+			"file": [
+				"mayaBridge.ico",
+				"..."
+			]
+			},
+			{
+			"name": "img",
+			"file": [
+				"DDG-maya.jpg",
+				"mtFuji1.jpg",
+				"..."
+			]
+			},
+			{
+			"name": "ref",
+			"file": [
+				"refer.pdf",
+				"..."
+			]
+			},
+			{
+			"name": "symbol",
+			"file": [
+				"by-large.webp",
+				"nc-jp-large.webp",
+				"..."
+			]
+			}
+		]
+		},
+		{
+		"name": "myDiary",
+		"folder": [
+			{
+			"name": "2021",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2021-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html"
+			]
+			},
+			{
+			"name": "2022",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2022-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html"
+			]
+			},
+			{
+			"name": "2023",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2023-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html"
+			]
+			},
+			{
+			"name": "2024",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2024-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html"
+			]
+			}
+		],
+		"file": [
+			"index.html"
+		]
+		},
+		{
+		"name": "SoulRequiemProject(SoulRescueProject)",
+		"folder": [
+			{
+			"name": "Tips",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2021-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html",
+				"internationalLow.html",
+				"warship.html",
+				"IJN.html"
+			]
+			},
+			{
+			"name": "march",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2022-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html",
+				"HoheiNoHonryou.html",
+				"UmiYukaba.html",
+				"..."
+			]
+			},
+			{
+			"name": "PacificWar-GreatEastAsiaWar",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"2023-01-10_capture.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html",
+				"PW-GEAW.sqlite"
+			]
+			},
+			{
+			"name": "MyProject",
+			"folder": [
+				{
+				"name": "mkClock",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				},
+				{
+				"name": "mkShiftManager",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				},
+				{
+				"name": "mkNetworkManager",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				},
+				{
+				"name": "mkToDoScheduler",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				},
+				{
+				"name": "mkMemorizingApp",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				},
+				{
+				"name": "mkDisplayiPad",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				},
+				{
+				"name": "BattaleShipCraft2",
+				"folder": [
+					{
+					"name": "img",
+					"file": [
+						"2024-01-10_capture.png",
+						"..."
+					]
+					}
+				],
+				"file": [
+					"index.html"
+				]
+				}
+			],
+			"file": [
+				"index.html"
+			]
+			}
+		]
+		},
+		{
+		"name": "NPNproject",
+		"folder": [
+			{
+			"name": "WoWS",
+			"folder": [
+				{
+				"name": "img",
+				"file": [
+					"NPN_LOGO.png",
+					"..."
+				]
+				}
+			],
+			"file": [
+				"index.html"
+			]
+			}
+		],
+		"file": [
+			"index.html"
+		]
+		},
+		{
+		"name": "TestPage",
+		"folder": [
+			{
+			"name": "math",
+			"file": [
+				"index.html"
+			]
+			},
+			{
+			"name": "model",
+			"file": [
+				"index.html"
+			]
+			}
+		],
+		"file": [
+			"index.html"
+		]
+		}
+	],
+	"file": [
+		"index.html",
+		"stylePC.css",
+		"stylePHONE.css",
+		"postScript.js",
+		"preScript.js"
+	]
+	}
+}

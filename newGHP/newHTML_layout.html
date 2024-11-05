@@ -31,7 +31,7 @@
 
 
 
-<h1>新ページ例アウト設計</h1>
+<h1>新ページ-レイアウト設計</h1>
 <br>
 <br>
 <br>
@@ -40,7 +40,7 @@
 
 <h4>構造</h4>
 <ul>
-	<a href="./root/new_index.html">サンプルページはこちら</a><br>
+	<a href="./root/new_index.html">preサンプルページはこちら</a><br>
 	<a href="./stratification.xml">XMLはこちら</a>
 </ul>
 
@@ -64,18 +64,20 @@
 </ul>
 <h5>バックエンド</h5>
 <ul>
-	<li>GHPでなく，自作PCサーバに移行する?</li>
-	<li>JSの重い処理の代替</li>
-	<li>tex並みの打ちやすさと見やすさを</li>
-	<li>Ajax導入，何を扱う?</li>
+	<li>GHPでなく，自作PCサーバに移行する</li>
+	<li>JSの重い処理の代替=既存htmlタグの最大活用</li>
+	<li>tex並みの打ちやすさと見やすさを=mathjaxの利用</li>
+	<li>Ajax導入，何を扱う???</li>
 </ul>
-<h5>コーディングでの自作タグ</h5>
+<h5>自作タグの廃止</h5>
 <ul>
-	<li>fig</li>
-	<li>url</li>
-	<li>q(double quoteで囲む)</li>
-	<li>ref(ブロックで囲み，著者等を記入)</li>
-	<li>cmd(改善:「=""」勝手に入る/改行されない問題 +インデント問題)</li>
+	<li>fig は figure でよい</li>
+	<li>q は blockquote で良い、CSSで斜体に</li>
+</ul>
+<h5>自作タグ</h5>
+<ul>
+	<li>url:著者、タイトルなどの情報。</li>
+	<li>cmd:スクリプト表示 (改善:「=""」勝手に入る/改行されない問題 +インデント問題)</li>
 </ul>
 
 

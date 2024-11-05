@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<!--JQuery-->
+	<script
+		src="https://code.jquery.com/jquery-3.6.1.js"
+		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+		crossorigin="anonymous">
+	</script>
+	<!--my pre JS-->
+	<script type="text/javascript" src="..\mk-pre-script.js"></script>
+
+	<meta charset="UTF-8">
+	<!--<meta name="viewport" content="width=device-width">-->
+	<title>newHTML_code-structure</title>
+	<link rel="icon" href="..\_icon\z.ico">
+	<link rel="apple-touch-icon" sizes="180x180" href="">
+
+	<meta name="viewport" content="width=320; minimum-scale=1.0; maximum-scale=2.0;" />
+	<link media="only screen and (max-device-width:480px)"
+		href="..\mk-style_iPhone.css" type="text/css" rel="stylesheet" />
+	<link media="screen and (min-device-width:481px)"
+		href="..\mk-style.css" type="text/css" rel="stylesheet" />
+	<!--for IE
+	<link media="only screen and (max-device-width: 480px)"
+		href="mk-style_iPhone.css.css" type="text/css" rel="stylesheet" />-->
+</head>
+<body>
+	<div id="top"></div>
+
+
+
+
+<h1>新ページ html書き方</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!-- 基本 -->
+<div data-date="2024-11-04">
+    <header>
+        <h4>日のタイトル</h4>
+        <p>補足</p>
+    </header>
+	<article data-category="news" class="">
+		<h4>ニュース</h4>
+		<ul>
+			<li>
+				news
+			</li>
+		</ul>
+	</article>
+	<article data-category="learning" class="">
+		<h4>ちょっとした学び</h4>
+		<ul>
+			<li>
+				learning
+			</li>
+		</ul>
+	</article>
+	<article data-category="WinOS" class="">
+		<h4>記事</h4>
+		<p>
+			aaa
+		</p>>
+	</article>
+    <footer>
+        <p>この日記に関するコメントや備考</p>
+    </footer>
+</div>
+
+
+
+<!-- fig -->
+<figure>
+    <img src="image.jpg" alt="日記のイメージ">
+    <figcaption>2024年の旅行で撮影した風景</figcaption>
+</figure>
+<!-- 引用 -->
+<blockquote>
+    <p>"今日も素晴らしい一日だった。"</p>
+    <cite>― 自分自身</cite>
+</blockquote>
+<!-- 折りたたみ -->
+<details>
+    <summary>詳細を表示</summary>
+    <p>詳細な内容がここに表示されます。</p>
+</details>
+<!-- 折りたたみ -->
+<ul>
+    <li>朝の散歩</li>
+    <li>昼食に友人と食事</li>
+    <li>夜は映画鑑賞</li>
+</ul>
+<!-- サイドリンク -->
+<aside>
+    <p>関連リンク</p>
+    <ul>
+        <li><a href="link1.html">旅行ガイド</a></li>
+        <li><a href="link2.html">おすすめレストラン</a></li>
+        <li><a href="link3.html">地元の文化</a></li>
+    </ul>
+</aside>
+
+
+<article>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="bottom"></div>
+
+<p id="topbutton">
+	<a href="#top" onclick="$('html,body').animate({scrollTop:$('#top').offset().top}); return false;">▲見出しへ戻る</a>
+</p>
+
+<p id="bottombutton">
+	<a href="#bottom" onclick="$('html,body').animate({scrollTop:$('#bottom').offset().top}); return false;">▼最新日へ進む</a>
+</p>
+
+<!--JavaScriptの読み込み，bodyの一番下段-->
+<script type="text/javascript" src="..\mk-post-script.js"></script>
+
+</body>
+</html>

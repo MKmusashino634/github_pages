@@ -12735,11 +12735,70 @@ pause
 
 
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--日付，h3-->
+<h3 id="bottom">11月14日(木)</h3>
+<!--S--><h4 tag="news">ニュース</h4>
+<ul class="p">
+	<li>
+		2024-11-06, トランプ大統領就任<br>
+		45代、47代目となる。
+	</li>
+	<br>
+	<li>
+		掃海艇「うくしま」<br>
+		2024-11-10, 09:40, エンジン出火、<br>
+		2024-11-11, 00:05, 転覆、<br>
+		2024-11-11, 08:35, 沈没<br>
+		現在も1名行方不明。<br>
+		これを受け、12日以降、全艦艇のエンジン・配管を点検。
+	</li>
+</ul>
+<!--S--><h4 tag="news">ちょっとした学び</h4>
+<ul class="p">
+	<li>
+		2025-03-31付けでLINE Notifyサービス終了
+	</li>
+	<br>
+	<li>
+		ポートスキャンには、nmapを使えばいい。
+	</li>
+</ul>
+<!--S--><h4 tag="Network">ssh鍵生成の方式</h4>
+<p>
+	<url type="WebPage"
+		author="伴 拓也"
+		title="気付けばssh-keygen -t の後にrsaでなくed25519と打つことが推奨されていた"
+		name="ABC DX Tech Blog"
+		update="2023-10-05"
+		refer="2024-11-14">
+		https://tech.asahi.co.jp/posts/20231005-bbf6
+	</url><br>
+</p>
+<ul class="p">
+	<li>dsa</li>
+	<li>ecdsa</li>
+	<li>ed25519</li>
+	<li>rsa</li>
+</ul>
+<p>
+	の種類がある。<br>
+	現状、ed25519が一番無難。
+</p>
 
 
 
 
 
+
+
+
+
+<!--################# "bottom" idを移動させること #################-->
 <br>
 <br>
 <br>
@@ -12751,8 +12810,22 @@ pause
 	一からインストール方法を記し、備忘録とする。<br>
 </p>
 <!--ss--><h5>構成について</h5>
-<!--ss--><h5>teraterm</h5>
+<p>
+	あ
+</p>
+<!--ss--><h5>terminus</h5>
+<p>
+	SSHクライアントは、teratermに代わり、terminusを用いることとした。<br>
+	アカウントを登録することで、異なるデバイスでも鍵や接続設定を維持しログインできる。<br>
+	大変便利である。
+</p>
 <!--ss--><h5>nginx</h5>
+<p>
+	あ<br>
+	<cmd>sudo apt update</cmd>
+	<cmd>sudo apt upgrade</cmd>
+	<cmd>sudo apt install nginx</cmd>
+</p>
 <!--ss--><h5>Flask</h5>
 <!--ss--><h5>webdav対応</h5>
 <!--S--><h4 tag="Security Network">ネットワーク侵入検出</h4>
@@ -12766,6 +12839,7 @@ pause
 
 	</url><br>
 </p>
+<!--S--><h4 tag="">正規表現まとめ</h4>
 
 
 
@@ -12792,7 +12866,7 @@ pause
 <br>
 <br>
 <hr><hr><hr>
-<img id="bottom" src="_img/DDG-maya.jpg" alt="DDG-maya" width="95%">
+<img src="_img/DDG-maya.jpg" alt="DDG-maya" width="95%">
 <hr><hr><hr>
 <!-- utterances -->
 	<script src="https://utteranc.es/client.js"
@@ -12819,15 +12893,14 @@ pause
 <p>GitHub Pages現状改良</p>
 <ul class="p">
 	<li>文字の大きさの統一，修正</li>
-	<li>codeタグでの「=""」勝手に入る/改行されない問題</li>
+	<li>code/cmdタグでの「=""」勝手に入る/改行されない問題</li>
 	<li>refタグの作成(qタグはdouble quoteで囲む，refはブロックで囲む)</li>
 	<li>ソースコード埋め込み方法考える。</li>
 	<li>urlタグ:typeの仕様</li>
 	<li>カテゴリ分けと分別</li>
 
 	<li>XML再構成</li>
-	<li>CSS，見やすさ
-	</li>
+	<li>CSS，見やすさ</li>
 </ul>
 <!--S--><h4 tag="myToDo">修得したい項目一覧</h4>
 <p>アプリ制作</p>

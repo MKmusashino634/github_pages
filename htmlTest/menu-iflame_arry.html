@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>動的メニューとiframeページ</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .menu {
+            width: 20%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .menu a {
+            display: block;
+            color: white;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+        .menu a:hover {
+            background-color: #555;
+        }
+        .content {
+            width: 80%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <h2>メニュー</h2>
+    </div>
+    <iframe class="content" name="contentFrame" src=""></iframe>
+
+    <script>
+        // 手動でファイルリストを配列に定義
+        const files = [
+            'song1.html',
+            'song2.html',
+            'song3.html'
+        ];
+
+        // メニューを動的に生成
+        const menu = document.getElementById('menu');
+        files.forEach(file => {
+            const link = document.createElement('a');
+            link.href = `lyrics/${file}`;
+            link.target = 'contentFrame';
+            link.textContent = file.replace('.html', '');
+            menu.appendChild(link);
+        });
+    </script>
+</body>
+</html>

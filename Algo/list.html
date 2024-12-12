@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Algo</title>
+
+	<link rel="stylesheet" href="../mk-style.css">
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+<h1>Algo list</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!-- \( \everymath{\displaystyle} \) -->
+<h4>探索 - Search</h4>
+<h5>二分法(binary search)</h5>
+<h6>program</h6>
+<p>
+<cmd>
+function binary(){
+	var EPS = 1.0e-6			// error~epsilon
+	var [left, right] = [0.0, 2.0]		// range
+	while (right - left > EPS){		//left or right
+		var m = (left + right) / 2
+		var v = m * m - 2
+		if (v < 0) left = m
+		else right = m
+	}
+	return [left, right]
+}
+</cmd>
+</p>
+<h6>何回繰り返しが起こるか</h6>
+<p>
+	最初の幅を \( w_0 (= | right - left |) \) 、<br>
+	n回目の繰り返しでの幅を \( w_n \) とすると、<br>
+	\begin{eqnarray}
+		& w_n = \frac{w_0}{2^n} \lt \varepsilon \\
+		\Leftrightarrow& \log_{2}{\frac{w_0}{\varepsilon}} \lt n \\
+		\Leftrightarrow& n = \left\lceil \log_{2}{\frac{w_0}{\varepsilon}} \right\rceil
+	\end{eqnarray}
+</p>
+<h5>反復法(iterative method)</h5>
+<h6>program</h6>
+<p>
+<cmd>
+function iter(n){
+	var EPS = 1.0e-7			// error~epsilon
+	var F = (x) => (x + n) / (x + 1)	// function
+	var [x, x2] = [2.0, 0.0]		// range
+	while (Math.abs(x - x2) > EPS){		// repeat
+		x2 = x
+		x = F(x)
+	}
+	return x
+}
+</cmd>
+<h6>保証のない探索での適用</h6>
+<p>
+	\( x = F(x) \) にて、 求めたい解を \( x \) とすれば、
+	\begin{equation}
+		x_{n+1} = F(x_n), \; \; \; \lim_{n \to \infty} x_n = x
+	\end{equation}
+	となる反復を行えばいい。
+	解が存在するなら、
+	\begin{equation}
+		\left| \frac{\partial F(x)}{\partial x} \right| < 1
+	\end{equation}
+	となる。
+</p>
+<h5>連立一次方程式の解法:ヤコビ法</h5>
+<h6>program</h6>
+<p>
+	\begin{equation}
+		\begin{pmatrix}
+		1 & 2 \\
+		1 & 4
+		\end{pmatrix}
+		\begin{pmatrix}
+		x \\
+		y
+		\end{pmatrix}
+		=
+		\begin{pmatrix}
+		2 \\
+		3
+		\end{pmatrix}
+	\end{equation}
+	の例を以下に示す。
+<cmd>
+function jacobi(n){
+	var [a, b, c, d] = [1, 2, 1, 4]		// A
+	var [e, f] = [2, -3]			// b
+	var F = function (p){			// F(x)
+		var [x, y] = p
+		return [(e - b * y) / a, (f - c * x) / d]
+	}
+	var p = [0, 0]				// init x
+	for (var i = 0; i < n; i++){		// repeat
+		p = F(p)
+	}
+	return p
+}
+</cmd>
+<p>
+	\begin{eqnarray}
+		&\boldsymbol{A}\boldsymbol{x} = \boldsymbol{b} \\
+		&(
+			\boldsymbol{A} \in \mathbb{R}^{n \times m},
+			\boldsymbol{x} \in \mathbb{R}^{n},
+			\boldsymbol{b} \in \mathbb{R}^{n}
+		)
+	\end{eqnarray}
+	を解く。<br>
+	\begin{eqnarray}
+		&\boldsymbol{A} = \boldsymbol{D} + \boldsymbol{U} + \boldsymbol{L} \\
+		&(
+			\boldsymbol{D} は対角行列,
+			\boldsymbol{U} は上三角行列,
+			\boldsymbol{L} は下三角行列
+		)
+	\end{eqnarray}
+	とすれば、<br>
+	\begin{eqnarray}
+		\begin{split}
+			\boldsymbol{Ax} &= \boldsymbol{b}& \\
+			\Leftrightarrow ( \boldsymbol{D+U+Lx} ) &= \boldsymbol{b} \\
+			\Leftrightarrow \boldsymbol{Dx} &= \boldsymbol{b}-(\boldsymbol{U+L})\boldsymbol{x} \\
+			\Leftrightarrow \boldsymbol{x} &= \boldsymbol{D}^{-1}(\boldsymbol{b-(U+L)x})
+		\end{split}
+	\end{eqnarray}
+	従って、<br>
+	\begin{eqnarray}
+		\begin{split}
+			\boldsymbol{F}(\boldsymbol{x}) &= \boldsymbol{D}^{-1}(\boldsymbol{b-(U+L)x})
+		\end{split}
+	\end{eqnarray}
+	と定義し、反復 \( \boldsymbol{x}_{n+1} = \boldsymbol{F}(\boldsymbol{x}) \) を解けば求められる。<br>
+	ただし、収束には以下の条件を満たさなければならない。<br>
+	\begin{eqnarray}
+			\left| det \boldsymbol{D}^{-1}(\boldsymbol{b-(U+L)x}) \right| \lt 1
+	\end{eqnarray}
+</p>
+<h4>数値計算</h4>
+<h5>ニュートン法</h5>
+<h6>概要</h6>
+<p>
+	ニュートン法とは、<br>
+	ある近似値 \( x \) から<br>
+	それより良い近似値 \( \hat{x} \) を<br>
+	計算する方法である。<br>
+	<br>
+	\( \hat{x} = x + \varepsilon \)
+	とおく。<br>
+	\begin{eqnarray}
+		\begin{split}
+			f(\hat{x}) &= f(x+\varepsilon) = f(x) + f'(x)\varepsilon + o(\varepsilon) = 0 \\
+			\Leftrightarrow \varepsilon &= - \frac{f(x)}{f'(x)} \\
+			\Leftrightarrow \hat{x} &= x - \frac{f(x)}{f'(x)}
+		\end{split}
+	\end{eqnarray}
+	このように微分によって近似を求められる。
+</p>
+<h6>program</h6>
+<p>
+	\( \sqrt{2} \) を求める。<br>
+	則ち、 \( f(x) = x^2 - 2 \) の根を求めるということである。<br>
+</p>
+<cmd>
+function newton2(){
+	var x = 2.0
+	for (var i = 0; i < 10; i++){
+		x = (x * x + 2) / (2*x)
+		console.Log(i + " " + x)
+	}
+}
+</cmd>
+<h4>その他</h4>
+<h5>表記方法</h5>
+<h6>近似</h6>
+<p>
+	<url type="WebPage"
+			author="-"
+			title="近似"
+			name="Wikipedia"
+			update="2023-10-13"
+			refer="2024-12-09">
+			https://ja.wikipedia.org/wiki/近似
+		</url><br>
+
+	\( \doteqdot \; \risingdotseq \; \fallingdotseq \) : ほとんど等しい<br>
+	<!--\( \eqcirc \; \circeq \; \triangleq \) <br>
+	\( \bumpeq \; \Bumpeq \) <br>-->
+	\( \approxeq \) <br>
+	\( \approx \) : 近似的に等しい、同相=ホモトープ<br>
+	\( \simeq \) : 漸進的に等しい、同相=ホモトープ<br>
+	\( \sim \) : 掃除、オーダーが等しい、漸近的に比例<br>
+
+</p>
+	<script type="text/javascript" src="../mk-post-script.js"></script>
+	<script
+		src="https://code.jquery.com/jquery-3.6.1.js"
+		integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+		crossorigin="anonymous">
+	</script>
+</body>
+</html>

@@ -1,17 +1,26 @@
 /* <cmd>(コマンドラインのスタイルとpre/blockquote等のブロックレベル要素にする)認識 */
-function escapeHtml(text) {
-	return text
+document.querySelectorAll("cmd").forEach((element) => {
+	// escape origin
+	const escapedContent = element.textContent
 		.replace(/&/g, "&amp;")
 		.replace(/</g, "&lt;")
 		.replace(/>/g, "&gt;")
 		.replace(/"/g, "&quot;")
 		.replace(/'/g, "&#039;");
-}
-
-const cmdElements = document.querySelectorAll("cmd");
-cmdElements.forEach((element) => {
-	element.innerHTML = `<pre><code>`+escapeHtml(element.innerHTML)+`</code></pre>`;
-	//console.log(element.innerHTML);
+	// <pre><code>
+	const preElement = document.createElement("pre");
+	const codeElement = document.createElement("code");
+	codeElement.innerHTML = escapedContent;
+	// add style
+	//preElement.style.whiteSpace = "nowrap"; // 折り返さない
+	//preElement.style.textAlign = "center"; // 中央寄せ
+	//preElement.style.display = "block"; // 中央寄せのためのブロック表示
+	//preElement.style.margin = "0 auto"; // 水平方向の中央寄せ
+	//preElement.style.overflowX = "auto"; // 長すぎる場合スクロール対応
+	// deploy
+	preElement.appendChild(codeElement);
+	element.innerHTML = "";
+	element.appendChild(preElement);
 });
 //jQuery ver
 /*
@@ -25,6 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
 		console.log(ht);
 		$(this).html(`<pre><code>`+`</code></pre>`);
 	});
+});
+// js var
+const cmdElements = document.querySelectorAll("cmd");
+cmdElements.forEach((element) => {
+	element.innerHTML = `<pre><code>`+escapeHtml(element.innerHTML)+`</code></pre>`;
+	//console.log(element.innerHTML);
 });
 */
 

@@ -1,0 +1,2239 @@
+﻿// JavaScript Document
+// 年表グラフスクリプト [ver2017/12/17]
+
+//初期設定
+function setInit() {
+	//予約フィールド名（変更可能）
+	field_bun = "区分";		//分類項目
+	field_link = "名前";	//wikipediaとのリンク項目（不要な場合は空欄に）
+	field_st = "生年";		//グラフの始め
+	field_ed = "没年";		//グラフの終わり
+	field_link2 = "差替";	//リンク差し替え
+	field_st2 = "始年";		//期間の始め
+	field_ed2 = "終年";		//期間の終わり
+	
+	//色設定（変更可能）
+	hcolor1 = "#ffff99";	//ヘッダー背景色
+	hcolor2 = "#3333cc";	//ヘッダー文字色（年表あり）
+	hcolor3 = "#999999";	//ヘッダー文字色（年表なし）
+	tcolor1 = "#ff99cc";	//グラフ文字色
+	tcolor2 = "#555555";	//生没年文字色
+	gcolor1 = "#ffccff";	//グラフ背景色（生没期間）
+	gcolor2 = "#cc66cc";	//グラフ背景色（任意期間）
+	gcolor3 = "#ffcc33";	//グラフ背景色（選択時）
+	gcolor4 = "#ffddff";	//リンク背景色（マウス反応時）
+	nocolor = "#ffffff";	//無色
+	
+	//初期値（変更可能）
+	age_st = 0; 			//年齢表記の初値（1なら数え年）
+	ed_unknown = 0;			//没年不明の表示
+	view_age = 0;			//年表グラフ表示
+	line_number = 0;		//行番号表示
+	line_row = 0;			//列と行の同時反転
+
+	//初期値（変更可能）
+	fld_sort = true; 		//ヘッダーのフィールド名に並替リンクを表示
+	fld_unit = true;		//ヘッダーのフィールド名に単位を表示
+	fld_nowrap = true;		//フィールド内の折返禁止
+	b_move = true; 			//表位置の移動メニューを表示
+	auto_history = true; 	//棒グラフモードの場合、自動的に年表データを作成
+	b_comma = true; 		//数値にカンマを付ける（数値は自動判定）
+	p_point = 2; 			//百分率計算時の小数点以下桁数（マルチグラフモード）
+	age_ed = false;			//没年齢の表示
+	txt_age_ed = "才没";	//没年齢表示後テキスト
+	txt_ylist = "歴年表";	//歴年表用リンク
+	txt_nlist = "一覧表";	//一覧表用リンク
+	dataMark = "▶ "; 		//年表データの区切記号
+	link_wiki = "http://ja.wikipedia.org/wiki/";	//wikipedia等へのリンク
+	link_target = "wikipedia";
+	link_back = "http://www.shurey.com/"; //リンク元ページが不明の場合の戻り先
+	
+	//個別設定の変数（変更しないこと）
+	dtitle = "";			//このページのタイトル
+	dcomment = "";			//説明書き
+	db_code = "";			//区分名
+	db_file = "";			//データベースファイル
+	hs_file = "";			//年表ファイル（オプション）
+	year_st = 1;			//年表の最小値
+	year_ed = 100;			//年表の最大値
+
+	//規定値（変更しないこと）
+	bun = -1; 		//区分のフィールド番号
+	fst = -1; 		//生年のフィールド番号
+	fed = -1; 		//没年のフィールド番号
+	gst = -1; 		//始年のフィールド番号
+	ged = -1; 		//終年のフィールド番号
+	nam = -1; 		//名前のフィールド番号（field_link）
+	nam2 = -1; 		//差替のフィールド番号（field_link2）
+	sort_current = -1; //表示中の並替フィールドの番号
+	list_d = new Array(); //データベース
+	list_h = new Array(); //年表データ（入力順）
+	list_y = new Array(); //年表データ（年代順）
+	list_n = new Array(); //名前データのリンク
+	b_graph = false; 	//存命期間グラフ表示
+	b_graph2 = false; 	//任意期間グラフ表示
+	b_bar = false; 		//棒グラフ表示
+	b_bar2 = false; 	//棒グラフモード一覧あり
+	b_multi = false; 	//マルチグラフモード
+	b_his = false; 		//情報ウィンドウの表示固定
+	blank = "."; 		//空白の代替
+	liveNow = "-"; 		//存命中（任期中）のフラグ
+	repeat_zero = repeat("0",p_point); //事前に小数点以下の桁数分取得
+}
+
+//メイン処理
+function startMain() {
+	//変数変換処理
+	ed_unknown = (ed_unknown == 0);		//没年不明の表示
+	view_age = (view_age == 1);			//年表グラフ表示
+	line_number = (line_number == 1);	//行番号表示
+	year_ed++;	//終了年修正
+
+	//タイトル表示
+	if (dtitle == "") dtitle = "グラフ年表";
+	document.title = dtitle;
+	document.getElementById("title").innerHTML = dtitle;
+	//説明書き
+	document.getElementById("comment").innerHTML = dcomment;
+	//区分名
+	code = db_code.split(",");
+
+	//IE
+	br_IE = (document.all);
+	//タッチパッド
+	np = navigator.platform;
+	if ((np == "iPhone") || (np == "iPad")) np = "PAD";
+
+	//CSS
+	var s = "<style>";
+	//リンク
+	s += "a {text-decoration:none;}";
+	//メニュー
+	s += ".bMenu {color:" + hcolor2 + ";}";
+	s += ".bMenu:hover {color:" + nocolor + ";background-color:" + hcolor2 + ";}";
+	//名称リンク
+	s += "a.blink {display:block;width:100%;height:100%;}";
+	s += "a.blink:hover {background-color:" + gcolor4 + ";}";
+	//年表テーブル
+	s += "table {background-color:" + nocolor + ";}";
+	//ヘッダー基本
+	s += ".header {background-color:" + hcolor1 + ";}";
+	//ヘッダー内（年表あり）
+	s += ".head_on {color:" + hcolor2 + ";background-color:" + hcolor1 + ";/*font-weight:bold;*/}";
+	//ヘッダー内（年表なし）
+	s += ".head_off {color:" + hcolor3 + ";background-color:" + nocolor + ";}";
+	//生没年
+	s += ".year_text {color:" + tcolor2 + ";padding:0 1px 0 1px;}";
+	//グラフ（生没期間）
+	s += ".graph1 {background-color:" + gcolor1 + ";}";
+	//グラフ（任意期間）
+	s += ".graph2 {background-color:" + gcolor2 + ";}";
+	//グラフ（年齢あり、生没期間）
+	s += ".age1 {color:" + tcolor1 + ";background-color:" + gcolor1 + ";border-left-color:" + tcolor1 + ";border-left-style:solid;border-right-style:none;font-size:small;}";
+	//グラフ（年齢なし、任意期間）
+	s += ".age2 {color:" + tcolor1 + ";background-color:" + gcolor2 + ";border-left-color:" + tcolor1 + ";border-left-style:solid;border-right-style:none;font-size:small;}";
+	s += "</style>"
+	document.write(s); //IE & Firefox
+	resetHistory(); //情報ウィンドウCSS初期設定
+
+	//検索部の取得
+	var get_text = document.location.search;
+	get_text = get_text.substring(1,get_text.length);
+	//テストモード
+	testmode = false;
+	if (get_text == "test") {
+		testmode = true; //テストモード表示
+	} else if (get_text != "") {
+		//db_file = get_text; //読込ファイル差替
+	}
+
+	//ファイルの読込
+	loadTextFile(db_file);
+}
+
+//起動時の表の出力
+function output_list() {
+	var s;
+	//準備開始
+	s = "Loading complete...";
+	document.getElementById("list_table").innerHTML = s;
+	//フィールド名取得
+	setFields();
+	s = s + ".";
+	document.getElementById("list_table").innerHTML = s;
+	//並替フォーム出力
+	setSelecter();
+	s = s + ".";
+	document.getElementById("list_table").innerHTML = s;
+	//年表の設定
+	setHistory();
+	s = s + ".";
+	document.getElementById("list_table").innerHTML = s;
+	//データの検査
+	testData();
+	s = s + ".";
+	document.getElementById("list_table").innerHTML = s;
+	//表幅設定
+	setWidth(0,0);
+	s = s + ".";
+	document.getElementById("list_table").innerHTML = s;
+	//データ並替
+	setSort();
+	s = s + ".";
+	document.getElementById("list_table").innerHTML = s;
+	//年表表示
+	setList();
+}
+
+//表幅の変更
+function changeWidth(mode,num) {
+	setWidth(mode,num);
+	setList();
+}
+
+//並替の変更
+function changeSort(num) {
+	//並替順入替
+	if (sort_current == num) {
+		if (sort_rule[num] == "+") sort_rule[num] = "-";
+		else sort_rule[num] = "+";
+	}
+	sort_current = num;
+	
+	setSort();
+	setList();
+}
+
+//フィールド名取得
+function setFields() {
+	var n,m,i,s,rule,fld,f_num;
+	
+	//接頭文字
+	rule = new Array("!","+","-","*");
+	
+	//code = new Array(); //区分名
+
+	//フィールド数
+	f_num = list_d[0].length;
+	
+	//各フィールドの補助設定
+	dataMax = new Array(f_num); //最大値取得
+	sort_rule = new Array(f_num); //並替順位
+	dataUnit = new Array(f_num); //単位
+
+	//フィールド名取得
+	for (fld=0;fld<f_num;fld++) {
+		s = list_d[0][fld];
+		
+		//フィールド別に接頭文字を入れる
+		sort_rule[fld] = "";
+		for (m=0;m<rule.length;m++) {
+			//接頭文字を取得
+			i = s.indexOf(rule[m]);
+			if (i == 0) {
+				//接頭文字の取り出し
+				sort_rule[fld] = rule[m];
+				//接頭文字を削除
+				s =  s.substring(1,s.length);
+			}
+		}
+
+		/*
+		//区分
+		n = s.indexOf(field_bun+"[");
+		if (n == 0) {
+			//区分名
+			s = s.substring(3, s.length - 1);
+			code = s.split("|");
+			s = field_bun;
+		}
+		*/
+		//単位取得
+		n = s.lastIndexOf("[");
+		m = s.lastIndexOf("]");
+		dataUnit[fld] = "";
+		if ((n > 0) && (n < m)) {
+			dataUnit[fld] = s.substring(n+1,m);
+			s = s.substring(0,n) + s.substring(m+1,s.length);
+		}
+		
+		//フィールド名
+		list_d[0][fld] = s;
+
+		//区分のフィールド番号
+		if (s == field_bun) bun = fld;
+		//生年のフィールド番号
+		if (s == field_st) fst = fld;
+		//没年のフィールド番号
+		if (s == field_ed) fed = fld;
+		//始年のフィールド番号
+		if (s == field_st2) gst = fld;
+		//終年のフィールド番号
+		if (s == field_ed2) ged = fld;
+		//field_linkのフィールド番号
+		if (s == field_link) nam = fld;
+		//field_link2のフィールド番号
+		if (s == field_link2) nam2 = fld;
+	}
+}
+
+//並替フォーム出力
+function setSelecter() {
+	var t,fld,f_num;
+	
+	t = ""; //出力フォーム
+	
+	//フィールド数
+	f_num = list_d[0].length;
+	
+
+	//フィールド名取得
+	for (fld=0;fld<f_num;fld++) {
+		//並替項目設定
+		if ((sort_rule[fld] == "+") || (sort_rule[fld] == "-") || (sort_rule[fld] == "*")) {
+			//ラジオボタン追加
+			t += "<nobr><label class='bMenu'><input name='sort' type='radio' id='bSort" + fld + "' onClick='changeSort("+ fld + ")'";
+			if (fld == 0) 	t += " checked"; //起動時に最初のフィールドで並び替えするため
+			t += ">" + list_d[0][fld] + "</label></nobr>";
+		}
+	}
+	
+	//存命期間の可否
+	b_graph = ((fst > -1) && (fed > -1)); //生年・没年がある場合
+	
+	//任意期間の可否
+	b_graph2 = ((gst > -1) && (ged > -1)); //始年・終年がある場合
+	
+	//棒グラフモード
+	b_bar = ((b_graph) && (fst == fed));
+	
+	//フォーム出力
+	if (t != "") {
+		document.getElementById("selecter").innerHTML = "並替：<span id='sortmark'></span>[" + t + "]";
+		sort_current = 0; //初期値
+	}
+}
+
+//年表データの準備
+function setHistory() {
+	var n,m,data,s;
+	
+	//棒グラフ用一覧データの作成
+	if ((auto_history) && (b_bar) && (hs_file == "")) setHistoryData();
+	
+	//日付
+	data = new Array();
+	//年代別に入れ直す
+	list_y = new Array();
+	
+	//一覧データがある場合
+	if (hs_file != "") {
+		for (n=0;n<list_h.length;n++) {
+			if (b_bar2) {
+				//棒グラフモード
+				data[0] = getYearToStr(list_h[n][0]);
+				data[1] = list_h[n][1] + " (" + list_h[n][0] + head_unit + ")";
+			} else {
+				data[0] = list_h[n][0];
+				data[1] = list_h[n][1];
+			
+				//日付の区切りで分割
+				m = data[0].indexOf("?");
+				if (m > -1) data[0] = data[0].replace(/\?/g,""); //?を除去
+				m = data[0].indexOf(".");
+				if (m < 0) m = data[0].indexOf("/");
+				if (m > 0) {
+					list_h[n][0] = eval(data[0].substring(0,m));
+					list_h[n][1] = data[0].substring(m+1,data[0].length) + " " + data[1];
+				} else {
+					list_h[n][0] = eval(data[0]);
+				}
+				
+				data[0] = list_h[n][0];
+				data[1] = list_h[n][1];
+
+			}
+			
+			if (list_y[data[0]] == undefined) {
+				list_y[data[0]] = dataMark + data[1];
+			} else {
+				list_y[data[0]] = list_y[data[0]] + " &#10;" + dataMark + data[1];
+			}
+		}
+		
+		//一覧ウィンドウ用リンク
+		if (list_h.length > 0) {
+			s = txt_ylist;
+			if (b_bar) s = txt_nlist; //棒グラフ
+			document.getElementById("link_his").innerHTML = "<nobr>【<a href='javascript:openHistory()' class='bMenu'>"+ s + "</a>】</nobr>";
+		}
+	}
+}
+
+//棒グラフ用一覧データの作成
+function setHistoryData() {
+	var line;
+	
+	if ((fst > -1) && (nam > -1)) {
+		//データベースデータの転用
+		for (line=1;line<list_d.length;line++) {
+			list_h[line-1] = new Array();
+			list_h[line-1][0] = list_d[line][fst];
+			list_h[line-1][1] = list_d[line][nam];
+		}
+		
+		hs_file = "setData";
+		b_bar2 = true;
+	
+		//並替
+		sortHistoryData();
+	}
+}
+
+//年表データの並替
+function sortHistoryData() {
+	var a,b,b_sort,d_sort,n,t,lists;
+	
+	//ソート順
+	d_sort = "+";
+	if (b_bar2) d_sort = sort_rule[fst];
+	
+	//並び替えリスト数
+	lists = list_h.length-1;
+	
+	for (n=1;n<lists;n++) {
+		for (m=1;m<lists-(n-1);m++) {
+			//比較要素a
+			a = eval(list_h[m][0]);
+			//比較要素b
+			b = eval(list_h[m+1][0]);
+			
+			if (d_sort == "+") {
+				b_sort = (a > b);
+			} else {
+				b_sort = (a < b);
+			}
+			//入れ換え
+			if (b_sort) {
+				//レコードを入れ換える
+				t = list_h[m];
+				list_h[m] = list_h[m+1];
+				list_h[m+1] = t;
+			}
+		}
+	}
+}
+
+//情報ウィンドウ初期設定
+function resetHistory() {
+	document.getElementById("history_view").style.position = "fixed";
+	document.getElementById("history_view").style.top = "10px";
+	document.getElementById("history_view").style.bottom = "auto";
+	document.getElementById("history_view").style.right = "10px";
+	document.getElementById("history_view").style.left = "auto";
+	document.getElementById("history_view").style.visibility = "hidden";
+
+	document.getElementById("history_view").style.borderStyle = "ridge";
+	document.getElementById("history_view").style.padding = "5px";
+	document.getElementById("history_view").style.backgroundColor = "#ffffcc";
+	document.getElementById("history_view").style.overflow = "auto";
+	
+	document.getElementById("history_view").innerHTML =  "";
+	
+	b_his = false;
+}
+
+//データの検査
+function testData() {
+	var s,line,fld,f_num;
+	
+	//フィールド検査
+	for (line=1;line<list_d.length;line++) {
+		//空欄
+		if (list_d[line][fst] == "") list_d[line][fst] = "?"; //不明
+		//list_d[line][fed]は未定（存命中）の場合がある
+		
+		//名前
+		s = list_d[line][nam];	
+		list_n[line] = false; //名前のリンク
+		if (s.indexOf("!") == 0) {
+			//名前データの先頭が「!」
+			s = s.substring(1,s.length);
+			list_d[line][nam] = s; //名前データを修正
+			list_n[line] = true; //名前のリンクなし
+		}
+
+		//差替
+		if (nam2 > -1) {
+			s = list_d[line][nam2];
+			if (s == "!") {
+				list_n[line] = true; //名前のリンクなし
+			}
+		}
+	}
+	
+	//存命中
+	if (b_graph) {
+		for (line=1;line<list_d.length;line++) {
+			if (list_d[line][fed] == "") {
+				list_d[line][fed] = liveNow;
+				//現在任期中
+				if (b_graph2) {
+					if ((list_d[line][gst] != "") && (list_d[line][ged] == "")) list_d[line][ged] = liveNow;
+				}
+			}
+		}
+	}
+	
+	//フィールド
+	f_num = list_d[0].length;
+	for (fld=0;fld<f_num;fld++) {
+		//マルチグラフ対象フィールドの最大値
+		//最大値初期化
+		dataMax[fld] = 0;
+		if (sort_rule[fld] == "*") {
+			//予約フィールドを除外
+			bool = ((bun == fld) || (fst == fld) || (fed == fld) || (gst == fld) || (ged == fld) || (nam == fld) || (nam2 == fld));
+			if (! bool) {
+				for (line=1;line<list_d.length;line++) {
+					//最大値取得
+					dataMax[fld] = Math.max(dataMax[fld],getStrToNum(list_d[line][fld]));
+				}
+				//マルチグラフモード
+				b_multi = true;
+			}
+			sort_rule[fld] = "-";
+		}
+	}
+}
+
+function setWidth(mode,num) {
+	//mode : 0=初期設定/1=表始を移動/2=表終を移動/3~5=全体移動
+	var t,n;
+	
+	//年表の長さ切替
+	if (b_graph) {
+		if (mode == 1) {
+			if (year_ed > num) year_st = num;
+			if (b_bar && (num < 0)) year_st = 0; //棒グラフ時
+			if ((year_ed - year_st) < 10) year_st = year_ed - 10; //10年未満の表は禁止
+		} else if (mode == 2) {
+			if (year_st < num) year_ed = num;
+		} else if (mode > 2) {
+			//mode == 3 or 4
+			n = year_ed - year_st;
+			if (b_bar && (num < 0)) num = 0; //棒グラフ時
+			year_st = num;
+			year_ed = num + n;
+		}
+		if ((year_ed - year_st) < 10) year_ed = year_st + 10; //10年未満の表は禁止(mode=0 or 2)
+		
+		t = " <nobr>表幅：";
+		t += "前";
+		t += "[" + getWidthAnchor(1,year_st,-10) + "&lt;&lt;10</a>]";
+		t += "[" + getWidthAnchor(1,year_st,10) + "&gt;&gt;10</a>]";
+		t += "後";
+		t += "[" + getWidthAnchor(2,year_ed,-10) + "10&lt;&lt;</a>]"; 
+		t += "[" + getWidthAnchor(2,year_ed,10) + "10&gt;&gt;</a>]";
+		
+		if (b_move) {
+			t += " 位置：";	
+			t += "[" + getWidthAnchor(3,year_st,-1) + "&lt;1&lt;</a>]";
+			t += "[" + getWidthAnchor(3,year_st,1) + "&gt;1&gt;</a>]"; 
+			t += "[" + getWidthAnchor(4,year_st,-10) + "&lt;10&lt;</a>]";
+			t += "[" + getWidthAnchor(4,year_st,10) + "&gt;10&gt;</a>]";
+			if (year_ed -year_st > 99) {
+				t += "[" + getWidthAnchor(5,year_st,-100) + "&lt;100&lt;</a>]";
+				t += "[" + getWidthAnchor(5,year_st,100) + "&gt;100&gt;</a>]";
+			}
+		}
+		t += "</nobr>";
+		
+		//幅調整メニューの表示切り換え
+		document.getElementById("year_level").innerHTML = t;
+
+		//年表幅表示
+		document.getElementById("title").innerHTML = dtitle + " " + getWidthYear();
+	}
+}
+
+//年表幅表示
+function getWidthYear() {
+	var st,ed;
+	st = year_st;
+	if (st == 0) st = 1;
+	ed = year_ed - 1;
+	if (ed == 0) ed = -1;
+	return "【" + mYear(st) + head_unit + "～" + mYear(ed) + head_unit + "】";
+}
+
+//表幅のリンク設定
+function getWidthAnchor(num,n,m) {
+	var s,n2;
+	if (num < 3) {
+		n2 = n - (num - 1);
+		s = "<a href='javascript:changeWidth(" + num + "," + (n+m) + ")' title='" + mYear(n2) + head_unit + "→" + mYear(n2+m) + head_unit + "' class='bMenu'>";
+	} else {
+		s = "<a href='javascript:changeWidth(" + num + "," + (n+m) + ")' title='" + mYear(n+m) + head_unit + "～" + mYear(year_ed+m-1) + head_unit + "' class='bMenu'>";
+	}
+	return s;
+}
+
+//データの並び替え
+function setSort() {
+	//num=フィールド番号
+	var n, lists, a, b, l, bool, b_sort, list_k1, list_k2;
+
+	if ((sort_current > -1) && (sort_current < list_d[0].length)) {
+		
+		//並替記号
+		setSortmark();
+	
+		//予約フィールド
+		bool = ((sort_current == fst) || (sort_current == fed) || (sort_current == gst) || (sort_current == ged));
+		
+		//並び替えリスト数
+		lists = list_d.length - 1;
+		
+		//数値の比較
+		for (n=1;n<lists;n++) {
+			for (m=1;m<lists-(n-1);m++) {
+				//比較要素a
+				a = getField(list_d[m][sort_current],bool);
+				//比較要素b
+				b = getField(list_d[m+1][sort_current],bool);
+				//比較
+				b_sort = false;
+				if (sort_rule[sort_current] == "-") {
+					//降順
+					if (bool && (a == "?") && (b != "?")) {
+						b_sort = true;
+					} else if (a < b) {
+						b_sort = true;
+					}
+					//数値の比較
+					if ((! isNaN(a)) && (! isNaN(b))) b_sort = (eval(a) < eval(b));
+				} else {
+					//昇順
+					if (bool && (a != "?") && (b == "?")) {
+						b_sort = true;
+					} else if (a > b) {
+						b_sort = true;
+					}
+					//数値の比較
+					if ((! isNaN(a)) && (! isNaN(b))) b_sort = (eval(a) > eval(b));
+				}
+				
+				//入れ換え
+				if (b_sort) {
+					//レコードを入れ換える
+					rec_conv(m);
+				}
+			}
+		}
+		if (bool) {
+			for (n=1;n<lists;n++) {
+				for (m=1;m<lists-(n-1);m++) {
+					//比較要素a
+					a = list_d[m][sort_current];
+					//比較要素b
+					b = list_d[m+1][sort_current];
+					
+					if ((sort_current == fst) || (sort_current == gst)) {
+						if (sort_rule[sort_current] == "-") {
+							b_sort = ((a == "?") && (b != "?"));
+						} else {
+							b_sort = ((a != "?") && (b == "?"));
+						}
+					}
+					if ((sort_current == fed) || (sort_current == ged)) {
+						if (sort_rule[sort_current] == "-") {
+							b_sort = ((a != "?") && (b == "?"));
+						} else {
+							b_sort = ((a == "?") && (b != "?"));
+						}
+					}
+					//入れ換え
+					if (b_sort) {
+						//レコードを入れ換える
+						rec_conv(m);
+					}
+				}
+			}
+			//存命中のデータを下へ
+			for (n=1;n<lists;n++) {
+				for (m=1;m<lists-(n-1);m++) {
+					//比較要素a
+					a = list_d[m][sort_current];
+					//比較要素b
+					b = list_d[m+1][sort_current];
+					
+					if (sort_rule[sort_current] == "-") {
+						b_sort = ((a != liveNow) && (b == liveNow));
+					} else {
+						b_sort = ((a == liveNow) && (b != liveNow));
+					}
+					//入れ換え
+					if (b_sort) {
+						//レコードを入れ換える
+						rec_conv(m);
+					}
+				}
+			}
+		}
+		//空のフィールドを下へ
+		for (n=1;n<lists;n++) {
+			for (m=1;m<lists-(n-1);m++) {
+				//比較要素a
+				a = list_d[m][sort_current];
+				//比較要素b
+				b = list_d[m+1][sort_current];
+				
+				b_sort = ((a == "") && (b != ""));
+				//入れ換え
+				if (b_sort) {
+					//レコードを入れ換える
+					rec_conv(m);
+				}
+			}
+		}
+	}
+}
+
+//レコード入換
+function rec_conv(num) {
+	var t;
+	//レコード全体を入れ換える
+	t = list_d[num];
+	list_d[num] = list_d[num+1];
+	list_d[num+1] = t;
+	//リンクの有無を入れ換える
+	t = list_n[num];
+	list_n[num] = list_n[num+1];
+	list_n[num+1] = t;
+}
+
+//並替記号
+function setSortmark() {
+	var s;
+	
+	if (sort_current > -1) { //sortmarkがある場合
+		if (sort_rule[sort_current] == "+") {
+			s = "▲";
+		} else if (sort_rule[sort_current] == "-") {
+			s = "▼";
+		} else {
+			s = "□";
+		}
+		
+		//並替記号
+		document.getElementById("sortmark").innerHTML = s;
+		
+		//並替ボタン
+		if (document.getElementById("bSort"+sort_current) != undefined) {
+			document.getElementById("bSort"+sort_current).checked = true;
+		}
+	}
+}
+
+//並替フィールドの調整
+function getField(num,bool) {
+	//フィールドが生年、没年、始年、終年の場合
+	if (bool) {
+		//最後の?を削除
+		if (num.indexOf("?") > 0) {
+			num = num.substr(0,num.indexOf("?")); 
+		}
+		//日付を少数に整理
+		if (num.indexOf(".") > 0) {
+			var n = (num+".0").split(".");
+			var s = eval(n[1]/100) + eval(n[2]/10000);
+			if (eval(n[0]) < 0) s = s * -1;
+			s = eval(n[0]) + s;
+			num = s;
+		} else if ((num == "") || (num == "?") || (num == liveNow)) {
+			num = "?";
+		} else {
+			num = getYearToNum(num);
+		}
+	} else {
+		if ((num == "") || (num == liveNow)) {
+			num = "?";
+		}
+	}
+	
+	return num;
+}
+
+//表のヘッダー出力
+function getHeader() {
+	var s,t,n,m,i,row,col,st,ed,fld,multi,year;
+	
+	//行の高さ
+	if (b_graph) {
+		row = 2;
+	} else {
+		row = 1;
+	}
+	
+	//マルチグラフ対象
+	multi = false;
+	if (b_multi) {
+		if (dataMax[sort_current] > 0) {
+			multi = true;
+			row = 2;
+		}
+	}
+	
+	//開始年数
+	var col_st = Math.ceil(year_st / 10) * 10 - year_st;
+	//終了年数
+	var col_ed = year_ed - Math.floor(year_ed / 10) * 10;
+	
+	//ヘッダ
+	var t = "";
+	t += "<tr class='header'>";
+	//行番号
+	if (line_number) {
+		t += "<td rowspan='" + row + "'>&nbsp;</td>";
+	}
+	//フィールド名出力
+	for (fld=0;fld<list_d[0].length;fld++) {
+		//出力しない項目
+		if (sort_rule[fld] == "!") {
+			continue;
+		}
+		//差替
+		if (fld == nam2) {
+			continue;
+		}
+		//各項目を出力
+		if ((fld == fst) && (fed > -1)) {
+			//生年（没年あり）- 同じ項目名でないとき
+			if (b_bar) s = list_d[0][fst];
+			else s = "以前";
+			t += "<td rowspan='2' align='center'>" + getSortedAnchor(s,fst) + "</td>";
+			//間
+			st = year_st + col_st;
+			//if (year_st < 0) st--;
+			ed = year_ed - col_ed;
+			//if (year_ed < 0) ed--;
+			if ((col_st < 10) && (col_st > 0)) {
+				if (col_st > 4) s = mYear(year_st) + head_unit;
+				else s = "&nbsp;";
+				t += "<td colspan='" + col_st + "'>" + s + "</td>";
+			}
+			for (m=st;m<ed;m=m+10) {
+				if ((m == 0)) col = 9; //0年を消す
+				else col = 10;
+				t += "<td colspan='" + col + "'>" + mYear(m) + head_unit + "</td>";
+			}
+			if ((col_ed < 10) && (col_ed > 0)) {
+				if (ed == 0) col = col_ed - 1;
+				else col = col_ed;
+				if (col_ed < 5) col++;
+				t += "<td colspan='" + col + "' nowrap>" + mYear(ed) + head_unit + "</td>";
+			}
+			if ((col_ed > 4) || (col_ed == 0)) {
+				if (b_bar) s = "以上";
+				else s = getSortedAnchor("以後",fed);
+				t += "<td rowspan='2' align='center'>" + s + "</td>";
+			}
+		} else if ((fld == fed) && (fst > -1)) {
+			//没年（生年あり）
+		} else if ((fld == gst) && (ged > -1) && b_graph) {
+			//始年（終年あり）
+		} else if ((fld == ged) && (gst > -1) && b_graph) {
+			//終年（始年あり）
+		} else {
+			//その他
+			t += "<td rowspan='"+ row + "' align='center'>" + getSortedAnchor(list_d[0][fld],fld) + "</td>";
+			//マルチグラフ
+			if (multi && (fld == sort_current)) {
+				//if ((fst == fld) && (fed == fld)) {;}
+				for (n=0;n<10;n++) {
+					t += "<td colspan='10' align='right'>" + (n*10+10) + "%</td>";	
+				}
+			}
+		}
+	}
+	t += "</tr>";
+	
+	if (b_graph || multi) t += "<tr>";
+	
+	//マルチグラフ
+	if (multi && (sort_current < fst)) t += getHeaderMulti();
+	
+	//年表グラフ・棒グラフ
+	if (b_graph) {
+		//クリックチェック初期化
+		timeline = new Array();
+		
+		//一年単位の目盛り
+		for (year=year_st;year<year_ed;year++) {
+			if (year == 0) continue;
+			if (year < 0) m = Math.abs((year) % 10);
+			else m = (year % 10);
+			t += "<td align='center' name='h" + year + "'" + getMouseEvent(0,year);
+			//title
+			s = getTitle2(0,year);
+			t += " title='" + s + "'";
+			//class
+			if (b_graph) {
+				if (list_y[year] != undefined) t += " class='head_on'"; //年表あり
+				else t += " class='head_off'";
+			}
+			t += ">" + m + "</td>";
+			timeline[year - year_st] = true; //初期値
+		}
+		if ((col_ed < 5) && (col_ed > 0)) {
+			if (b_bar) s = "以上";
+			else s = getSortedAnchor("以後",fed);
+			t += "<td align='center' class='header' nowrap>" + s + "</td>";
+		}
+
+	}
+
+	//マルチグラフ
+	if (multi && (sort_current > fst)) t += getHeaderMulti();
+
+	if (b_graph || multi) t += "</tr>";
+	
+	return t;
+}
+
+//フィールド名に並替リンクの設定
+function getSortedAnchor(s,fld) {
+	//単位
+	if ((fld_unit) && (dataUnit[fld] != "")) s += "<br>[" + dataUnit[fld] + "]";
+	//リンク
+	if ((fld_sort) && (sort_rule[fld] != "")) {
+		s = "<a href='javascript:changeSort(" + fld + ")' class='blink'>" + s;
+		s += "</a>";
+	}
+	return s;
+}
+
+//ヘッダ2行目の設定（マルチグラフ）
+function getHeaderMulti() {
+	var n, m;
+	
+	//クリックチェック初期化
+	MultiLine = new Array();
+			
+	//一年単位の目盛り
+	var t = "";
+	for (n=0;n<100;n++) {
+		m = (n+1) % 10;
+		if (! view_age) {
+			//マルチグラフ
+			t += "<td>&nbsp;</td>";
+		} else {
+			t += "<td align='center' name='mh" + n + "' class='head_off'" + getMouseEventMulti(0,n);
+			t += " title='" + (n+1) + "%";
+			t += "'>" + m + "</td>";
+			MultiLine[n] = true; //初期値
+		}
+	}
+		
+	return t;
+}
+
+//レコードの書き出し
+function setList() {
+	var s,s2,t,n,m,l,ed,hd,pt,header,count,line,fld,multi;
+	
+	//表の生成
+	t = "<table border='2' cellpadding='0' cellspacing='0'>";
+	
+	//ヘッダの生成
+	header = getHeader();
+	t += header;
+	
+	//ヘッダのチェック用
+	hd = "";
+	
+	//行番号
+	count = 1;
+	
+	//折返設定
+	var nowrap = "";
+	if (fld_nowrap) nowrap = "nowrap";
+	
+	//マルチグラフ対象
+	multi = false;
+	if (b_multi) {
+		if (dataMax[sort_current] > 0) {
+			multi = true;
+		}
+	}
+
+	//レコード毎の処理
+	for (line=1;line<list_d.length;line++) {
+		//没年でレコードを設定
+		if (fed > -1) {
+			ed = getYearToNum(list_d[line][fed]);
+			if ((ed_unknown) && (ed == 0)) continue; //不明の場合は表示しない
+			if ((fst > -1) && (year_st > ed) && (ed != 0)) continue; //表より前に没年がある場合は表示しない
+		}
+		//生年
+		if (fst > -1) {
+			st = getYearToNum(list_d[line][fst]);
+			if (b_bar) {
+				st = 0;	
+			} else {
+				if ((fed > -1) && (st >= year_ed) && (st != 0)) continue; //表より後に生年がある場合は表示しない
+			}
+		}
+		
+		//ヘッダ
+		if (hd == "") {
+			//初回
+		} else if ((sort_current > -1) && (sort_current == bun)) {
+			//区分毎に挿入
+			if (hd != list_d[line][bun]) {
+				t += header;
+				count = 1;
+			}
+		}
+		if (bun > -1) hd = list_d[line][bun]; //ヘッダのチェック用
+		
+		t += "<tr>";
+		//行番号
+		if (line_number) {
+			t += "<td align='right' class='header'>" + (count++) + "</td>";
+		}
+		
+		//各フィールドの設定
+		for (fld=0;fld<list_d[0].length;fld++) {
+			//追加形式
+			pt = 0;
+			s = list_d[line][fld];
+			//除外
+			if (sort_rule[fld] == "!") {
+				continue;
+			}
+			//区分
+			if (list_d[0][fld] == field_bun) {
+				if (s >= code.length) code[s] = "&nbsp;"; //配列がない場合の対処
+				t += "<td " + nowrap + getMouseEvent2(line,4) + ">"+ code[s] +"</td>";
+			//リンク項目（名前）
+			} else if (fld == nam) {
+				t += "<td " + nowrap + getMouseEvent2(line,4) + ">";
+				//リンク処理
+				if (list_n[line]) {
+					//リンクなし
+					t += s;
+				} else {
+					//リンクあり
+					s2 = "";
+					//差替
+					if (nam2 > -1) {
+						s2 = list_d[line][nam2];
+					}
+					//リンクを設定
+					if (s2 == "") {
+						//差替なし
+						s2 = link_wiki + s;
+					} else {
+						//一部差替
+						if (s2.indexOf("http") == -1) s2 = link_wiki + s2;
+						//else s2 = s2;//全部差し替え
+					}
+					//リンク生成
+					t += "<a href='" + s2 + "' target='" + link_target + "' class='blink'";
+					if (b_graph) {
+						t += " title='" + getTitle(0,line);
+						//if (age_ed) t += " " + getAge2(line) + "才没";
+						t += "'";
+					}
+					//t += " " + getMouseEvent2(line,2);
+					t += ">"+ s +"</a>";
+				}
+				t += "</td>";
+			} else if (fld == nam2) {
+				//差替
+				continue;
+			} else if (fld == fst) {
+				//生年（没年の有無）
+				if (fed > -1) t += yearList(line);
+				else pt = 1;
+			} else if (fld == fed) {
+				//没年（生年の有無）
+				if (fst > -1) continue;
+				else pt = 1;
+			} else if (fld == gst) {
+				//始年（終年の有無）
+				if ((ged > -1) && b_graph) continue;
+				else pt = 1;
+			} else if (fld == ged) {
+				//終年（始年の有無）
+
+				if ((gst > -1) && b_graph) continue;
+				else pt = 1;
+			} else {
+				//その他のフィールド
+				//数値を自動的に右揃え
+				if (isNaN(s)) pt = 2; //左揃え
+				else pt = 1; //右揃え
+			}
+			
+			//空データの修正
+			if (s == "") s = "&nbsp;";
+			
+			//形式選択
+			if (pt == 1) {
+				//右揃え（数値）
+				if (b_comma) s = getComma(s);
+				t += "<td align='right'" + getMouseEvent2(line,4) + ">"+ s +"</td>";
+			} else if (pt == 2) {
+				//左揃え（文字列）
+				t += "<td " + nowrap + getMouseEvent2(line,4) + ">"+ s +"</td>";
+			}
+			
+			//マルチグラフ
+			if ((multi) && (fld == sort_current) && (fld != fst)) {
+				t += multi_td(line,fld);
+			}
+		//document.getElementById("list_table").innerHTML =  t;
+		}		
+		t += "</tr>";
+	}
+	
+	//t += "</tbody>";
+	t += "</table>";
+	
+	//t += "<p>"+ "year_st=" + year_st + " / year_ed=" + year_ed + "</p>";
+	
+	//表の出力
+	document.getElementById("list_table").innerHTML = t;
+}
+
+//グラフ部分の出力
+function yearList(line) {
+	var s,i,st,ed,st2,ed2,g_st,g_ed,g_ed2,col,year,bar_num;
+	
+	//テーブル
+	var t = "";
+	
+	//以前
+	st = getYearToNum(list_d[line][fst]);
+	//以後
+	ed = getYearToNum(list_d[line][fed]);
+	
+	//棒グラフ
+	if (b_bar) {
+		st = 0;
+		ed = Math.ceil(ed);
+	}
+	
+	//表の前後を設定
+	st2 = st;
+	ed2 = ed;
+	if (st2 == 0) st2 = year_st;
+	if (ed2 == 0) ed2 = year_ed;
+	if (st < year_st) st2 = year_st; //表の最小値に設定
+	if (ed > year_ed) ed2 = year_ed; //表の最大値に設定
+	if ((year_st == 0) && (st2 == 0)) st2 = 1;
+	
+	//始年・終年
+	g_st = 0;
+	g_ed = 0;
+	g_ed2 = "";
+	if (b_graph2) {
+		//数値化
+		g_st = getYearToNum(list_d[line][gst]);
+		if (list_d[line][gst] == "?") { //?の場合
+			g_st = st;
+		}
+		g_ed = getYearToNum(list_d[line][ged]);
+		if (list_d[line][ged] == "?") { //?の場合
+			g_ed = ed;
+		}
+		//if (isNaN(g_st)) g_st = 0;
+		//if (isNaN(g_ed)) g_ed = 0;
+		//文字列
+		if (list_d[line][ged] == liveNow) g_ed2 = liveNow; //現在任期中
+	}
+		
+	//表の始め～生年
+	if (b_bar) {
+		col = 1;
+		bar_num = list_d[line][fst];
+		if ((! isNaN(bar_num)) && (b_comma)) bar_num = getComma(bar_num);
+	} else {
+		if (st == 0) {
+			//生年不明
+			col = 0;
+		} else {
+			col = st - year_st + 1;
+		}
+		if (year_st == 0) col--; //始まりが0年
+	}
+	year = getYearToStr(list_d[line][fst]); //生年
+	if ((year == "?") || (st == year_st)) {
+		//生年不明の場合
+		//表の最小値と同じ場合
+		t += "<td align='right'" + getMouseEvent2(line,4) + ">";
+		if (b_bar) t += bar_num; //棒グラフ
+		else t += "<span class='year_text'>" + mYear(year) + "</span>";
+		t += "</td>";
+	} else if (st < year_st) {
+		//表の最小値未満の場合
+		if ((st == g_st) && (st != 0)) s = "graph2";
+		else s = "graph1";
+		t += "<td align='right' class='" + s + "'><span class='year_text'>" + mYear(year) + "</span></td>";
+	} else {
+		//表の最小値以上の場合
+		if ((year_st < 0) && (st > 0)) col--; //0年またぎ
+		t += "<td align='right' colspan='" + col + "'" + getMouseEvent2(line,4) + "><span class='year_text'>" + mYear(year) + "</span></td>";
+	}
+	
+	//生年～没年
+	if (ed2 < year_ed) {
+		//表の最大値未満の場合
+		col = ed2 - st2 + 1;
+	} else {
+		//表の最大値以上の場合
+		col = ed2 - st2;
+	}
+	year = getYearToStr(list_d[line][fed]);
+	if (g_ed2 == liveNow) g_ed = year_ed;
+	//年数グラフ
+	if (b_bar && (bar_num < 1)) {
+		//棒グラフ表示なし
+	} else if ((! view_age) || ((! b_bar) && (st == 0))) {
+		//枠無グラフ
+		if ((st2 < 0) && (ed2 > 0)) col--; //0年またぎ
+		t += sim_td(line,year,st2,ed2,col,g_st,g_ed);
+	} else {
+		//年表グラフ
+		t += age_td(line,st2,col,g_st,g_ed);
+	}
+	
+	//以後
+	year = getYearToStr(list_d[line][fed]);
+	if (year == liveNow) {
+		//存命中
+		if (g_ed2 == liveNow) s = "graph2"; //任期中
+		else s = "graph1";
+		t += "<td class='" + s + "'>&nbsp;</td>";
+	} else if ((! b_bar) && (ed == 0)) {
+		//没年不明
+		t += "<td" + getMouseEvent2(line,4) + "><span class='year_text'>" + mYear(year) + "</span></td>";
+	} else if (ed < year_ed) {
+		//表の最大値以内の場合
+		col = year_ed - ed;
+		if ((ed < 0 ) && (year_ed > 0))  col--; //0年またぎ
+		t += "<td colspan='" + col + "'" + getMouseEvent2(line,4) + "><span class='year_text'>";
+		if (b_bar) t += "&nbsp;" + bar_num; //棒グラフ
+		else t += mYear(year);
+		t += "</span></td>";
+	} else {
+		//表の最大値以上の場合
+		if ((ed == g_ed) && (ed != 0)) s = "graph2";
+		else s = "graph1";
+		t += "<td class='" + s + "'";
+		if (b_bar) t += "align='right'><span class='year_text'>" + bar_num; //棒グラフ
+		else t += "><span class='year_text'>" + mYear(year);
+		t += "</span></td>";
+	}
+	
+	//テスト
+	//t += "<td>" + col + "/" + st + "/" + st2 + "</td>";
+	//t += "<td>" + y + "/" + ed + "/" + ed2 + "</td>";
+	//t += "<td>" + list_d[line][gst] + "/" + list_d[line][ged] + "/" + g_st + "/" + g_ed + "/" + g_ed2 + "</td>";
+
+	return t;
+}
+
+//枠無グラフ出力
+function sim_td(line,year,st,ed,col,g_st,g_ed) {
+	//year = 没年
+	//ed = グラフの終わり
+	//g_ed = 終年
+	var c,s,s2,t,y,y2,age;
+	
+	s = getTitle(0,line);
+	s2 = getTitle(1,line);
+
+	t = "";
+	
+	y2 = 0;
+	
+	age = "";
+	
+	if (year == "?") c = "non";
+	else c = "age1";
+	
+	//没年の数値化
+	year = getStrToNum(year);
+
+	if ((g_st != 0) && (g_ed != 0)) {
+		//始年・終年のグラフ
+		//両端の修正
+		if (g_st < st) g_st = st;
+		if (g_ed > ed) g_ed = ed;
+		//生年～始年
+		y = g_st - st;
+		if ((st < 0) && (g_st > 0)) y--; //0年またぎ
+
+		if (year_ed <= g_st) y = 0; //表より後に始年がある場合
+		if (y > 0) {
+			t += "<td class='" + c + "' colspan='" + y + "' title='" + s + "'" + getMouseEvent2(line,2) + ">&nbsp;</td>";
+			y2 += y;
+		}
+		//始年～終年
+		y = g_ed - g_st + 1;
+		if (year_ed <= g_ed) y--; //表より後に終年がある場合
+		if ((g_st < 0) && (g_ed > 0)) y--; //0年またぎ
+		if (y > 0) {
+			if (age_ed && y > 4 && year == g_ed) age = getAge2(line);
+			t += "<td class='age2' colspan='" + y + "' title='" + s2 + "'" + getMouseEvent2(line,2) + " align='right'>" + age + "&nbsp;</td>";
+			y2 += y;
+		}
+		//終年～没年
+		y = col - y2;
+		if (y > 0) {
+			if (age_ed && y > 4 && ed == year) age = getAge2(line);
+			t += "<td class='" + c + "' colspan='" + y + "' title='" + s + "'" + getMouseEvent2(line,2) + " align='right'>" + age + "&nbsp;</td>";
+		}
+	} else {
+		if (age_ed && col > 4 && ed == year) age = getAge2(line);
+			//age = year + "/" + year_ed + "/" + ed;
+		t += "<td class='" + c + "' colspan='" + col + "' title='" + s + "'" + getMouseEvent2(line,2) + " align='right'>" + age + "&nbsp;</td>";
+	}
+		//t += "<td>y="+y+"/y2="+y2+"/st="+st+"/ed="+ed+"/col="+col+"/g_st="+g_st+"/g_ed="+g_ed + "</td>";
+	
+	return t;
+}
+
+//枠有グラフ出力（年表グラフ）
+function age_td(line,st2,col,g_st,g_ed) {
+	var m,year,age,t;
+	
+	var t = "";
+	for (m=0;m<col;m++) {
+		year = st2 + m; //歴年
+		if ((year == 0)) continue; //0年を抜く
+		
+		//年齢
+		if (b_bar) {
+			//age = (year % 10);
+			age = "&nbsp;";
+		} else {
+			age = getAge(line,year);
+		}
+
+		if (b_graph2 && (year >= g_st) && (year <= g_ed) && (g_st != 0) && (g_ed != 0)) {
+			//始年・終年あり
+			t += "<td class='age2' align='right' name='k" + year + "'" + getMouseEvent(line,year);
+		} else {
+			//始年・終年なし
+			t += "<td class='age1' align='right' name='g" + year + "'" + getMouseEvent(line,year);
+		}
+		//タイトル表示
+		t += " title='" + getTitle2(line,year);
+		t += "'>" + age + "</td>"; //年齢出力
+	}
+	//t += "<td>st="+st+"/st2="+st2+"</td>";
+	//t += "<td>col="+col+"</td>";
+	return t;
+}
+
+//マルチグラフ用グラフ出力
+function multi_td(line,fld) {
+	var n,m,s,t,col,col2,title;
+	
+	col = Math.floor(eval(getStrToNum(list_d[line][fld])) / dataMax[fld] * 100);
+	col2 = 100 - col;
+
+	//タイトル
+	title = " title='";
+	if (nam > -1) title += list_d[line][nam] + " ";
+	s = list_d[line][sort_current];
+	if (b_comma) s = getComma(s);
+	title += s + dataUnit[fld] + "'";
+
+	t = "";
+	if (col > 0) {
+		if (! view_age) {
+			//枠無グラフ
+			t += "<td colspan='" + col + "' class='graph1'" + getMouseEvent2(line,3) + title + ">&nbsp;</td>";
+		} else {
+			//枠有グラフ
+			for (n=0;n<col;n++) {
+				t += "<td class='age1' name='mg" + n + "'" + getMouseEventMulti(line,n) + title + ">&nbsp;</td>";
+			}
+		}
+	}
+	if (col2 > 0) t += "<td colspan='" + col2 + "'" + getMouseEvent2(line,4) + title + ">&nbsp;</td>";
+
+	return t;
+}
+
+//年表データの表示
+function openHistory() {
+	var s,t,line,prev,year;
+	
+	t = "";
+	prev = 0;
+	
+	for (line=0;line<list_h.length;line++) {
+		year = list_h[line][0];
+		if ((year >= year_st) && (year < year_ed)) {
+			//表幅内にある年だけ抽出
+			//t += list_h[line][0] + head_unit + " " + list_h[line][1] + "<br>";
+			t += "<tr valign='top'>";
+			if (prev != year) {
+				if (b_bar2) {
+					t += "<td align='right' nowrap>" + year + head_unit + "</td>";
+				} else {
+					t += "<th nowrap>" + mYear(year) + head_unit + "</th>";
+				}
+			} else {
+				t += "<td>&nbsp;</td>";
+			}
+			t += "<td>" + list_h[line][1] + "</td>";
+			t += "</tr>";
+			prev = year;
+		}
+
+	}
+
+	//表示
+	if (t != "") {
+		if (b_graph) t = "<tr><th colspan='2'>" + getWidthYear() + "</th></tr>" + t;
+		
+		if (np == "PAD") {
+			s = "<tr><td>&nbsp;</td><td align='right'><input type='button' value='×' onClick='self.close()'></td></tr>";
+			t = "<table border='0'>" + s + t + s + "</table>";
+			openWindow(t);
+		} else {
+			document.getElementById("history_view").style.position = "fixed";
+			document.getElementById("history_view").style.top = "10px";
+			document.getElementById("history_view").style.bottom = "10px";
+			document.getElementById("history_view").style.right = "10px";
+			document.getElementById("history_view").style.left = "auto";
+			document.getElementById("history_view").style.visibility = "visible";
+		
+			s = "<div align='right'><input type='button' value='×' onClick='resetHistory()'></div>";
+			t = s + "<table border='0'>" + t + "</table>" + s;
+		
+			document.getElementById("history_view").innerHTML =  t;
+		
+			b_his = true; //枠固定
+		}
+	}
+}
+
+//ウィンドウを新規生成
+function openWindow(t) {
+	var w;
+	//ウィンドウを開く
+	w = window.open();
+	//ウィンドウ移動
+	w.focus();
+	// ドキュメントを開く
+	w.document.open();
+	// ドキュメントクリア
+	w.document.clear();
+	// ドキュメントに文字列を出力
+	t = "<html><head><title>" + dtitle + " (一覧)</title></head><body>" + t + "</body></html>";
+	w.document.write(t);
+	// ドキュメントを閉じる
+	w.document.close();
+}
+
+//情報ウィンドウの表示
+function setHistoryView(line,year,m) {
+	var s,t,age;
+	//枠固定中
+	if (b_his) return false;
+	
+	if (m == 0) {
+		//枠消去
+		style = "hidden";
+	} else {
+		//枠表示
+		style = "visible";
+	
+		t = ""; //初期化
+		
+		//レコード行
+		if (m == 4) {
+			if (b_graph) m = 2;
+			else m = 3;
+		}
+		
+		//枠有グラフ
+		if (m == 1) {
+			t += getTitle2(line,year); //年齢表示
+			if (line > 0) {
+				if (list_y[year] != undefined) {
+					//if (b_bar) t = list_d[0][fst] + "<br>" + dataMark + t;
+					t = t + "<br>" + list_y[year];
+				}
+			}
+		}
+		
+		//枠無グラフ
+		if (m == 2) {
+			if (b_bar) t += list_d[0][fst] + "<br>" + dataMark;
+			if (b_graph) {
+				s = getTitle(3,line); //任意期間
+				t += getTitle(2,line); //生没年
+				if (age_ed) {
+					age = getAge2(line);
+					if (age > -1) t += " " + age + txt_age_ed;
+				}
+				if (s != "") t = t + "<br><div align='right'>" + s + "</div>";
+			}
+		} 
+		
+		//マルチグラフ
+		if (m == 3) {
+			if (line == 0) {
+				t = list_d[line][sort_current]; 
+			} else if (dataMax[sort_current] > 0) {
+				t += list_d[0][sort_current] + "<br>" + dataMark;
+				if (nam > -1) t += list_d[line][nam];
+				s = list_d[line][sort_current];
+				if (b_comma) s = getComma(s);
+				t += " " + s + dataUnit[sort_current];
+				s = getPointNum(getStrToNum(list_d[line][sort_current]) / dataMax[sort_current] * 100);
+				t += " (" + s + "%)";
+			}
+		}
+		
+		//データがない場合
+		if (t == "") {
+			//名前がある場合
+			if (nam > -1) t = list_d[line][nam];
+		}
+		
+		if (t != "") {
+			//改行を変換
+			t = t.replace(/&#10;/g,"<br>");
+	
+			//iPhone/iPad
+			if (np == "PAD") {
+				//マウスイベント
+				var mouse_x = event.x;
+				var mouse_y = event.y;
+				//CSS
+				document.getElementById("history_view").style.position = "absolute";
+				document.getElementById("history_view").style.top = (mouse_y + 20) + "px";
+				document.getElementById("history_view").style.bottom = "auto";
+				document.getElementById("history_view").style.right = "auto";
+				document.getElementById("history_view").style.left = (mouse_x + 20) + "px";
+			}
+			
+			//出力
+			document.getElementById("history_view").innerHTML =  t;
+		} else {
+			style = "hidden";
+		}
+	}
+	
+	//表示
+	document.getElementById("history_view").style.visibility = style;
+}
+
+//マウスイベント対応（列）
+function colorRows(line,row,mode) {
+	var n,bgcolor,obj;
+	
+	if (timeline[row-year_st]) {
+		//背景色が固定されていない場合
+		//ヘッダー
+		obj = document.getElementsByName("h"+row);
+		if (mode == 0) {
+			//年表あり
+			if (obj[0].className == "head_on") {
+				bgcolor = hcolor1;
+			} else {
+				//head_off
+				bgcolor = nocolor;
+			}
+		} else {
+			bgcolor = gcolor3;
+		}
+		for (n=0;n<obj.length;n++) {
+			obj[n].style.backgroundColor = bgcolor;
+		}
+		//年齢
+		obj = document.getElementsByName("g"+row);
+		if (mode == 0) {
+			bgcolor = gcolor1;
+		} else {
+			bgcolor = gcolor3;
+		}
+		for (n=0;n<obj.length;n++) {
+			obj[n].style.backgroundColor = bgcolor;
+		}
+		//終始期間
+		obj = document.getElementsByName("k"+row);
+		if (mode == 0) {
+			bgcolor = gcolor2;
+		} else {
+			bgcolor = gcolor3;
+		}
+		for (n=0;n<obj.length;n++) {
+			obj[n].style.backgroundColor = bgcolor;
+		}
+	}
+	//行連動
+	if (line_row > 0) colorLine(line,mode);
+}
+
+//マウスイベント対応（列）
+function colorMulti(line,row,mode) {
+	var n,bgcolor,obj;
+	
+	if (MultiLine[row]) {
+		//ヘッダー
+		obj = document.getElementsByName("mh"+row);
+		if (mode == 0) {
+			bgcolor = nocolor;
+		} else {
+			bgcolor = gcolor3;
+		}
+		for (n=0;n<obj.length;n++) {
+			obj[n].style.backgroundColor = bgcolor;
+		}
+		//マルチグラフ
+		obj = document.getElementsByName("mg"+row);
+		if (mode == 0) {
+			bgcolor = gcolor1;
+		} else {
+			bgcolor = gcolor3;
+		}
+		for (n=0;n<obj.length;n++) {
+			obj[n].style.backgroundColor = bgcolor;
+		}
+	}
+	//行連動
+	if (line_row > 0) colorLine(line,mode);
+}
+
+//マウスイベント対応（列クリック）
+function clickRows(row) {
+	//onClick
+	if (timeline[row-year_st]) {
+		//背景色固定
+		timeline[row-year_st] = false;
+	} else {
+		//背景色固定解除
+		timeline[row-year_st] = true;
+	}
+}
+
+//マウスイベント対応（行）
+function colorLine(line,mode) {
+	var n,bgcolor,obj;
+
+	//ヘッダー
+	obj = document.getElementsByName("r"+line);
+	if (mode == 0) {
+		bgcolor = nocolor;
+	} else {
+		bgcolor = gcolor3;
+	}
+	for (n=0;n<obj.length;n++) {
+		obj[n].style.backgroundColor = bgcolor;
+	}
+}
+
+//年齢計算
+function getAge(line,year) {
+	if (line > 0) {
+		var age = year - getYearToNum(list_d[line][fst]) + age_st;
+		if ((getYearToNum(list_d[line][fst]) < 0) && (year > 0)) age--; //0年またぎ
+	} else {
+		age = -1;	
+	}
+	return age;
+}
+
+//生涯の年齢表示
+function getAge2(line) {
+	//誕生日
+	var st = list_d[line][fst];
+	//没年
+	var ed = list_d[line][fed];
+	
+	var s = "";
+	var age = 0;
+	
+	if (st != "" && ed != "" && st != "?" && ed != "?") {
+		st = st.replace(/\?/g,"");
+		st = st.replace(/\./g,"/");
+		st += "/1/1";
+		var st2 = st.split("/");
+		//st = st2[0] + "." + st2[1] + "." + st2[2];
+		//st = st.match(/\d+\/\d+\/\d+/);
+		
+		ed = ed.replace(/\?/g,"");
+		ed = ed.replace(/\./g,"/");
+		ed += "/1/1";
+		var ed2 = ed.split("/");
+		
+		age = ed2[0] - st2[0];
+		if (ed2[1] < st2[1]) {
+			age--;
+		} else if (ed2[1] == st2[1]) {
+			if (ed2[2] < st2[2]) age--;
+		}
+		//初期値加算
+		s = age + age_st;
+	}
+	
+	return s;
+}
+
+//title表示の出力
+function getTitle(mode,line) {
+	var s,st,ed,k;
+
+	//括弧の種類
+	var kk = new Array("(",")","[","]");
+	
+	//mode分け
+	if ((mode == 0) || (mode == 2)) {
+		if ((fst < 0) && (fed < 0)) return "";
+		st = list_d[line][fst];
+		ed = list_d[line][fed];
+		k = 0;
+	} else {
+		//mode = 1 or 3
+		if (mode == 1) {
+			st = getYearToNum(list_d[line][gst]);
+			ed = getYearToNum(list_d[line][ged]);
+		} else {
+			if ((gst < 0) || (ged < 0)) return "";
+			st = list_d[line][gst];
+			ed = list_d[line][ged];
+			if (st == "") return "";
+		}
+		k = 2;
+	}
+
+	//表示文字列
+	if (b_bar) {
+		s = mYear(ed) + head_unit;
+	} else {
+		if (mode < 2) {
+			//mode = 0 or 1
+			st = getYearToStr(st);
+			ed = getYearToStr(ed)
+		}
+		s = mYear(st) + " - " + mYear(ed);
+	}
+	
+	//名前表示
+	if (nam > -1) {
+		s = kk[k] + s + kk[k+1];
+		if (mode < 3) 	s = list_d[line][nam] + " " + s;
+	}
+	
+	return s;
+}
+
+//年齢表示の書式
+function getTitle2(line,year) {
+	var s = "";
+	
+	if (line == 0) {
+		//ヘッダー
+		s += mYear(year) + head_unit;
+		if (list_y[year] != undefined) s += " &#10;" + list_y[year];
+	} else {
+		if ((b_graph) && (! b_bar)) {
+			//年表グラフ
+			s += mYear(year) + head_unit + " ";
+		}
+		if (nam > -1) s += list_d[line][nam]; //名前
+		if (b_bar) {
+			s += " (" + list_d[line][fed] + head_unit + ")";
+		} else if (b_graph) {
+			s += " (" + getAge(line,year) + ")";
+		}
+	}
+	
+	return s;
+}
+
+//枠有グラフ用
+function getMouseEvent(line,year) {
+	var t = line + "," + year;
+	var s = " onMouseOver='colorRows(" + line + "," + year + ",1); setHistoryView(" + t + ",1)' onMouseOut='colorRows(" + line + "," + year + ",0); setHistoryView(" + t + ",0)'";
+	if (np != "PAD") s += " onClick='clickRows(" + year + ");'";
+	return s;
+}
+
+//枠有マルチグラフ用
+function getMouseEventMulti(line,row) {
+	var t = line + ",0";
+	var s = " onMouseOver='colorMulti(" + line + "," + row + ",1); setHistoryView(" + t + ",3)' onMouseOut='colorMulti(" + line + "," + row + ",0); setHistoryView(" + t + ",0)'";
+	if (np != "PAD") s += " onClick='clickRows(" + row + ");'";
+	return s;
+}
+
+//枠無グラフ用
+function getMouseEvent2(line,num) {
+	//num = 2: 棒グラフ上
+	//num = 3: マルチグラフ上
+	//num = 4: 行選択
+	var t = line + ",0";
+	var s = "";
+	if (num == 4) s += " name='r" + line + "'"; //レコード行用
+	s += " onMouseOver='colorLine(" + line + ",1); setHistoryView(" + t + ","+ num + ")' onMouseOut='colorLine(" + line + ",0); setHistoryView(" + t + ",0)'";
+	return s;
+}
+
+//紀元前の書式
+function mYear(s) {
+	var n;
+	
+	//ヘッダーの表記のために
+	if ((b_graph) && (! b_bar) && (s == 0)) s = 1;
+	
+	s = s + ""; //文字列化
+	
+	if (s == liveNow) return "";
+	
+	var n = s.indexOf("-");
+	if (n == 0) s ="前" + s.substring(1,s.length);
+	
+	return s;
+}
+
+//生年・没年の日付形式を年形式に変換
+function getYearToStr(num) {
+	var n;
+	
+	//文字列化（エラー回避）
+	num = num + "";
+	
+	//日付形式
+	n = num.indexOf(".");
+	if (n == 0) {
+		num = "?";
+	} else if (n > 0) {
+		num = num.substring(0,n);
+	}
+	n = num.indexOf("/");
+	if (n == 0) {
+		num = "?";
+	} else if (n > 0) {
+		num = num.substring(0,n);
+	}
+
+	return num;
+}
+
+//生年・没年の数値化
+function getYearToNum(num) {
+	var n;
+	
+	if (num == "") return 0;
+	if (num == liveNow) return 0;
+	
+	//日付形式を年形式に変換
+	num = getYearToStr(num);
+	
+	//年形式
+
+	n = num.indexOf("?");
+	if (n == 0) {
+		//不明の場合
+		n = 0;
+	} else if (n > 0) {
+		//数字の後の?がある場合
+		n = eval(num.substring(0,n));
+	} else {
+		//数値化
+		n = eval(num);
+	}
+
+	return n;
+}
+
+//文字列を数値化
+function getStrToNum(num) {
+	var n;
+	
+	if (num == "") return 0;
+	if (num == liveNow) return 0;
+	
+	//年形式
+	n = num.indexOf("?");
+	if (n == 0) {
+		//不明の場合
+		n = 0;
+	} else if (n > 0) {
+		//数字の後の?がある場合
+		n = eval(num.substring(0,n));
+	} else {
+		//数値化
+		n = eval(num);
+	}
+
+	return n;
+}
+
+//生年・没年の数値化
+function getDayToNum(num) {
+	var n;
+	var date = new Array("0","0","0");
+	
+	if (num == "") return 0;
+	if (num == liveNow) return 0;
+	
+	//?を含む場合の処理
+	n = num.indexOf("?");
+	if (n == 0) {
+		//不明の場合
+		return 0;
+	} else if (n > 0) {
+		//数字の後の?がある場合
+		num = num.substring(0,n);
+	}
+	
+	//日付形式を分割
+	n = num.indexOf(".");
+	if (n == 0) {
+		return 0;
+	} else if (n > 0) {
+		date = num.split(".");
+	} else {
+		n = num.indexOf("/");
+		if (n == 0) {
+			return 0;
+		} else if (n > 0) {
+			date = num.split("/");
+		} else {
+			date[0] = num;
+		}
+	}
+	
+	//数値化
+	if (isNaN(date[0])) {
+		n = 0;
+	} else {
+		date[0] = eval(date[0]) * 10000;
+		date[1] = eval(date[1]) * 100;
+		date[2] = eval(date[2]);
+		n = date[0] + date[1] + date[2];
+	}
+	
+	return n;
+}
+
+//カンマを挿入
+function getComma(str) {
+	var num = new String(str).replace(/,/g, "");
+	while(num != (num = num.replace(/^(-?\d+)(\d{3})/, "$1,$2")));
+	return num;
+}
+
+//小数点以下を揃える
+function getPointNum(num) {
+	var s = new String(Math.floor(num * Math.pow(10,p_point)) / Math.pow(10,p_point));
+	if (s.indexOf(".") < 0) s += ".";
+	s += repeat_zero; //対応する桁数分の「0」を追加
+	s = s.split(".")[0] + "." + s.split(".")[1].substr(0,p_point); //小数点以下2桁に揃える
+
+	return s;
+}
+
+//文字を繰り返す
+function repeat(s,num) {
+	var t,n;
+	t = "";
+	for (n=0;n<num;n++) {
+		t += s;
+	}
+	return t;
+}
+
+//=====メイン処理２=====//
+
+//データベースファイルの読込
+function loadTextFile(fName) {
+	httpObj = createXMLHttpRequest(displayData);
+	if (httpObj) {
+		httpObj.open("GET",fName,true);
+		httpObj.send(null);
+	}
+}
+
+function displayData() {
+	if ((httpObj.readyState == 4) && (httpObj.status == 200)) {
+		//CSVから配列変数へ読込
+		list_d = CSVtoAD(httpObj.responseText);
+		//テーブル出力
+		if (hs_file != "") loadTextFile2(hs_file);
+		else if (testmode) output_table();
+		else output_list();
+	}else{
+		document.getElementById("list_table").innerText = "Loading file is \"" + db_file + "\".";
+	}
+}
+
+//年表データの読込
+function loadTextFile2(fName) {
+	httpObj = createXMLHttpRequest(displayData2);
+	if (httpObj) {
+		httpObj.open("GET",fName,true);
+		httpObj.send(null);
+	}
+}
+
+function displayData2() {
+	if ((httpObj.readyState == 4) && (httpObj.status == 200)) {
+		//CSVから配列変数へ読込
+		list_h = CSVtoAD(httpObj.responseText);
+		//テーブル出力
+		if (testmode) output_table();
+		else output_list();
+	}else{
+		document.getElementById("list_table").innerText = "Loading file is \"" + hs_file + "\".";
+	}
+}
+
+//CSVから配列変数へ読込
+function CSVtoAD(csv) {
+	var n,m,i,st,ed,ed2;
+	
+	var count_rec = 0; //レコードを数える
+	var count_fld = 0; //フィールドを数える
+	
+	//改行コード
+	csv = csv + "\n"; //改行忘れに対処
+	csv = csv.replace(/\r\n/g,"\n"); //置き換え
+	csv = csv.replace(/\r/g,"\n"); //置き換え
+	
+	//データのセパレータ
+	var dataSep = ",";
+	
+	//""（フィールド内の"に対応）
+	csv = csv.replace(/""/g,"&quot;");
+	
+	var lists = new Array();
+	
+	//データ毎の取得処理
+	st = 0;
+	do {
+		//次の改行位置
+		var ed = csv.indexOf("\n",st);
+		
+		if (ed > -1) { //改行がある場合
+			if (csv.substring(st,ed) != "") { //データがある場合
+				//コメントアウトの処理
+				if ( csv.substr(st,2) == "//") {
+					st = ed + 1;
+					continue;
+				}
+				
+				//フィールド用配列（読込1行目の場合）
+				if (count_fld == 0) {
+					lists[count_rec] = new Array();
+					n = csv.indexOf("\n",st);
+					m = csv.indexOf(",",st);
+					if (m > 0 && m < n) n = m; //,の位置
+					m = csv.indexOf("\t",st);
+					if (m > 0 && m < n) dataSep = "\t";
+				}
+				
+				//先頭に「"」がある場合
+				var m = csv.indexOf("\"",st);
+				if (m == st) {
+					//次の「"」をデータの終わりとする
+					ed2 = csv.indexOf("\"",st+1) + 1;
+					//レコードの終わり位置の修正（""内の改行を無視）
+					ed = csv.indexOf("\n",ed2);
+					
+					m = 1;
+				} else {
+					m = 0;
+					ed2 = st;
+				}
+				
+				//セパレータの位置（データの分割）
+				ed2 = csv.indexOf(dataSep,ed2);
+				//改行の前にある場合
+				if ((ed2 > -1) && (ed2 < ed)) {
+					//そのままフィールドの終わりとする
+				} else {
+					//改行位置をフィールドの終わりとする
+					ed2 = ed;
+				}
+				
+				//配列変数へ
+				lists[count_rec][count_fld] = csv.substring(st+m,ed2-m);
+												
+				if ((ed2+1) == ed) ed2 = ed;
+
+				//レコードの終わり
+				if (ed2 == ed) {
+					//フィールドが不足している場合
+					for (i=count_fld+1;i<lists[0].length;i++) {
+						lists[count_rec][i] = "";
+					}
+					count_rec++;
+					count_fld = 0;
+				} else {
+					count_fld++;
+				}
+				//次の検索開始位置
+				st = ed2 + 1;
+					
+			} else {
+				count_fld = 0;
+				st = ed + 1;
+			}		
+		}
+		
+		if (n > csv.length) ed = -1;
+
+	} while (ed > -1);
+	
+	return lists;
+}
+
+//テーブル出力（テストモード）
+function output_table() {
+	var line,fld;
+	
+	//フィールド名取得
+	setFields();
+	
+	//年表データ
+	var t = "<table border='2'>";
+	t += "<caption>レコード "+list_d.length+" / フィールド "+list_d[0].length+"</caption>";
+	for (line=0;line<list_d.length;line++) {
+		if (line == 0) {
+			t += "<tr class='header'>";
+		} else {
+			t += "<tr>";
+		}
+		//日付の順序をチェック
+		var f_data = new Array(0,0,0,0);
+		for (fld=0;fld<list_d[line].length;fld++) {
+			var bool = false;
+			if (fld > 0) {
+				if (fld == fst) {
+					//生年取得
+					f_data[0] = getDayToNum(list_d[line][fld]);
+				} else if (fld == gst) {
+					//始年取得
+					f_data[1] = getDayToNum(list_d[line][fld]);
+					if (f_data[1] != 0) {
+						//生年と始年のチェック
+						bool = (f_data[0] > f_data[1]);
+					}
+				} else if (fld == ged) {
+					//終年取得
+					f_data[2] = getDayToNum(list_d[line][fld]);
+					if ((f_data[1] != 0) && (f_data[2] != 0)) {
+						//始年と終年のチェック
+						bool = (f_data[1] > f_data[2]);
+					}
+				} else if (fld == fed) {
+					//没年取得
+					f_data[3] = getDayToNum(list_d[line][fld]);
+					if ((f_data[2] != 0) && (f_data[3] != 0)) {
+						//終年と没年のチェック
+						bool = (f_data[2] > f_data[3]);
+					} else if ((f_data[0] != 0) && (f_data[3] != 0)) {
+						//生年と没年のチェック
+						bool = (f_data[0] > f_data[3]);
+					}
+				}
+			}
+
+			t += "<td>";
+			//改行コード変換
+			if (bool) t += "<strong>"; //異常を検知した場合
+			t += list_d[line][fld].replace(/\n/g,"<br>");
+			if (bool) t += "</strong>";
+			t += "</td>";
+		}
+		t += "</tr>";
+	}
+	t += "</table>";
+	
+	//歴史データ
+	if (list_h.length > 0) {
+		t += "<br>";
+		
+		t += "<table border='2'>";
+		t += "<caption>レコード "+list_h.length+" / フィールド "+list_h[0].length+"</caption>";
+		for (line=0;line<list_h.length;line++) {
+			if (line == 0) {
+				t += "<tr class='header'>";
+			} else {
+				t += "<tr>";
+			}
+			for (fld=0;fld<list_h[line].length;fld++) {
+				t += "<td>";
+				//改行コード変換
+				t += list_h[line][fld].replace(/\n/g,"<br>");
+				t += "</td>";
+			}
+			t += "</tr>";
+		}
+		t += "</table>";
+	}
+	
+	document.getElementById("list_table").innerHTML = t;
+}
+
+// HTTP通信用、共通関数
+function createXMLHttpRequest(cbFunc) {
+	var XMLhttpObject = null;
+	try{
+		XMLhttpObject = new XMLHttpRequest();
+	}catch(e){
+		try{
+			XMLhttpObject = new ActiveXObject("Msxml2.XMLHTTP");
+		}catch(e){
+			try{
+				XMLhttpObject = new ActiveXObject("Microsoft.XMLHTTP");
+			}catch(e){
+				return null;
+			}
+		}
+	}
+	if (XMLhttpObject) XMLhttpObject.onreadystatechange = cbFunc;
+	return XMLhttpObject;
+}
+
+//=====補足処理=====//
+
+//戻るのリンク切替
+function back_page() {
+	var n,s,t;
+	
+	//リンク元ページ
+	s = document.referrer;
+	
+	if ((s == "") || (history.length < 2)){
+		//リンク元不明
+		//戻るページなし
+		document.location = link_back;
+	} else {
+		//元ページへ戻る
+		history.back();
+	}
+}
+
+function goTest(s) {
+	if (br_IE) document.getElementById("comment").innerHTML = s;
+}
+
+// 2011.4.24
+// This script produced by Shurey.
+// http://www.shurey.com/js/h_graph/index.html

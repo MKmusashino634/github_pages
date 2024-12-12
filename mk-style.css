@@ -199,8 +199,11 @@ a.url {
 	/*text-indent: -10em;*/
 }
 /* cmd */
-pre {
-	white-space: pre-wrap ;
+cmd pre {
+    white-space: pre; /* 改行とスペースをそのまま維持 */
+    overflow-x: auto; /* 横にスクロールを許可 */
+    margin: 0;        /* 左寄せ */
+    text-align: left; /* 左揃え */
 }
 /* item */
 ol {
